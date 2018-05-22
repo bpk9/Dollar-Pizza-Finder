@@ -1,0 +1,429 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D3F5D7F820AE896400073B45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5D7F720AE896400073B45 /* AppDelegate.swift */; };
+		D3F5D7FA20AE896400073B45 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5D7F920AE896400073B45 /* ViewController.swift */; };
+		D3F5D7FF20AE896600073B45 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3F5D7FE20AE896600073B45 /* Assets.xcassets */; };
+		D3F5D80220AE896600073B45 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3F5D80020AE896600073B45 /* LaunchScreen.storyboard */; };
+		D3F5D80A20AE8A3400073B45 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D3F5D80920AE8A3400073B45 /* GoogleService-Info.plist */; };
+		D3F5D80C20AE956200073B45 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5D80B20AE956200073B45 /* Location.swift */; };
+		D3F5D81020AFC95E00073B45 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5D80F20AFC95E00073B45 /* Venue.swift */; };
+		D3F5D81320B1481600073B45 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3F5D81120B1481600073B45 /* Main.storyboard */; };
+		EDE709F37F9E0607DBBF3027 /* Pods_Dollar_Pizza_Finder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8FAF4FD1960143E2E73BC9A /* Pods_Dollar_Pizza_Finder.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		10F76D6477D23C150BF12C8D /* Pods-Dollar Pizza Finder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dollar Pizza Finder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder.debug.xcconfig"; sourceTree = "<group>"; };
+		1D2C84BE595E1B2AC8C3EAA9 /* Pods-Dollar Pizza Finder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dollar Pizza Finder.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder.release.xcconfig"; sourceTree = "<group>"; };
+		D3F5D7F420AE896400073B45 /* Dollar Pizza Finder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dollar Pizza Finder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3F5D7F720AE896400073B45 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D3F5D7F920AE896400073B45 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D3F5D7FE20AE896600073B45 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D3F5D80120AE896600073B45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D3F5D80320AE896600073B45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D3F5D80920AE8A3400073B45 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D3F5D80B20AE956200073B45 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		D3F5D80F20AFC95E00073B45 /* Venue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
+		D3F5D81220B1481600073B45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E8FAF4FD1960143E2E73BC9A /* Pods_Dollar_Pizza_Finder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dollar_Pizza_Finder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D3F5D7F120AE896400073B45 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EDE709F37F9E0607DBBF3027 /* Pods_Dollar_Pizza_Finder.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		719368D267F90C6ACEAAF0BC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				10F76D6477D23C150BF12C8D /* Pods-Dollar Pizza Finder.debug.xcconfig */,
+				1D2C84BE595E1B2AC8C3EAA9 /* Pods-Dollar Pizza Finder.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D3F5D7EB20AE896400073B45 = {
+			isa = PBXGroup;
+			children = (
+				D3F5D7F620AE896400073B45 /* Dollar Pizza Finder */,
+				D3F5D7F520AE896400073B45 /* Products */,
+				719368D267F90C6ACEAAF0BC /* Pods */,
+				EF600003847A6DE50C0C4F28 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D3F5D7F520AE896400073B45 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D3F5D7F420AE896400073B45 /* Dollar Pizza Finder.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D3F5D7F620AE896400073B45 /* Dollar Pizza Finder */ = {
+			isa = PBXGroup;
+			children = (
+				D3F5D7F720AE896400073B45 /* AppDelegate.swift */,
+				D3F5D7F920AE896400073B45 /* ViewController.swift */,
+				D3F5D80B20AE956200073B45 /* Location.swift */,
+				D3F5D80F20AFC95E00073B45 /* Venue.swift */,
+				D3F5D81120B1481600073B45 /* Main.storyboard */,
+				D3F5D7FE20AE896600073B45 /* Assets.xcassets */,
+				D3F5D80020AE896600073B45 /* LaunchScreen.storyboard */,
+				D3F5D80920AE8A3400073B45 /* GoogleService-Info.plist */,
+				D3F5D80320AE896600073B45 /* Info.plist */,
+			);
+			path = "Dollar Pizza Finder";
+			sourceTree = "<group>";
+		};
+		EF600003847A6DE50C0C4F28 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E8FAF4FD1960143E2E73BC9A /* Pods_Dollar_Pizza_Finder.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D3F5D7F320AE896400073B45 /* Dollar Pizza Finder */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D3F5D80620AE896600073B45 /* Build configuration list for PBXNativeTarget "Dollar Pizza Finder" */;
+			buildPhases = (
+				406AB74F03DAE590364875AC /* [CP] Check Pods Manifest.lock */,
+				D3F5D7F020AE896400073B45 /* Sources */,
+				D3F5D7F120AE896400073B45 /* Frameworks */,
+				D3F5D7F220AE896400073B45 /* Resources */,
+				84AC75F441C3A34B349B912F /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Dollar Pizza Finder";
+			productName = "Dollar Pizza Finder";
+			productReference = D3F5D7F420AE896400073B45 /* Dollar Pizza Finder.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D3F5D7EC20AE896400073B45 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 0930;
+				ORGANIZATIONNAME = "Brian P Kasper";
+				TargetAttributes = {
+					D3F5D7F320AE896400073B45 = {
+						CreatedOnToolsVersion = 9.3.1;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = D3F5D7EF20AE896400073B45 /* Build configuration list for PBXProject "Dollar Pizza Finder" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D3F5D7EB20AE896400073B45;
+			productRefGroup = D3F5D7F520AE896400073B45 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D3F5D7F320AE896400073B45 /* Dollar Pizza Finder */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D3F5D7F220AE896400073B45 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3F5D80220AE896600073B45 /* LaunchScreen.storyboard in Resources */,
+				D3F5D80A20AE8A3400073B45 /* GoogleService-Info.plist in Resources */,
+				D3F5D7FF20AE896600073B45 /* Assets.xcassets in Resources */,
+				D3F5D81320B1481600073B45 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		406AB74F03DAE590364875AC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Dollar Pizza Finder-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		84AC75F441C3A34B349B912F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D3F5D7F020AE896400073B45 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3F5D7FA20AE896400073B45 /* ViewController.swift in Sources */,
+				D3F5D81020AFC95E00073B45 /* Venue.swift in Sources */,
+				D3F5D80C20AE956200073B45 /* Location.swift in Sources */,
+				D3F5D7F820AE896400073B45 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D3F5D80020AE896600073B45 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D3F5D80120AE896600073B45 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		D3F5D81120B1481600073B45 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D3F5D81220B1481600073B45 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D3F5D80420AE896600073B45 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D3F5D80520AE896600073B45 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D3F5D80720AE896600073B45 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 10F76D6477D23C150BF12C8D /* Pods-Dollar Pizza Finder.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = J7QWTMLU2E;
+				INFOPLIST_FILE = "Dollar Pizza Finder/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.brianpkasper.DollarPizzaFinder;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		D3F5D80820AE896600073B45 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1D2C84BE595E1B2AC8C3EAA9 /* Pods-Dollar Pizza Finder.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = J7QWTMLU2E;
+				INFOPLIST_FILE = "Dollar Pizza Finder/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.brianpkasper.DollarPizzaFinder;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D3F5D7EF20AE896400073B45 /* Build configuration list for PBXProject "Dollar Pizza Finder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3F5D80420AE896600073B45 /* Debug */,
+				D3F5D80520AE896600073B45 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D3F5D80620AE896600073B45 /* Build configuration list for PBXNativeTarget "Dollar Pizza Finder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3F5D80720AE896600073B45 /* Debug */,
+				D3F5D80820AE896600073B45 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D3F5D7EC20AE896400073B45 /* Project object */;
+}
