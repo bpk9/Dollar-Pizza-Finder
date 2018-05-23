@@ -29,6 +29,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     @IBOutlet var closestName: UILabel!
     @IBOutlet var closestStars: UILabel!
     @IBOutlet var closestPic: UIImageView!
+    @IBOutlet var closestTime: UILabel!
     
     // Directions button
     @IBOutlet var directionsBtn: UIButton!
@@ -67,7 +68,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 let long = child.childSnapshot(forPath: "long").value as? Double ?? 0.0
                 let stars = child.childSnapshot(forPath: "stars").value as? Int ?? 0
                 let imageUrl = child.childSnapshot(forPath: "imageUrl").value as? String ?? "https://www.cicis.com/media/1243/pizza_adven_zestypepperoni.png"
-                locations += [Location(name: name, lat: lat, long: long, stars: stars, imageUrl: imageUrl)]
+                let openTime = child.childSnapshot(forPath: "openTime").value as? Int ?? 0
+                let closeTime = child.childSnapshot(forPath: "closeTime").value as? Int ?? 0
+                locations += [Location(name: name, lat: lat, long: long, stars: stars, imageUrl: imageUrl, openTime: openTime, closeTime: closeTime)]
             }
             
             // Find Closest Pizza Place
@@ -109,6 +112,13 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 self.closestStars.text = self.starString(number: self.closest.stars)
                 self.directionsBtn.setTitle("Directions -- " + String(Int(route!.expectedTravelTime / 60)) + " mins walking", for: .normal)
                 self.closestPic.setImageFromURl(stringImageUrl: self.closest.imageUrl)
+                if self.closest.isOpen() {
+                    self.closestTime.textColor = UIColor.green
+                    self.closestTime.text = "OPEN until " + self.closest.getCloseTimeText()
+                } else {
+                    self.closestTime.textColor = UIColor.red
+                    self.closestTime.text = "CLOSED until " + String(self.closest.openTime) + "AM"
+                }
             })
             
             
