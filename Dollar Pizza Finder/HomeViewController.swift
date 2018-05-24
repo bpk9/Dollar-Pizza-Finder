@@ -12,7 +12,7 @@ import Firebase
 import MapKit
 import CoreLocation
 
-class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     // Mapkit Refrence
     @IBOutlet var map: MKMapView!
@@ -104,7 +104,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 
                 let rect = route!.polyline.boundingMapRect
                 var region = MKCoordinateRegionForMapRect(rect)
-                region.span = MKCoordinateSpanMake(region.span.latitudeDelta + 0.001, region.span.longitudeDelta + 0.001)
+                region.span = MKCoordinateSpanMake(region.span.latitudeDelta * 1.1, region.span.longitudeDelta * 1.1)
                 self.map.setRegion(region, animated: true)
             
                 // Update Location Info in App

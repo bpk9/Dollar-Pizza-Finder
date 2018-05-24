@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		D3A9F32A20B64FDC0027F2F5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A9F32920B64FDC0027F2F5 /* MapKit.framework */; };
 		D3F5D7F820AE896400073B45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5D7F720AE896400073B45 /* AppDelegate.swift */; };
-		D3F5D7FA20AE896400073B45 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5D7F920AE896400073B45 /* ViewController.swift */; };
+		D3F5D7FA20AE896400073B45 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5D7F920AE896400073B45 /* HomeViewController.swift */; };
 		D3F5D7FF20AE896600073B45 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3F5D7FE20AE896600073B45 /* Assets.xcassets */; };
 		D3F5D80220AE896600073B45 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3F5D80020AE896600073B45 /* LaunchScreen.storyboard */; };
 		D3F5D80A20AE8A3400073B45 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D3F5D80920AE8A3400073B45 /* GoogleService-Info.plist */; };
@@ -25,7 +25,7 @@
 		D3A9F32920B64FDC0027F2F5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D3F5D7F420AE896400073B45 /* Dollar Pizza Finder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dollar Pizza Finder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3F5D7F720AE896400073B45 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D3F5D7F920AE896400073B45 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D3F5D7F920AE896400073B45 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		D3F5D7FE20AE896600073B45 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D3F5D80120AE896600073B45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D3F5D80320AE896600073B45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -80,12 +80,12 @@
 			isa = PBXGroup;
 			children = (
 				D3F5D7F720AE896400073B45 /* AppDelegate.swift */,
-				D3F5D7F920AE896400073B45 /* ViewController.swift */,
+				D3F5D7F920AE896400073B45 /* HomeViewController.swift */,
 				D3F5D80B20AE956200073B45 /* Location.swift */,
 				D3F5D80F20AFC95E00073B45 /* Venue.swift */,
 				D3F5D81120B1481600073B45 /* Main.storyboard */,
-				D3F5D7FE20AE896600073B45 /* Assets.xcassets */,
 				D3F5D80020AE896600073B45 /* LaunchScreen.storyboard */,
+				D3F5D7FE20AE896600073B45 /* Assets.xcassets */,
 				D3F5D80920AE8A3400073B45 /* GoogleService-Info.plist */,
 				D3F5D80320AE896600073B45 /* Info.plist */,
 			);
@@ -223,7 +223,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3F5D7FA20AE896400073B45 /* ViewController.swift in Sources */,
+				D3F5D7FA20AE896400073B45 /* HomeViewController.swift in Sources */,
 				D3F5D81020AFC95E00073B45 /* Venue.swift in Sources */,
 				D3F5D80C20AE956200073B45 /* Location.swift in Sources */,
 				D3F5D7F820AE896400073B45 /* AppDelegate.swift in Sources */,

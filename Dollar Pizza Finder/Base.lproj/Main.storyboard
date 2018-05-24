@@ -34,7 +34,7 @@
         <!--Dollar Pizza Finder-->
         <scene sceneID="OvX-NK-SGK">
             <objects>
-                <viewController id="8FM-FN-4Eu" customClass="ViewController" customModule="Dollar_Pizza_Finder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="8FM-FN-4Eu" customClass="HomeViewController" customModule="Dollar_Pizza_Finder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Hpf-LO-O6L">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

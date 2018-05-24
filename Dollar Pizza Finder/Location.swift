@@ -34,7 +34,7 @@ class Location {
             return true
         }
         let hour = Calendar.current.component(.hour, from: Date())
-        print("HOUR" + String(hour))
+        print("HOUR " + String(hour))
         var i = self.openTime
         while true {
             if i == hour {
