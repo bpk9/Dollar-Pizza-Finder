@@ -65,6 +65,9 @@
                                 <state key="normal" title="Directions -- 00 Mins Walking">
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="directionsBtnAction:" destination="8FM-FN-4Eu" eventType="touchUpInside" id="JCn-Z9-tUs"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0x4-1y-jfK">
                                 <rect key="frame" x="267" y="563" width="92" height="92"/>

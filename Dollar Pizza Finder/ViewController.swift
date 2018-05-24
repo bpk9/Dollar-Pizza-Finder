@@ -121,7 +121,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 }
             })
             
-            
         }) { (error) in
             print(error.localizedDescription)
         }
@@ -160,6 +159,13 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             output += "★"
         }
         return output
+    }
+ 
+    // add functionality to directions button
+    @IBAction func directionsBtnAction(_ sender: Any) {
+        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: self.closest.coordinate))
+        mapItem.name = self.closest.name
+        mapItem.openInMaps(launchOptions: [:])
     }
     
 }
