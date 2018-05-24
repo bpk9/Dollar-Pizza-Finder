@@ -7,6 +7,7 @@
 //
 
 import CoreLocation
+import MapKit
 
 class Location {
     
@@ -61,6 +62,13 @@ class Location {
         } else {
             return String(self.closeTime) + "AM"
         }
+    }
+    
+    var annotation: MKPointAnnotation {
+        let a = MKPointAnnotation()
+        a.coordinate = self.coordinate
+        a.title = self.name
+        return a
     }
     
 }

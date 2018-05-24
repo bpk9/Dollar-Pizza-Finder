@@ -83,7 +83,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
             }
             
             // Add Closest Location Pin to Map
-            self.map.addAnnotation(Venue(location: self.closest))
+            self.map.addAnnotation(self.closest.annotation)
             
             // get directions
             let originItem = MKMapItem(placemark: MKPlacemark(coordinate: self.currentCoordinate))
