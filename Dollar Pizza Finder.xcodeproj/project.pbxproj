@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C251425BE181D1E23F76630 /* Pods_Dollar_Pizza_Finder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 992E0DF6E8E63AFDEAF18491 /* Pods_Dollar_Pizza_Finder.framework */; };
 		D3A9F32A20B64FDC0027F2F5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A9F32920B64FDC0027F2F5 /* MapKit.framework */; };
 		D3F5D7F820AE896400073B45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5D7F720AE896400073B45 /* AppDelegate.swift */; };
 		D3F5D7FA20AE896400073B45 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5D7F920AE896400073B45 /* HomeViewController.swift */; };
@@ -15,13 +16,12 @@
 		D3F5D80A20AE8A3400073B45 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D3F5D80920AE8A3400073B45 /* GoogleService-Info.plist */; };
 		D3F5D80C20AE956200073B45 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5D80B20AE956200073B45 /* Location.swift */; };
 		D3F5D81320B1481600073B45 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3F5D81120B1481600073B45 /* Main.storyboard */; };
-		F371C836483988037A7A8F15 /* Pods_Dollar_Pizza_Finder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C02958E7CD3F6D20F692DE62 /* Pods_Dollar_Pizza_Finder.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4FC1762DAE90EBB07E0A6459 /* Pods-Dollar Pizza Finder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dollar Pizza Finder.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder.release.xcconfig"; sourceTree = "<group>"; };
-		545944D0E2F8189C5AFDD5F9 /* Pods-Dollar Pizza Finder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dollar Pizza Finder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder.debug.xcconfig"; sourceTree = "<group>"; };
-		C02958E7CD3F6D20F692DE62 /* Pods_Dollar_Pizza_Finder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dollar_Pizza_Finder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		34DB877278C8CAD97662862B /* Pods-Dollar Pizza Finder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dollar Pizza Finder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder.debug.xcconfig"; sourceTree = "<group>"; };
+		5168C702E004F383DF968526 /* Pods-Dollar Pizza Finder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dollar Pizza Finder.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder.release.xcconfig"; sourceTree = "<group>"; };
+		992E0DF6E8E63AFDEAF18491 /* Pods_Dollar_Pizza_Finder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dollar_Pizza_Finder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3A9F32920B64FDC0027F2F5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D3F5D7F420AE896400073B45 /* Dollar Pizza Finder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dollar Pizza Finder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3F5D7F720AE896400073B45 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -40,29 +40,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3A9F32A20B64FDC0027F2F5 /* MapKit.framework in Frameworks */,
-				F371C836483988037A7A8F15 /* Pods_Dollar_Pizza_Finder.framework in Frameworks */,
+				9C251425BE181D1E23F76630 /* Pods_Dollar_Pizza_Finder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2B3EE7E05AA4006671C1A733 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				545944D0E2F8189C5AFDD5F9 /* Pods-Dollar Pizza Finder.debug.xcconfig */,
-				4FC1762DAE90EBB07E0A6459 /* Pods-Dollar Pizza Finder.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		D3F5D7EB20AE896400073B45 = {
 			isa = PBXGroup;
 			children = (
 				D3F5D7F620AE896400073B45 /* Dollar Pizza Finder */,
 				D3F5D7F520AE896400073B45 /* Products */,
 				EF600003847A6DE50C0C4F28 /* Frameworks */,
-				2B3EE7E05AA4006671C1A733 /* Pods */,
+				E6177435CCBD7EDCE4615E80 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -89,11 +80,20 @@
 			path = "Dollar Pizza Finder";
 			sourceTree = "<group>";
 		};
+		E6177435CCBD7EDCE4615E80 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				34DB877278C8CAD97662862B /* Pods-Dollar Pizza Finder.debug.xcconfig */,
+				5168C702E004F383DF968526 /* Pods-Dollar Pizza Finder.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		EF600003847A6DE50C0C4F28 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				D3A9F32920B64FDC0027F2F5 /* MapKit.framework */,
-				C02958E7CD3F6D20F692DE62 /* Pods_Dollar_Pizza_Finder.framework */,
+				992E0DF6E8E63AFDEAF18491 /* Pods_Dollar_Pizza_Finder.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -105,12 +105,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D3F5D80620AE896600073B45 /* Build configuration list for PBXNativeTarget "Dollar Pizza Finder" */;
 			buildPhases = (
-				A9607C7F1B26E14F58371470 /* [CP] Check Pods Manifest.lock */,
+				DF96E19C4C60335202AA2AFE /* [CP] Check Pods Manifest.lock */,
 				D3F5D7F020AE896400073B45 /* Sources */,
 				D3F5D7F120AE896400073B45 /* Frameworks */,
 				D3F5D7F220AE896400073B45 /* Resources */,
-				61CA4C4DEB628791CC08CF53 /* [CP] Embed Pods Frameworks */,
-				52ECB91657897C0F282A5260 /* [CP] Copy Pods Resources */,
+				B73FE816EF88991ED0FE6712 /* [CP] Embed Pods Frameworks */,
+				7E5B3B45D54825A1ACE8B9D5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -174,7 +174,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		52ECB91657897C0F282A5260 /* [CP] Copy Pods Resources */ = {
+		7E5B3B45D54825A1ACE8B9D5 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -192,7 +192,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		61CA4C4DEB628791CC08CF53 /* [CP] Embed Pods Frameworks */ = {
+		B73FE816EF88991ED0FE6712 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -214,7 +214,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A9607C7F1B26E14F58371470 /* [CP] Check Pods Manifest.lock */ = {
+		DF96E19C4C60335202AA2AFE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -383,9 +383,10 @@
 		};
 		D3F5D80720AE896600073B45 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 545944D0E2F8189C5AFDD5F9 /* Pods-Dollar Pizza Finder.debug.xcconfig */;
+			baseConfigurationReference = 34DB877278C8CAD97662862B /* Pods-Dollar Pizza Finder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J7QWTMLU2E;
 				INFOPLIST_FILE = "Dollar Pizza Finder/Info.plist";
@@ -403,9 +404,10 @@
 		};
 		D3F5D80820AE896600073B45 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4FC1762DAE90EBB07E0A6459 /* Pods-Dollar Pizza Finder.release.xcconfig */;
+			baseConfigurationReference = 5168C702E004F383DF968526 /* Pods-Dollar Pizza Finder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J7QWTMLU2E;
 				INFOPLIST_FILE = "Dollar Pizza Finder/Info.plist";

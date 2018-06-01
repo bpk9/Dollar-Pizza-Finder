@@ -14,7 +14,7 @@ import Firebase
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let apiKey = "YOUR_API_KEY_HERE"
+    let apiKey = "AIzaSyAsQrnM69UGzWJM_hgo8hceDo3ySc6as3w"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

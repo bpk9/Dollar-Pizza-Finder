@@ -168,11 +168,15 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
     @IBAction func directionsBtnAction(_ sender: Any) {
         let place = map.annotations[2]
         let name: String! = place.title ?? "Dollar Pizza"
+        // try to open in google maps first
         if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {
             self.open(scheme: "comgooglemaps://?q=\(name)a&center=\(place.coordinate.latitude),\(place.coordinate.longitude)")
-            
-        } else {
-            NSLog("Can't use comgooglemaps://");
+        }
+        // open apple maps if google maps isnt installed
+        else {
+            let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: place.coordinate))
+            mapItem.name = place.title ?? "Closest Pizza Place"
+            mapItem.openInMaps(launchOptions: [:])
         }
     }
     
