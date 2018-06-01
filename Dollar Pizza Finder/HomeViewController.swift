@@ -8,32 +8,28 @@
 //
 
 import UIKit
-import Firebase
 import MapKit
 import CoreLocation
+import GooglePlaces
+import Firebase
 
-class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
     
-    // Mapkit Refrence
+    // Map on page
     @IBOutlet var map: MKMapView!
     
     // manages current location services
     let manager = CLLocationManager()
-    var currentCoordinate: CLLocationCoordinate2D! // current location coordinate
     var currentLocation: CLLocation! // current location
-    
-    // Closest Pizza Place Walking from Current Location (Initialized to first location in database
-    var closest: Location!
 
     // Info for closest place
     @IBOutlet var closestName: UILabel!
     @IBOutlet var closestStars: UILabel!
     @IBOutlet var closestPic: UIImageView!
-    @IBOutlet var closestTime: UILabel!
     
     // Directions button
     @IBOutlet var directionsBtn: UIButton!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -51,80 +47,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         manager.desiredAccuracy = kCLLocationAccuracyBest // get most accurate location
         manager.requestWhenInUseAuthorization() // get permission
         manager.startUpdatingLocation() // start updating location
-        currentCoordinate = manager.location!.coordinate // current location
-        currentLocation = CLLocation(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude)
-        
-        var ref: DatabaseReference! //Database Reference
-        ref = Database.database().reference()
-        var locations = [Location]() // Location Data for Pizza Places
-        
-        // Read Location Data from Database
-        ref.child("locations").observeSingleEvent(of: .value, with: { (snapshot) in
-            
-            // Create Location Objects and Add to Array
-            for child in snapshot.children.allObjects as! [DataSnapshot] {
-                let name = child.childSnapshot(forPath: "name").value as? String ?? "ERROR"
-                let lat = child.childSnapshot(forPath: "lat").value as? Double ?? 0.0
-                let long = child.childSnapshot(forPath: "long").value as? Double ?? 0.0
-                let stars = child.childSnapshot(forPath: "stars").value as? Int ?? 0
-                let imageUrl = child.childSnapshot(forPath: "imageUrl").value as? String ?? "https://www.cicis.com/media/1243/pizza_adven_zestypepperoni.png"
-                let openTime = child.childSnapshot(forPath: "openTime").value as? Int ?? 0
-                let closeTime = child.childSnapshot(forPath: "closeTime").value as? Int ?? 0
-                locations += [Location(name: name, lat: lat, long: long, stars: stars, imageUrl: imageUrl, openTime: openTime, closeTime: closeTime)]
-            }
-            
-            // Find Closest Pizza Place
-            self.closest = locations.first!
-            for location in locations.dropFirst() {
-                location.distance = self.distance(location: location)
-                if location.distance < self.closest.distance {
-                    self.closest = location
-                }
-            }
-            
-            // Add Closest Location Pin to Map
-            self.map.addAnnotation(self.closest.annotation)
-            
-            // get directions
-            let originItem = MKMapItem(placemark: MKPlacemark(coordinate: self.currentCoordinate))
-            let destinationItem = MKMapItem(placemark: MKPlacemark(coordinate: self.closest.coordinate))
-            
-            let directionRequest = MKDirectionsRequest()
-            directionRequest.source = originItem
-            directionRequest.destination = destinationItem
-            directionRequest.transportType = .walking
-            
-            // add directions to map
-            let directions = MKDirections(request: directionRequest)
-            directions.calculate(completionHandler: {
-                response, error in
-                
-                let route = response?.routes[0]
-                self.map.add(route!.polyline, level: .aboveRoads)
-                
-                let rect = route!.polyline.boundingMapRect
-                var region = MKCoordinateRegionForMapRect(rect)
-                region.span = MKCoordinateSpanMake(region.span.latitudeDelta * 1.1, region.span.longitudeDelta * 1.1)
-                self.map.setRegion(region, animated: true)
-            
-                // Update Location Info in App
-                self.closestName.text = self.closest.name
-                self.closestStars.text = self.starString(number: self.closest.stars)
-                self.directionsBtn.setTitle("Directions -- " + String(Int(route!.expectedTravelTime / 60)) + " mins walking", for: .normal)
-                self.closestPic.setImageFromURl(stringImageUrl: self.closest.imageUrl)
-                if self.closest.isOpen() {
-                    self.closestTime.textColor = UIColor.green
-                    self.closestTime.text = "OPEN until " + self.closest.getCloseTimeText()
-                } else {
-                    self.closestTime.textColor = UIColor.red
-                    self.closestTime.text = "CLOSED until " + String(self.closest.openTime) + "AM"
-                }
-            })
-            
-        }) { (error) in
-            print(error.localizedDescription)
-        }
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -135,12 +57,123 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     // called after current location is updated
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
+        // current location
+        self.currentLocation = locations.last
+        self.manager.stopUpdatingLocation()
         
+        self.getClosest()
+
     }
     
-    // Get Distance in Miles
-    func distance(location: Location) -> Float {
-        return Float(currentLocation.distance(from: location.location) * 0.000621371)
+    func getClosest() {
+        
+        // Read Location Data from Database
+        Database.database().reference().child("locations").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            // Database list of places
+            let children = snapshot.children.allObjects as! [DataSnapshot]
+            
+            // Variable for closest pizza place initialized as first location in list
+            let closestId = children[0].childSnapshot(forPath: "placeId").value as? String ?? ""
+            let closestLat = children[0].childSnapshot(forPath: "latitude").value as? Double ?? 0.0
+            let closestLong = children[0].childSnapshot(forPath: "longitude").value as? Double ?? 0.0
+            var closest = Location(placeId: closestId, coordinate: CLLocationCoordinate2D(latitude: closestLat, longitude: closestLong))
+            var closestDistance = self.distance(location: closest.coordinate)
+            
+            for child in children.dropFirst() {
+                let placeLat = child.childSnapshot(forPath: "latitude").value as? Double ?? 0.0
+                let placeLon = child.childSnapshot(forPath: "longitude").value as? Double ?? 0.0
+                let placeCoordinate = CLLocationCoordinate2D(latitude: placeLat, longitude: placeLon)
+                let placeDistance = self.distance(location: placeCoordinate)
+                if placeDistance < closestDistance {
+                    let placeId = child.childSnapshot(forPath: "placeId").value as? String ?? ""
+                    closest = Location(placeId: placeId, coordinate: placeCoordinate)
+                    closestDistance = placeDistance
+                }
+            }
+            
+            // Loop up closest info by id
+            GMSPlacesClient.shared().lookUpPlaceID(closest.placeId, callback: { (place, error) -> Void in
+                if let error = error {
+                    print("lookup place id query error: \(error.localizedDescription)")
+                    return
+                }
+                
+                if let place = place {
+                    
+                    // Add Closest Location Pin to Map
+                    let closestAnnotation = MKPointAnnotation()
+                    closestAnnotation.title = place.name
+                    closestAnnotation.subtitle = place.formattedAddress
+                    closestAnnotation.coordinate = place.coordinate
+                    self.map.addAnnotation(closestAnnotation)
+                    
+                    // get directions
+                    let originItem = MKMapItem(placemark: MKPlacemark(coordinate: self.currentLocation.coordinate))
+                    let destinationItem = MKMapItem(placemark: MKPlacemark(coordinate: place.coordinate))
+                    
+                    let directionRequest = MKDirectionsRequest()
+                    directionRequest.source = originItem
+                    directionRequest.destination = destinationItem
+                    directionRequest.transportType = .walking
+                    
+                    // add directions to map
+                    let directions = MKDirections(request: directionRequest)
+                    directions.calculate(completionHandler: {
+                        response, error in
+                        
+                        let route = response?.routes[0]
+                        self.map.add(route!.polyline, level: .aboveRoads)
+                        
+                        let rect = route!.polyline.boundingMapRect
+                        var region = MKCoordinateRegionForMapRect(rect)
+                        region.span = MKCoordinateSpanMake(region.span.latitudeDelta * 1.1, region.span.longitudeDelta * 1.1)
+                        self.map.setRegion(region, animated: true)
+                        
+                        // Update Location Info in App
+                        self.closestName.text = place.name
+                        self.closestStars.text = self.starString(number: Int(round(place.rating))) + String(format: " %.1f", place.rating)
+                        self.directionsBtn.setTitle("Directions -- " + String(Int(route!.expectedTravelTime / 60)) + " mins walking", for: .normal)
+                        GMSPlacesClient.shared().lookUpPhotos(forPlaceID: closest.placeId) { (photos, error) -> Void in
+                            if let error = error {
+                                // TODO: handle the error.
+                                print("Error: \(error.localizedDescription)")
+                            } else {
+                                if let firstPhoto = photos?.results.first {
+                                    GMSPlacesClient.shared().loadPlacePhoto(firstPhoto, callback: {
+                                        (photo, error) -> Void in
+                                        if let error = error {
+                                            // TODO: handle the error.
+                                            print("Error: \(error.localizedDescription)")
+                                        } else {
+                                            self.closestPic.image = photo
+                                        }
+                                    })
+                                }
+                            }
+                        }
+                        
+                        
+                    })
+                    
+                } else {
+                    print("No place details")
+                }
+            })
+            
+        })
+    }
+    
+    // add functionality to directions button
+    @IBAction func directionsBtnAction(_ sender: Any) {
+        let place = map.annotations[2]
+        let name: String! = place.title ?? "Dollar Pizza"
+        if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {
+            self.open(scheme: "comgooglemaps://?q=\(name)a&center=\(place.coordinate.latitude),\(place.coordinate.longitude)")
+            
+        } else {
+            NSLog("Can't use comgooglemaps://");
+        }
     }
     
     // Add direction line to map
@@ -152,6 +185,11 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         return renderer
     }
     
+    // Get Distance in Miles
+    func distance(location: CLLocationCoordinate2D) -> Double {
+        return Double(self.currentLocation.distance(from: CLLocation(latitude: location.latitude, longitude: location.longitude)) * 0.000621371)
+    }
+    
     // Converts star value to string
     func starString(number: Int) -> String {
         var output = String()
@@ -160,25 +198,22 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         }
         return output
     }
- 
-    // add functionality to directions button
-    @IBAction func directionsBtnAction(_ sender: Any) {
-        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: self.closest.coordinate))
-        mapItem.name = self.closest.name
-        mapItem.openInMaps(launchOptions: [:])
-    }
-    
-}
 
-// Allows UIImageViews to be set using URL
-extension UIImageView{
-    
-    func setImageFromURl(stringImageUrl url: String){
-        
-        if let url = NSURL(string: url) {
-            if let data = NSData(contentsOf: url as URL) {
-                self.image = UIImage(data: data as Data)
+    // open url specifically google maps app
+    func open(scheme: String) {
+        if let url = URL(string: scheme) {
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(url, options: [:],
+                                          completionHandler: {
+                                            (success) in
+                                            print("Open \(scheme): \(success)")
+                })
+            } else {
+                let success = UIApplication.shared.openURL(url)
+                print("Open \(scheme): \(success)")
             }
         }
     }
+
 }
+
