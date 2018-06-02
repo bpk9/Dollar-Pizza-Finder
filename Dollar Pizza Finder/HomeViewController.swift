@@ -74,11 +74,10 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
             let children = snapshot.children.allObjects as! [DataSnapshot]
             
             // Variable for closest pizza place initialized as first location in list
-            let closestId = children[0].childSnapshot(forPath: "placeId").value as? String ?? ""
+            var closestId = children[0].childSnapshot(forPath: "placeId").value as? String ?? ""
             let closestLat = children[0].childSnapshot(forPath: "latitude").value as? Double ?? 0.0
             let closestLong = children[0].childSnapshot(forPath: "longitude").value as? Double ?? 0.0
-            var closest = Location(placeId: closestId, coordinate: CLLocationCoordinate2D(latitude: closestLat, longitude: closestLong))
-            var closestDistance = self.distance(location: closest.coordinate)
+            var closestDistance = self.distance(location: CLLocationCoordinate2D(latitude: closestLat, longitude: closestLong))
             
             for child in children.dropFirst() {
                 let placeLat = child.childSnapshot(forPath: "latitude").value as? Double ?? 0.0
@@ -87,13 +86,13 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
                 let placeDistance = self.distance(location: placeCoordinate)
                 if placeDistance < closestDistance {
                     let placeId = child.childSnapshot(forPath: "placeId").value as? String ?? ""
-                    closest = Location(placeId: placeId, coordinate: placeCoordinate)
+                    closestId = placeId
                     closestDistance = placeDistance
                 }
             }
             
             // Loop up closest info by id
-            GMSPlacesClient.shared().lookUpPlaceID(closest.placeId, callback: { (place, error) -> Void in
+            GMSPlacesClient.shared().lookUpPlaceID(closestId, callback: { (place, error) -> Void in
                 if let error = error {
                     print("lookup place id query error: \(error.localizedDescription)")
                     return
@@ -134,7 +133,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
                         self.closestName.text = place.name
                         self.closestStars.text = self.starString(number: Int(round(place.rating))) + String(format: " %.1f", place.rating)
                         self.directionsBtn.setTitle("Directions -- " + String(Int(route!.expectedTravelTime / 60)) + " mins walking", for: .normal)
-                        GMSPlacesClient.shared().lookUpPhotos(forPlaceID: closest.placeId) { (photos, error) -> Void in
+                        GMSPlacesClient.shared().lookUpPhotos(forPlaceID: closestId) { (photos, error) -> Void in
                             if let error = error {
                                 // TODO: handle the error.
                                 print("Error: \(error.localizedDescription)")
