@@ -47,6 +47,12 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
         manager.desiredAccuracy = kCLLocationAccuracyBest // get most accurate location
         manager.requestWhenInUseAuthorization() // get permission
         manager.startUpdatingLocation() // start updating location
+        
+        // make button round
+        directionsBtn.layer.cornerRadius = directionsBtn.frame.height / 2
+        directionsBtn.backgroundColor = UIColor.blue
+        directionsBtn.clipsToBounds = true
+        directionsBtn.tintColor = UIColor.white
     }
 
     override func didReceiveMemoryWarning() {
@@ -103,7 +109,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
                     // Add Closest Location Pin to Map
                     let closestAnnotation = MKPointAnnotation()
                     closestAnnotation.title = place.name
-                    closestAnnotation.subtitle = place.formattedAddress
+                    closestAnnotation.subtitle = place.addressComponents?.first?.name
                     closestAnnotation.coordinate = place.coordinate
                     self.map.addAnnotation(closestAnnotation)
                     
