@@ -48,6 +48,8 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
         manager.requestWhenInUseAuthorization() // get permission
         manager.startUpdatingLocation() // start updating location
         
+        // change title font
+        
         // make button round
         directionsBtn.layer.cornerRadius = directionsBtn.frame.height / 2
         directionsBtn.backgroundColor = UIColor.blue
