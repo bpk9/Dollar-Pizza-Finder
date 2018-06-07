@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Dollar Pizza Finder.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>armv7</string>
+				<string>arm64</string>
+			</array>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>98FDA855EC9E10F2FA2190BDECA1A9F8EBF666A6</string>
+				<key>dateExpires</key>
+				<string>11/8/18</string>
+				<key>type</key>
+				<string>iOS Development</string>
+			</dict>
+			<key>embeddedBinaries</key>
+			<array>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>armv7</string>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>98FDA855EC9E10F2FA2190BDECA1A9F8EBF666A6</string>
+						<key>dateExpires</key>
+						<string>11/8/18</string>
+						<key>type</key>
+						<string>iOS Development</string>
+					</dict>
+					<key>name</key>
+					<string>GoogleToolboxForMac.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>J7QWTMLU2E</string>
+						<key>name</key>
+						<string>Brian Kasper (Personal Team)</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>armv7</string>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>98FDA855EC9E10F2FA2190BDECA1A9F8EBF666A6</string>
+						<key>dateExpires</key>
+						<string>11/8/18</string>
+						<key>type</key>
+						<string>iOS Development</string>
+					</dict>
+					<key>name</key>
+					<string>leveldb.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>J7QWTMLU2E</string>
+						<key>name</key>
+						<string>Brian Kasper (Personal Team)</string>
+					</dict>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>armv7</string>
+						<string>arm64</string>
+					</array>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>98FDA855EC9E10F2FA2190BDECA1A9F8EBF666A6</string>
+						<key>dateExpires</key>
+						<string>11/8/18</string>
+						<key>type</key>
+						<string>iOS Development</string>
+					</dict>
+					<key>name</key>
+					<string>nanopb.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>J7QWTMLU2E</string>
+						<key>name</key>
+						<string>Brian Kasper (Personal Team)</string>
+					</dict>
+				</dict>
+			</array>
+			<key>name</key>
+			<string>Dollar Pizza Finder.app</string>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>J7QWTMLU2E</string>
+				<key>name</key>
+				<string>Brian Kasper (Personal Team)</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
