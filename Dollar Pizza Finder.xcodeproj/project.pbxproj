@@ -114,6 +114,7 @@
 				D3F5D7F220AE896400073B45 /* Resources */,
 				B73FE816EF88991ED0FE6712 /* [CP] Embed Pods Frameworks */,
 				7E5B3B45D54825A1ACE8B9D5 /* [CP] Copy Pods Resources */,
+				D3BDA76F20C89AB4002C205C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -219,6 +220,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		D3BDA76F20C89AB4002C205C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "";
+		};
 		DF96E19C4C60335202AA2AFE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -322,7 +336,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -376,7 +390,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -390,7 +404,7 @@
 			baseConfigurationReference = 34DB877278C8CAD97662862B /* Pods-Dollar Pizza Finder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J7QWTMLU2E;
 				INFOPLIST_FILE = "Dollar Pizza Finder/Info.plist";
@@ -399,7 +413,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.brianpkasper.DollarPizzaFinder;
+				PRODUCT_BUNDLE_IDENTIFIER = com.brianpkasper.dollarpizzafinderios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -411,7 +425,7 @@
 			baseConfigurationReference = 5168C702E004F383DF968526 /* Pods-Dollar Pizza Finder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J7QWTMLU2E;
 				INFOPLIST_FILE = "Dollar Pizza Finder/Info.plist";
@@ -420,7 +434,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.brianpkasper.DollarPizzaFinder;
+				PRODUCT_BUNDLE_IDENTIFIER = com.brianpkasper.dollarpizzafinderios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
