@@ -111,7 +111,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
                     // Add Closest Location Pin to Map
                     let closestAnnotation = MKPointAnnotation()
                     closestAnnotation.title = place.name
-                    closestAnnotation.subtitle = place.addressComponents?.first?.name
+                    closestAnnotation.subtitle = self.getSubtitle(address: place.addressComponents!)
                     closestAnnotation.coordinate = place.coordinate
                     self.map.addAnnotation(closestAnnotation)
                     
@@ -140,7 +140,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
                         // Update Location Info in App
                         self.closestName.text = place.name
                         self.closestStars.text = self.starString(number: Int(round(place.rating))) + String(format: " %.1f", place.rating)
-                        self.directionsBtn.setTitle("Directions -- " + String(Int(route!.expectedTravelTime / 60)) + " mins walking", for: .normal)
+                        self.directionsBtn.setTitle("Directions -- " + String(Int(route!.expectedTravelTime / 60)) + " mins " + self.getTransportType(type: route!.transportType), for: .normal)
                         GMSPlacesClient.shared().lookUpPhotos(forPlaceID: closestId) { (photos, error) -> Void in
                             if let error = error {
                                 // TODO: handle the error.
@@ -208,6 +208,22 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
             output += "★"
         }
         return output
+    }
+    
+    func getTransportType(type: MKDirectionsTransportType) -> String {
+        if type == .walking {
+            return "walking"
+        } else if type == .transit {
+            return "via subway"
+        } else if type == .automobile {
+            return "driving"
+        } else {
+            return "ERROR"
+        }
+    }
+    
+    func getSubtitle(address: [GMSAddressComponent]) -> String {
+        return address[0].name + " " + address[1].name
     }
 
     // open url specifically google maps app
