@@ -418,9 +418,9 @@
 			baseConfigurationReference = 58F24A9EB9C9AB3D95D2B5B1 /* Pods-Dollar Pizza Finder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = J7QWTMLU2E;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Dollar Pizza Finder/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
@@ -441,9 +441,9 @@
 			baseConfigurationReference = 59EB7FA25711B89DD0ABA252 /* Pods-Dollar Pizza Finder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = J7QWTMLU2E;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Dollar Pizza Finder/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
