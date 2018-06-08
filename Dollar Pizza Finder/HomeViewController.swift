@@ -47,14 +47,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
         manager.desiredAccuracy = kCLLocationAccuracyBest // get most accurate location
         manager.requestWhenInUseAuthorization() // get permission
         manager.startUpdatingLocation() // start updating location
-        
-        // change title font
-        
-        // make button round
-        directionsBtn.layer.cornerRadius = directionsBtn.frame.height / 2
-        directionsBtn.backgroundColor = UIColor.blue
-        directionsBtn.clipsToBounds = true
-        directionsBtn.tintColor = UIColor.white
     }
 
     override func didReceiveMemoryWarning() {
