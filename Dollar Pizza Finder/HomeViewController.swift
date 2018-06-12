@@ -47,6 +47,11 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
         manager.desiredAccuracy = kCLLocationAccuracyBest // get most accurate location
         manager.requestWhenInUseAuthorization() // get permission
         manager.startUpdatingLocation() // start updating location
+        
+        // get closest place
+        self.getClosest()
+        
+        self.manager.stopUpdatingLocation() // stop updating location
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,11 +62,8 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
     // called after current location is updated
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
-        // current location
+        // get current location
         self.currentLocation = locations.last
-        self.manager.stopUpdatingLocation()
-        
-        self.getClosest()
 
     }
     
@@ -121,12 +123,11 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
                     directions.calculate(completionHandler: {
                         response, error in
                         
+                        // get fastest route to pizza place
                         let route = response?.routes[0]
-                        self.map.add(route!.polyline, level: .aboveRoads)
                         
-                        let rect = route!.polyline.boundingMapRect
-                        var region = MKCoordinateRegionForMapRect(rect)
-                        region.span = MKCoordinateSpanMake(region.span.latitudeDelta * 1.1, region.span.longitudeDelta * 1.1)
+                        // zoom to closest pizza place
+                        var region = MKCoordinateRegion(center: place.coordinate, span: MKCoordinateSpanMake(0.01, 0.01))
                         self.map.setRegion(region, animated: true)
                         
                         // Update Location Info in App

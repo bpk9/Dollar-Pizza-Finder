@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		296D5D61EC50197F495A5915 /* Pods_Dollar_Pizza_Finder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0420F0BEFB87DF7FF958B27 /* Pods_Dollar_Pizza_Finder.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D3A9F32A20B64FDC0027F2F5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A9F32920B64FDC0027F2F5 /* MapKit.framework */; };
-		D3B5DC8B20C3B90D0032B14F /* Joes Burguer Personal Use.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3B5DC8A20C3B90D0032B14F /* Joes Burguer Personal Use.ttf */; };
 		D3B5DC8D20C3B99C0032B14F /* boldyear.otf in Resources */ = {isa = PBXBuildFile; fileRef = D3B5DC8C20C3B99B0032B14F /* boldyear.otf */; };
 		D3F5D7F820AE896400073B45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5D7F720AE896400073B45 /* AppDelegate.swift */; };
 		D3F5D7FA20AE896400073B45 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5D7F920AE896400073B45 /* HomeViewController.swift */; };
@@ -24,7 +23,6 @@
 		59EB7FA25711B89DD0ABA252 /* Pods-Dollar Pizza Finder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dollar Pizza Finder.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder.release.xcconfig"; sourceTree = "<group>"; };
 		A0420F0BEFB87DF7FF958B27 /* Pods_Dollar_Pizza_Finder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dollar_Pizza_Finder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3A9F32920B64FDC0027F2F5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		D3B5DC8A20C3B90D0032B14F /* Joes Burguer Personal Use.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Joes Burguer Personal Use.ttf"; sourceTree = "<group>"; };
 		D3B5DC8C20C3B99B0032B14F /* boldyear.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = boldyear.otf; sourceTree = "<group>"; };
 		D3B8831A20C9DB7E008E19B8 /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GoogleToolboxForMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3B8831C20C9DC8B008E19B8 /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GoogleToolboxForMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,7 +89,6 @@
 				D3F5D81120B1481600073B45 /* Main.storyboard */,
 				D3F5D80020AE896600073B45 /* LaunchScreen.storyboard */,
 				D3F5D7FE20AE896600073B45 /* Assets.xcassets */,
-				D3B5DC8A20C3B90D0032B14F /* Joes Burguer Personal Use.ttf */,
 				D3B5DC8C20C3B99B0032B14F /* boldyear.otf */,
 				D3F5D80920AE8A3400073B45 /* GoogleService-Info.plist */,
 				D3F5D80320AE896600073B45 /* Info.plist */,
@@ -182,7 +179,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3B5DC8B20C3B90D0032B14F /* Joes Burguer Personal Use.ttf in Resources */,
 				D3F5D80220AE896600073B45 /* LaunchScreen.storyboard in Resources */,
 				D3F5D80A20AE8A3400073B45 /* GoogleService-Info.plist in Resources */,
 				D3B5DC8D20C3B99C0032B14F /* boldyear.otf in Resources */,
