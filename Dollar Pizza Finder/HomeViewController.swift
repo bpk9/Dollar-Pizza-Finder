@@ -27,8 +27,13 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
     @IBOutlet var closestStars: UILabel!
     @IBOutlet var closestPic: UIImageView!
     
-    // Directions button
+    // Button
     @IBOutlet var directionsBtn: UIButton!
+    @IBOutlet var phoneBtn: UIButton!
+    
+    
+    // directions ststus
+    var naviagating: Bool!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,12 +51,9 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest // get most accurate location
         manager.requestWhenInUseAuthorization() // get permission
-        manager.startUpdatingLocation() // start updating location
         
         // get closest place
         self.getClosest()
-        
-        self.manager.stopUpdatingLocation() // stop updating location
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,9 +67,16 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
         // get current location
         self.currentLocation = locations.last
 
+        self.manager.stopUpdatingLocation() // stop updating location
+        
     }
     
     func getClosest() {
+        
+        // set app status
+        self.naviagating = false
+        
+        self.manager.startUpdatingLocation() // start updating location
         
         // Read Location Data from Database
         Database.database().reference().child("locations").observeSingleEvent(of: .value, with: { (snapshot) in
@@ -124,16 +133,16 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
                         response, error in
                         
                         // get fastest route to pizza place
-                        let route = response?.routes[0]
+                        let bestRoute = response?.routes[0]
                         
                         // zoom to closest pizza place
-                        var region = MKCoordinateRegion(center: place.coordinate, span: MKCoordinateSpanMake(0.01, 0.01))
+                        let region = MKCoordinateRegion(center: place.coordinate, span: MKCoordinateSpanMake(0.005, 0.005))
                         self.map.setRegion(region, animated: true)
                         
                         // Update Location Info in App
                         self.closestName.text = place.name
                         self.closestStars.text = self.starString(number: Int(round(place.rating))) + String(format: " %.1f", place.rating)
-                        self.directionsBtn.setTitle("Directions -- " + String(Int(route!.expectedTravelTime / 60)) + " mins " + self.getTransportType(type: route!.transportType), for: .normal)
+                        self.directionsBtn.setTitle("Directions -- " + String(Int(bestRoute!.expectedTravelTime / 60)) + " mins " + self.getTransportType(type: bestRoute!.transportType), for: .normal)
                         GMSPlacesClient.shared().lookUpPhotos(forPlaceID: closestId) { (photos, error) -> Void in
                             if let error = error {
                                 // TODO: handle the error.
@@ -164,12 +173,26 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
         })
     }
     
-    // add functionality to directions button
+    func navigate(destination: CLLocationCoordinate2D) {
+        // update UI
+        self.directionsBtn.setTitle("Stop Naviatng", for: .normal)
+    }
+    
+    // add functionality to directions/back button
     @IBAction func directionsBtnAction(_ sender: Any) {
-        let place = map.annotations[2]
-        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: place.coordinate))
-        mapItem.name = place.title ?? "Closest Pizza Place"
-        mapItem.openInMaps(launchOptions: [:])
+        
+        // if the app is in navigation mode
+        if self.naviagating {
+            // find the nearest place
+            self.naviagating = false
+            self.getClosest()
+        // if the app is in normal mode
+        } else {
+            // start naviation mode
+            self.naviagating = true
+            self.navigate(destination: map.annotations[2].coordinate)
+        }
+        
     }
     
     // Add direction line to map
@@ -195,6 +218,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
         return output
     }
     
+    // get text for transformation type
     func getTransportType(type: MKDirectionsTransportType) -> String {
         if type == .walking {
             return "walking"
