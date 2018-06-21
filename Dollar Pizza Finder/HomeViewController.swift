@@ -22,7 +22,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
     let manager = CLLocationManager()
     var currentLocation: CLLocation! // current location
     
-    var name: String = ""
+    var name: String!
     
     // Info for closest place
     @IBOutlet var closestName: UILabel!
@@ -49,6 +49,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest // get most accurate location
         manager.requestWhenInUseAuthorization() // get permission
+        
         
         // update UI
         self.getClosest() { (place) -> () in
@@ -119,7 +120,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
     // updates info on closest pizza place
     func updateInfo(place: GMSPlace) {
         self.closestName.text = place.name
-        self.starString(number: Int(round(place.rating))) + String(format: " %.1f", place.rating)
+        self.closestStars.text = self.starString(rating: place.rating)
     }
     
     // updates photo for closest pizza place
@@ -146,7 +147,24 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
     
     // TODO add functionality to directions/back button
     @IBAction func directionsBtnAction(_ sender: Any) {
-        
+        self.getClosest(completion: { (place) -> () in
+            
+            let coordinate = place.coordinate
+            
+            // if google maps is installed
+            if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {
+                self.openURL(url: URL(string: "comgooglemaps://?q=\(place.name)&center=\(coordinate.latitude), \(coordinate.longitude)")!)
+            
+            // else open in apple maps
+            } else {
+                let placemark = MKPlacemark(coordinate: coordinate)
+                let mapItem = MKMapItem(placemark: placemark)
+                mapItem.name = place.name
+                mapItem.phoneNumber = place.phoneNumber
+                mapItem.url = place.website
+                mapItem.openInMaps(launchOptions: [:])
+            }
+        })
     }
     
     // action for phone button to call pizza place
@@ -178,30 +196,18 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
         return Double(self.currentLocation.distance(from: CLLocation(latitude: location.latitude, longitude: location.longitude)) * 0.000621371)
     }
     
-    // Converts star value to string
-    func starString(number: Int) -> String {
+    // Converts rating value to string with stars
+    func starString(rating: Float) -> String {
         var output = String()
-        for _ in 0..<number {
+        for _ in 0 ..< Int(round(rating)) {
             output += "★"
         }
-        return output
+        return output + String(format: " %.1f", rating)
     }
     
-    // get text for transformation type
-    func getTransportType(type: MKDirectionsTransportType) -> String {
-        if type == .walking {
-            return "walking"
-        } else if type == .transit {
-            return "via subway"
-        } else if type == .automobile {
-            return "driving"
-        } else {
-            return "ERROR"
-        }
-    }
-    
-    func getSubtitle(address: [GMSAddressComponent]) -> String {
-        return address[0].name + " " + address[1].name
+    // opens url
+    func openURL(url: URL) {
+        
     }
 
 }
