@@ -10,8 +10,8 @@
 import UIKit
 import MapKit
 import CoreLocation
-import GooglePlaces
 import Firebase
+import GooglePlaces
 
 class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
     
@@ -21,16 +21,14 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
     // manages current location services
     let manager = CLLocationManager()
     var currentLocation: CLLocation! // current location
-
+    
+    var name: String = ""
+    
     // Info for closest place
     @IBOutlet var closestName: UILabel!
     @IBOutlet var closestStars: UILabel!
     @IBOutlet var closestPic: UIImageView!
-    
-    // Button
     @IBOutlet var directionsBtn: UIButton!
-    @IBOutlet var phoneBtn: UIButton!
-    
     
     // directions ststus
     var naviagating: Bool!
@@ -52,13 +50,17 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
         manager.desiredAccuracy = kCLLocationAccuracyBest // get most accurate location
         manager.requestWhenInUseAuthorization() // get permission
         
-        // get closest place
-        self.getClosest()
+        // update UI
+        self.getClosest() { (place) -> () in
+            self.updateInfo(place: place)
+            self.updatePhoto(id: place.placeID)
+        }
+       
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        // TODO dispose of any resources that can be recreated.
     }
     
     // called after current location is updated
@@ -71,12 +73,10 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
         
     }
     
-    func getClosest() {
-        
-        // set app status
-        self.naviagating = false
-        
-        self.manager.startUpdatingLocation() // start updating location
+    // allows for access to closest pizza place
+    func getClosest(completion: @escaping (GMSPlace) -> ()) {
+        // get current location
+        self.manager.startUpdatingLocation()
         
         // Read Location Data from Database
         Database.database().reference().child("locations").observeSingleEvent(of: .value, with: { (snapshot) in
@@ -110,89 +110,58 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
                 }
                 
                 if let place = place {
-                    
-                    // Add Closest Location Pin to Map
-                    let closestAnnotation = MKPointAnnotation()
-                    closestAnnotation.title = place.name
-                    closestAnnotation.subtitle = self.getSubtitle(address: place.addressComponents!)
-                    closestAnnotation.coordinate = place.coordinate
-                    self.map.addAnnotation(closestAnnotation)
-                    
-                    // get directions
-                    let originItem = MKMapItem(placemark: MKPlacemark(coordinate: self.currentLocation.coordinate))
-                    let destinationItem = MKMapItem(placemark: MKPlacemark(coordinate: place.coordinate))
-                    
-                    let directionRequest = MKDirectionsRequest()
-                    directionRequest.source = originItem
-                    directionRequest.destination = destinationItem
-                    directionRequest.transportType = .walking
-                    
-                    // add directions to map
-                    let directions = MKDirections(request: directionRequest)
-                    directions.calculate(completionHandler: {
-                        response, error in
-                        
-                        // get fastest route to pizza place
-                        let bestRoute = response?.routes[0]
-                        
-                        // zoom to closest pizza place
-                        let region = MKCoordinateRegion(center: place.coordinate, span: MKCoordinateSpanMake(0.005, 0.005))
-                        self.map.setRegion(region, animated: true)
-                        
-                        // Update Location Info in App
-                        self.closestName.text = place.name
-                        self.closestStars.text = self.starString(number: Int(round(place.rating))) + String(format: " %.1f", place.rating)
-                        self.directionsBtn.setTitle("Directions -- " + String(Int(bestRoute!.expectedTravelTime / 60)) + " mins " + self.getTransportType(type: bestRoute!.transportType), for: .normal)
-                        GMSPlacesClient.shared().lookUpPhotos(forPlaceID: closestId) { (photos, error) -> Void in
-                            if let error = error {
-                                // TODO: handle the error.
-                                print("Error: \(error.localizedDescription)")
-                            } else {
-                                if let firstPhoto = photos?.results.first {
-                                    GMSPlacesClient.shared().loadPlacePhoto(firstPhoto, callback: {
-                                        (photo, error) -> Void in
-                                        if let error = error {
-                                            // TODO: handle the error.
-                                            print("Error: \(error.localizedDescription)")
-                                        } else {
-                                            self.closestPic.image = photo
-                                        }
-                                    })
-                                }
-                            }
-                        }
-                        
-                        
-                    })
-                    
-                } else {
-                    print("No place details")
+                    completion(place)
                 }
             })
-            
         })
     }
     
-    func navigate(destination: CLLocationCoordinate2D) {
-        // update UI
-        self.directionsBtn.setTitle("Stop Naviatng", for: .normal)
+    // updates info on closest pizza place
+    func updateInfo(place: GMSPlace) {
+        self.closestName.text = place.name
+        self.starString(number: Int(round(place.rating))) + String(format: " %.1f", place.rating)
     }
     
-    // add functionality to directions/back button
+    // updates photo for closest pizza place
+    func updatePhoto(id: String) {
+        GMSPlacesClient.shared().lookUpPhotos(forPlaceID: id) { (photos, error) -> Void in
+            if let error = error {
+                // TODO: handle the error.
+                print("Error: \(error.localizedDescription)")
+            } else {
+                if let firstPhoto = photos?.results.first {
+                    GMSPlacesClient.shared().loadPlacePhoto(firstPhoto, callback: {
+                        (photo, error) -> Void in
+                        if let error = error {
+                            // TODO: handle the error.
+                            print("Error: \(error.localizedDescription)")
+                        } else {
+                            self.closestPic.image = photo
+                        }
+                    })
+                }
+            }
+        }
+    }
+    
+    // TODO add functionality to directions/back button
     @IBAction func directionsBtnAction(_ sender: Any) {
         
-        // if the app is in navigation mode
-        if self.naviagating {
-            // find the nearest place
-            self.naviagating = false
-            self.getClosest()
-        // if the app is in normal mode
-        } else {
-            // start naviation mode
-            self.naviagating = true
-            self.navigate(destination: map.annotations[2].coordinate)
+    }
+    
+    // action for phone button to call pizza place
+    @IBAction func callPlace(_ sender: Any) {
+        self.getClosest() { (place) -> () in
+            let url: NSURL = URL(string: "TEL://\(place.phoneNumber!)")! as NSURL
+            UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
         }
-        
+    }
+    
+    // action for website button to open URL
+    @IBAction func visitWebsite(_ sender: Any) {
+        self.getClosest() { (place) -> () in
+            UIApplication.shared.open(place.website!, options: [:], completionHandler: nil)
+        }
     }
     
     // Add direction line to map
@@ -233,22 +202,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
     
     func getSubtitle(address: [GMSAddressComponent]) -> String {
         return address[0].name + " " + address[1].name
-    }
-
-    // open url specifically google maps app
-    func open(scheme: String) {
-        if let url = URL(string: scheme) {
-            if #available(iOS 10, *) {
-                UIApplication.shared.open(url, options: [:],
-                                          completionHandler: {
-                                            (success) in
-                                            print("Open \(scheme): \(success)")
-                })
-            } else {
-                let success = UIApplication.shared.openURL(url)
-                print("Open \(scheme): \(success)")
-            }
-        }
     }
 
 }
