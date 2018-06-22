@@ -54,6 +54,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
         self.getClosest() { (place) -> () in
             self.updateInfo(place: place)
             self.updatePhoto(id: place.placeID)
+            
         }
        
     }
@@ -144,10 +145,12 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
         }
     }
     
-    // TODO add functionality to directions/back button
+    //
+    
+    // Directions button opens google maps
     @IBAction func directionsBtnAction(_ sender: Any) {
         self.getClosest(completion: { (place) -> () in
-            self.openURL(url: URL(string: "https://www.google.com/maps/search/?api=1&query_place_id=\(place.placeID)")!)
+            self.openURL(url: URL(string: "https://www.google.com/maps/search/?api=1&query=\(place.coordinate.latitude),\(place.coordinate.longitude)&query_place_id=\(place.placeID)")!)
         })
     }
     
