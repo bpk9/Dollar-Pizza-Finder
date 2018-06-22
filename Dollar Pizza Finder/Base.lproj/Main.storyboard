@@ -67,7 +67,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="27" id="c0U-Ye-MRR"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <color key="textColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -179,7 +179,6 @@
         <!--Settings-->
         <scene sceneID="qTw-PS-R7Z">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Too-GG-Yje" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController title="Settings" id="M2C-bp-725" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Mph-OS-H6U">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -256,6 +255,7 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Too-GG-Yje" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1662" y="603"/>
         </scene>

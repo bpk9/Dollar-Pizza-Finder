@@ -170,15 +170,15 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
     // action for phone button to call pizza place
     @IBAction func callPlace(_ sender: Any) {
         self.getClosest() { (place) -> () in
-            let url: NSURL = URL(string: "TEL://\(place.phoneNumber!)")! as NSURL
-            UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+            let url = URL(string: "TEL://\(place.phoneNumber!)")!
+            self.openURL(url: url)
         }
     }
     
     // action for website button to open URL
     @IBAction func visitWebsite(_ sender: Any) {
         self.getClosest() { (place) -> () in
-            UIApplication.shared.open(place.website!, options: [:], completionHandler: nil)
+            self.openURL(url: place.website!)
         }
     }
     
@@ -207,7 +207,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
     
     // opens url
     func openURL(url: URL) {
-        
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 
 }
