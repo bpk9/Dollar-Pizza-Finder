@@ -46,7 +46,7 @@
 		<string>MKDirectionsModeSubway</string>
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Share That Addy Dawg</string>
+	<string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Joes Burger Personal Use.ttf</string>

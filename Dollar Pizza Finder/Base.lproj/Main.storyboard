@@ -148,6 +148,9 @@
                         <viewLayoutGuide key="safeArea" id="14I-Yl-KGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Dollar Pizza Finder" id="8g5-Gh-lFq">
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="organize" id="QbS-1p-h6B">
+                            <color key="tintColor" red="0.58072251080000004" green="0.066734083" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="TVZ-qO-uk0">
                             <color key="tintColor" red="0.58072251080000004" green="0.066734083" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>

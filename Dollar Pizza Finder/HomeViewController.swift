@@ -38,6 +38,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest // get most accurate location
         manager.requestWhenInUseAuthorization() // get permission
+        self.manager.startUpdatingLocation()  // update current location
+        
         
         // update UI
         self.getClosest() { (place) -> () in
@@ -65,8 +67,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     
     // allows for access to closest pizza place
     func getClosest(completion: @escaping (GMSPlace) -> ()) {
-        // get current location
-        self.manager.startUpdatingLocation()
         
         // Read Location Data from Database
         Database.database().reference().child("locations").observeSingleEvent(of: .value, with: { (snapshot) in
@@ -109,14 +109,18 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     // update google map to be centered on coordinate
     func updateMap(place: GMSPlace) {
         
-        // zoom to coordinate
-        self.map.camera = GMSCameraPosition.camera(withTarget: place.coordinate, zoom: 12)
+        // zoom to coordinate and show current location
+        self.map.camera = GMSCameraPosition.camera(withTarget: place.coordinate, zoom: 17)
+        self.map.isMyLocationEnabled = true
         
         // add pin to map
         let marker = GMSMarker()
         marker.position = place.coordinate
         marker.title = place.name
         marker.map = self.map
+        
+        // reveal marker info
+        self.map.selectedMarker = marker
     }
     
     // updates info on closest pizza place
@@ -187,7 +191,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     // only retrive digits from phone number
-    func getRawNum(input: String!) -> String {
+    func getRawNum(input: String) -> String {
         var output = ""
         for character in input {
             let char = String(character)
