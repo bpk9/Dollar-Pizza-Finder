@@ -1,4 +1,6 @@
 PODS:
+  - Firebase (5.1.0):
+    - Firebase/Core (= 5.1.0)
   - Firebase/Core (5.1.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 5.0.1)
@@ -19,7 +21,11 @@ PODS:
     - leveldb-library (~> 1.18)
   - FirebaseInstanceID (3.0.0):
     - FirebaseCore (~> 5.0)
+  - GoogleMaps (2.7.0):
+    - GoogleMaps/Maps (= 2.7.0)
   - GoogleMaps/Base (2.7.0)
+  - GoogleMaps/Maps (2.7.0):
+    - GoogleMaps/Base
   - GooglePlaces (2.7.0):
     - GoogleMaps/Base (= 2.7.0)
   - GoogleToolboxForMac/Defines (2.1.4)
@@ -33,8 +39,9 @@ PODS:
   - nanopb/encode (0.3.8)
 
 DEPENDENCIES:
-  - Firebase/Core
+  - Firebase
   - Firebase/Database
+  - GoogleMaps
   - GooglePlaces
 
 SPEC REPOS:
@@ -62,6 +69,6 @@ SPEC CHECKSUMS:
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
 
-PODFILE CHECKSUM: 86eef2b9dc7750214c1b8596dedf904dfe3c5bc2
+PODFILE CHECKSUM: 291652bb7a264478261d50bed9a3e74569c1c616
 
 COCOAPODS: 1.5.3

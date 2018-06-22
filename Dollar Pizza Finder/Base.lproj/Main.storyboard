@@ -78,9 +78,6 @@
                                     <outlet property="delegate" destination="8FM-FN-4Eu" id="aPL-0b-F5Y"/>
                                 </connections>
                             </searchBar>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="siG-f4-TXT">
-                                <rect key="frame" x="0.0" y="120" width="375" height="419"/>
-                            </mapView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Closest Pizza Place" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q4w-xO-x3p">
                                 <rect key="frame" x="7" y="547" width="225" height="37"/>
                                 <constraints>
@@ -122,6 +119,11 @@
                                     <action selector="visitWebsite:" destination="8FM-FN-4Eu" eventType="touchUpInside" id="r9S-JN-B53"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VwG-mv-3Jn" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="120" width="375" height="419"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -131,21 +133,17 @@
                             <constraint firstItem="q4w-xO-x3p" firstAttribute="leading" secondItem="14I-Yl-KGB" secondAttribute="leading" constant="7" id="73H-Gm-uW9"/>
                             <constraint firstItem="EYc-Xr-vox" firstAttribute="top" secondItem="q4w-xO-x3p" secondAttribute="bottom" constant="8" symbolic="YES" id="94d-nS-w2f"/>
                             <constraint firstItem="XVv-jF-CGD" firstAttribute="bottom" secondItem="0x4-1y-jfK" secondAttribute="bottom" id="9Yn-dK-NfC"/>
-                            <constraint firstItem="zMC-yG-xDV" firstAttribute="trailing" secondItem="siG-f4-TXT" secondAttribute="trailing" id="Du9-No-GX7"/>
                             <constraint firstItem="q4w-xO-x3p" firstAttribute="trailing" secondItem="bJ4-Oy-wMe" secondAttribute="trailing" id="Ej9-Xk-eUi"/>
                             <constraint firstItem="EYc-Xr-vox" firstAttribute="leading" secondItem="XVv-jF-CGD" secondAttribute="leading" id="JpF-wJ-gkN"/>
                             <constraint firstItem="zMC-yG-xDV" firstAttribute="leading" secondItem="Hpf-LO-O6L" secondAttribute="leading" id="KcA-eT-4tJ"/>
                             <constraint firstItem="0x4-1y-jfK" firstAttribute="trailing" secondItem="Hpf-LO-O6L" secondAttribute="trailingMargin" id="ONd-tD-rf2"/>
                             <constraint firstItem="bJ4-Oy-wMe" firstAttribute="leading" secondItem="JVT-CL-DTT" secondAttribute="trailing" constant="2" id="PiJ-5j-e2X"/>
-                            <constraint firstItem="zMC-yG-xDV" firstAttribute="leading" secondItem="siG-f4-TXT" secondAttribute="leading" id="SRP-FV-J8d"/>
                             <constraint firstItem="q4w-xO-x3p" firstAttribute="leading" secondItem="EYc-Xr-vox" secondAttribute="leading" id="V82-DC-V6a"/>
                             <constraint firstAttribute="trailing" secondItem="zMC-yG-xDV" secondAttribute="trailing" id="Zxq-yH-Bhp"/>
                             <constraint firstItem="0x4-1y-jfK" firstAttribute="leading" secondItem="q4w-xO-x3p" secondAttribute="trailing" constant="17" id="e1m-vC-rX2"/>
                             <constraint firstItem="14I-Yl-KGB" firstAttribute="bottom" secondItem="XVv-jF-CGD" secondAttribute="bottom" constant="10" id="gS3-O5-kLk"/>
                             <constraint firstItem="XVv-jF-CGD" firstAttribute="top" secondItem="EYc-Xr-vox" secondAttribute="bottom" constant="8" symbolic="YES" id="imG-RZ-lLK"/>
                             <constraint firstItem="JVT-CL-DTT" firstAttribute="leading" secondItem="EYc-Xr-vox" secondAttribute="trailing" id="ink-oU-aLH"/>
-                            <constraint firstItem="siG-f4-TXT" firstAttribute="top" secondItem="zMC-yG-xDV" secondAttribute="bottom" id="jUi-HV-fCa"/>
-                            <constraint firstItem="q4w-xO-x3p" firstAttribute="top" secondItem="siG-f4-TXT" secondAttribute="bottom" constant="8" symbolic="YES" id="kJl-Ql-qFU"/>
                             <constraint firstItem="zMC-yG-xDV" firstAttribute="top" secondItem="14I-Yl-KGB" secondAttribute="top" id="nrn-pS-ABG"/>
                             <constraint firstItem="q4w-xO-x3p" firstAttribute="top" secondItem="0x4-1y-jfK" secondAttribute="top" id="w9j-dO-pa5"/>
                         </constraints>
@@ -164,7 +162,7 @@
                         <outlet property="closestPic" destination="0x4-1y-jfK" id="pXu-Aw-gjp"/>
                         <outlet property="closestStars" destination="EYc-Xr-vox" id="DYd-90-DxM"/>
                         <outlet property="directionsBtn" destination="XVv-jF-CGD" id="6Ex-mP-VxP"/>
-                        <outlet property="map" destination="siG-f4-TXT" id="eQd-9S-ISu"/>
+                        <outlet property="map" destination="VwG-mv-3Jn" id="kD2-6X-UkO"/>
                         <outlet property="searchDisplayController" destination="Edq-YY-3ef" id="Qgg-ET-sZy"/>
                     </connections>
                 </viewController>

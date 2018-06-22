@@ -8,21 +8,19 @@
 //
 
 import UIKit
-import MapKit
 import CoreLocation
 import Firebase
+import GoogleMaps
 import GooglePlaces
 
-class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
+class HomeViewController: UIViewController, CLLocationManagerDelegate {
     
-    // Map on page
-    @IBOutlet var map: MKMapView!
+    // google map view
+    @IBOutlet var map: GMSMapView!
     
     // manages current location services
     let manager = CLLocationManager()
     var currentLocation: CLLocation! // current location
-    
-    var name: String!
     
     // Info for closest place
     @IBOutlet var closestName: UILabel!
@@ -35,15 +33,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        // set up mapkit
-        map.delegate = self
-        map.showsUserLocation = true
-        map.showsBuildings = true
-        map.showsCompass = true
-        map.showsPointsOfInterest = true
-        map.showsScale = true
         
         // set up location services
         manager.delegate = self
@@ -52,9 +41,9 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
         
         // update UI
         self.getClosest() { (place) -> () in
+            self.updateMap(place: place)
             self.updateInfo(place: place)
             self.updatePhoto(id: place.placeID)
-            
         }
        
     }
@@ -117,6 +106,19 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
         })
     }
     
+    // update google map to be centered on coordinate
+    func updateMap(place: GMSPlace) {
+        
+        // zoom to coordinate
+        self.map.camera = GMSCameraPosition.camera(withTarget: place.coordinate, zoom: 12)
+        
+        // add pin to map
+        let marker = GMSMarker()
+        marker.position = place.coordinate
+        marker.title = place.name
+        marker.map = self.map
+    }
+    
     // updates info on closest pizza place
     func updateInfo(place: GMSPlace) {
         self.closestName.text = place.name
@@ -168,15 +170,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
         self.getClosest() { (place) -> () in
             self.openURL(url: place.website!)
         }
-    }
-    
-    // Add direction line to map
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        let renderer = MKPolylineRenderer(overlay: overlay)
-        renderer.strokeColor = UIColor.blue
-        renderer.lineWidth = 5.0
-        
-        return renderer
     }
     
     // Get Distance in Miles

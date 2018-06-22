@@ -11,9 +11,10 @@ target 'Dollar Pizza Finder' do
 
   # Pods for Dollar Pizza Finder
 
-pod 'GooglePlaces'
-pod 'Firebase/Core'
+pod 'Firebase'
 pod 'Firebase/Database'
+pod 'GooglePlaces'
+pod 'GoogleMaps'
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
