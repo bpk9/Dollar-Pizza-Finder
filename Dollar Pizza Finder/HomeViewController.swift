@@ -50,7 +50,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
         manager.desiredAccuracy = kCLLocationAccuracyBest // get most accurate location
         manager.requestWhenInUseAuthorization() // get permission
         
-        
         // update UI
         self.getClosest() { (place) -> () in
             self.updateInfo(place: place)
@@ -148,29 +147,15 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
     // TODO add functionality to directions/back button
     @IBAction func directionsBtnAction(_ sender: Any) {
         self.getClosest(completion: { (place) -> () in
-            
-            let coordinate = place.coordinate
-            
-            // if google maps is installed
-            if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {
-                self.openURL(url: URL(string: "comgooglemaps://?q=\(place.name)&center=\(coordinate.latitude), \(coordinate.longitude)")!)
-            
-            // else open in apple maps
-            } else {
-                let placemark = MKPlacemark(coordinate: coordinate)
-                let mapItem = MKMapItem(placemark: placemark)
-                mapItem.name = place.name
-                mapItem.phoneNumber = place.phoneNumber
-                mapItem.url = place.website
-                mapItem.openInMaps(launchOptions: [:])
-            }
+            self.openURL(url: URL(string: "https://www.google.com/maps/search/?api=1&query_place_id=\(place.placeID)")!)
         })
     }
     
     // action for phone button to call pizza place
-    @IBAction func callPlace(_ sender: Any) {
+    
+    @IBAction func callLocation(_ sender: Any) {
         self.getClosest() { (place) -> () in
-            let url = URL(string: "TEL://\(place.phoneNumber!)")!
+            let url = URL(string: "tel://\(self.getRawNum(input: place.phoneNumber!))")!
             self.openURL(url: url)
         }
     }
@@ -203,6 +188,18 @@ class HomeViewController: UIViewController, MKMapViewDelegate,  CLLocationManage
             output += "★"
         }
         return output + String(format: " %.1f", rating)
+    }
+    
+    // only retrive digits from phone number
+    func getRawNum(input: String!) -> String {
+        var output = ""
+        for character in input {
+            let char = String(character)
+            if let num = Int(char) {
+                output += char
+            }
+        }
+        return output
     }
     
     // opens url
