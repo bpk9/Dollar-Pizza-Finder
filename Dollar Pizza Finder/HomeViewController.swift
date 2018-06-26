@@ -12,6 +12,7 @@ import CoreLocation
 import Firebase
 import GoogleMaps
 import GooglePlaces
+import Alamofire
 
 class HomeViewController: UIViewController, CLLocationManagerDelegate {
     
@@ -27,9 +28,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet var closestStars: UILabel!
     @IBOutlet var closestPic: UIImageView!
     @IBOutlet var directionsBtn: UIButton!
-    
-    // directions ststus
-    var naviagating: Bool!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +44,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
             self.updateMap(place: place)
             self.updateInfo(place: place)
             self.updatePhoto(id: place.placeID)
+            self.addDirections(destination: place.coordinate)
         }
        
     }
@@ -110,7 +109,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     func updateMap(place: GMSPlace) {
         
         // zoom to coordinate and show current location
-        self.map.camera = GMSCameraPosition.camera(withTarget: place.coordinate, zoom: 17)
+        self.map.camera = GMSCameraPosition.camera(withTarget: place.coordinate, zoom: 10)
         self.map.isMyLocationEnabled = true
         
         // add pin to map
@@ -151,7 +150,31 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    //
+    // draw directions line on map
+    func addDirections(destination: CLLocationCoordinate2D) {
+        let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(currentLocation.coordinate.latitude),\(currentLocation.coordinate.longitude)&destination=\(destination.latitude),\(destination.longitude)&mode=driving&key=AIzaSyAsQrnM69UGzWJM_hgo8hceDo3ySc6as3w"
+        
+        Alamofire.request(url).responseJSON { response in
+            
+            if let res = response.result.value as? NSDictionary {
+                if let routes = res["routes"] as? [NSDictionary] {
+                    
+                    for route in routes {
+                        let overview = route["overview_polyline"] as? NSDictionary
+                        let points = overview!["points"] as? String
+                        let path = GMSPath(fromEncodedPath: points!)
+                        
+                        let polyline = GMSPolyline(path: path)
+                        polyline.strokeColor = .red
+                        polyline.strokeWidth = 10.0
+                        polyline.map = self.map
+                    }
+                    
+                }
+            }
+            
+        }
+    }
     
     // Directions button opens google maps
     @IBAction func directionsBtnAction(_ sender: Any) {

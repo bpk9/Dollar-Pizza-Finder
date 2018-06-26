@@ -15,6 +15,7 @@ pod 'Firebase'
 pod 'Firebase/Database'
 pod 'GooglePlaces'
 pod 'GoogleMaps'
+pod 'Alamofire'
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|

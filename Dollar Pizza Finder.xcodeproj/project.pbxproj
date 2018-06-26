@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		636201C2B0A0A1891711901A /* Pods_Dollar_Pizza_Finder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2ED422E6B8E14AD4FA7113FC /* Pods_Dollar_Pizza_Finder.framework */; };
+		1E9BFEBC64E07B1895E508A0 /* Pods_Dollar_Pizza_Finder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0FB80054C4421545AE10377 /* Pods_Dollar_Pizza_Finder.framework */; };
 		D3A9F32A20B64FDC0027F2F5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A9F32920B64FDC0027F2F5 /* MapKit.framework */; };
 		D3B5DC8D20C3B99C0032B14F /* boldyear.otf in Resources */ = {isa = PBXBuildFile; fileRef = D3B5DC8C20C3B99B0032B14F /* boldyear.otf */; };
 		D3F5D7F820AE896400073B45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5D7F720AE896400073B45 /* AppDelegate.swift */; };
@@ -19,9 +19,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2D0B180B4D1CCD8F49D6BE1B /* Pods-Dollar Pizza Finder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dollar Pizza Finder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder.debug.xcconfig"; sourceTree = "<group>"; };
-		2ED422E6B8E14AD4FA7113FC /* Pods_Dollar_Pizza_Finder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dollar_Pizza_Finder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7AF5D0556E5DFA36FA9E9C24 /* Pods-Dollar Pizza Finder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dollar Pizza Finder.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder.release.xcconfig"; sourceTree = "<group>"; };
+		95E87232B2D78ABECFA436A1 /* Pods-Dollar Pizza Finder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dollar Pizza Finder.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder.release.xcconfig"; sourceTree = "<group>"; };
+		B0FB80054C4421545AE10377 /* Pods_Dollar_Pizza_Finder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dollar_Pizza_Finder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA6625CD4B0C3E92B0967EBA /* Pods-Dollar Pizza Finder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dollar Pizza Finder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder.debug.xcconfig"; sourceTree = "<group>"; };
 		D3A9F32920B64FDC0027F2F5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D3B5DC8C20C3B99B0032B14F /* boldyear.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = boldyear.otf; sourceTree = "<group>"; };
 		D3B8831A20C9DB7E008E19B8 /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GoogleToolboxForMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,18 +47,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3A9F32A20B64FDC0027F2F5 /* MapKit.framework in Frameworks */,
-				636201C2B0A0A1891711901A /* Pods_Dollar_Pizza_Finder.framework in Frameworks */,
+				1E9BFEBC64E07B1895E508A0 /* Pods_Dollar_Pizza_Finder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4699EF8861C3BE4EEA9A3127 /* Pods */ = {
+		4E2474F465156389D5AA7475 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				2D0B180B4D1CCD8F49D6BE1B /* Pods-Dollar Pizza Finder.debug.xcconfig */,
-				7AF5D0556E5DFA36FA9E9C24 /* Pods-Dollar Pizza Finder.release.xcconfig */,
+				BA6625CD4B0C3E92B0967EBA /* Pods-Dollar Pizza Finder.debug.xcconfig */,
+				95E87232B2D78ABECFA436A1 /* Pods-Dollar Pizza Finder.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -69,7 +69,7 @@
 				D3F5D7F620AE896400073B45 /* Dollar Pizza Finder */,
 				D3F5D7F520AE896400073B45 /* Products */,
 				EF600003847A6DE50C0C4F28 /* Frameworks */,
-				4699EF8861C3BE4EEA9A3127 /* Pods */,
+				4E2474F465156389D5AA7475 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -107,7 +107,7 @@
 				D3B8831C20C9DC8B008E19B8 /* GoogleToolboxForMac.framework */,
 				D3B8831A20C9DB7E008E19B8 /* GoogleToolboxForMac.framework */,
 				D3A9F32920B64FDC0027F2F5 /* MapKit.framework */,
-				2ED422E6B8E14AD4FA7113FC /* Pods_Dollar_Pizza_Finder.framework */,
+				B0FB80054C4421545AE10377 /* Pods_Dollar_Pizza_Finder.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -119,13 +119,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D3F5D80620AE896600073B45 /* Build configuration list for PBXNativeTarget "Dollar Pizza Finder" */;
 			buildPhases = (
-				473067F2887AD3755BC0C706 /* [CP] Check Pods Manifest.lock */,
+				FCE627842AAC85F18FDB77DB /* [CP] Check Pods Manifest.lock */,
 				D3F5D7F020AE896400073B45 /* Sources */,
 				D3F5D7F120AE896400073B45 /* Frameworks */,
 				D3F5D7F220AE896400073B45 /* Resources */,
 				D3BDA76F20C89AB4002C205C /* ShellScript */,
-				B7BF42962D8F41DADE0DB198 /* [CP] Embed Pods Frameworks */,
-				A589CE9050801A722AA38609 /* [CP] Copy Pods Resources */,
+				F3A9B261C1F89225D675C9C1 /* [CP] Embed Pods Frameworks */,
+				6635F28EC76EBF9B5370AE52 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -190,25 +190,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		473067F2887AD3755BC0C706 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Dollar Pizza Finder-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A589CE9050801A722AA38609 /* [CP] Copy Pods Resources */ = {
+		6635F28EC76EBF9B5370AE52 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -228,28 +210,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B7BF42962D8F41DADE0DB198 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
-				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		D3BDA76F20C89AB4002C205C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -262,6 +222,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "";
+		};
+		F3A9B261C1F89225D675C9C1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FCE627842AAC85F18FDB77DB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Dollar Pizza Finder-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -413,13 +415,20 @@
 		};
 		D3F5D80720AE896600073B45 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2D0B180B4D1CCD8F49D6BE1B /* Pods-Dollar Pizza Finder.debug.xcconfig */;
+			baseConfigurationReference = BA6625CD4B0C3E92B0967EBA /* Pods-Dollar Pizza Finder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J7QWTMLU2E;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PXGoogleDirections/Dependencies",
+					"$(PROJECT_DIR)/PXGoogleDirections/Sample-Carthage/Carthage/Checkouts/PXGoogleDirections/Dependencies",
+					"$(PROJECT_DIR)/PXGoogleDirections/Sample-Carthage/Carthage/Checkouts/PXGoogleDirections/Sample-Carthage/Carthage/Checkouts/PXGoogleDirections/Dependencies",
+					"$(PROJECT_DIR)/PXGoogleDirections/Sample-Carthage/Carthage/Checkouts/PXGoogleDirections/Sample-Carthage/Carthage/Checkouts/PXGoogleDirections/Sample-Carthage/Carthage/Checkouts/PXGoogleDirections/Dependencies",
+				);
 				INFOPLIST_FILE = "Dollar Pizza Finder/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -436,13 +445,20 @@
 		};
 		D3F5D80820AE896600073B45 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7AF5D0556E5DFA36FA9E9C24 /* Pods-Dollar Pizza Finder.release.xcconfig */;
+			baseConfigurationReference = 95E87232B2D78ABECFA436A1 /* Pods-Dollar Pizza Finder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J7QWTMLU2E;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PXGoogleDirections/Dependencies",
+					"$(PROJECT_DIR)/PXGoogleDirections/Sample-Carthage/Carthage/Checkouts/PXGoogleDirections/Dependencies",
+					"$(PROJECT_DIR)/PXGoogleDirections/Sample-Carthage/Carthage/Checkouts/PXGoogleDirections/Sample-Carthage/Carthage/Checkouts/PXGoogleDirections/Dependencies",
+					"$(PROJECT_DIR)/PXGoogleDirections/Sample-Carthage/Carthage/Checkouts/PXGoogleDirections/Sample-Carthage/Carthage/Checkouts/PXGoogleDirections/Sample-Carthage/Carthage/Checkouts/PXGoogleDirections/Dependencies",
+				);
 				INFOPLIST_FILE = "Dollar Pizza Finder/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = (
