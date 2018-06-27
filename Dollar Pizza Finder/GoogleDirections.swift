@@ -68,9 +68,12 @@ class GoogleDirections {
                     // get transit color
                     let details = step["transit_details"] as! NSDictionary
                     let line = details["line"] as! NSDictionary
-                    let color = line["color"] as! String
+                    if let color = line["color"] as? String {
+                        polyline.strokeColor = self.hexStringToUIColor(hex: color)
+                    } else {
+                        polyline.strokeColor = .black
+                    }
                     
-                    polyline.strokeColor = self.hexStringToUIColor(hex: color)
                     polyline.strokeWidth = 10.0
                 } else {
                     polyline.strokeColor = .gray
