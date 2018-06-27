@@ -12,7 +12,6 @@ import CoreLocation
 import Firebase
 import GoogleMaps
 import GooglePlaces
-import Alamofire
 
 class HomeViewController: UIViewController, CLLocationManagerDelegate {
     
@@ -44,7 +43,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
             self.updateMap(place: place)
             self.updateInfo(place: place)
             self.updatePhoto(id: place.placeID)
-            self.addDirections(destination: place.coordinate)
+            self.addDirections(destination: place.placeID)
         }
        
     }
@@ -151,28 +150,11 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     // draw directions line on map
-    func addDirections(destination: CLLocationCoordinate2D) {
-        let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(currentLocation.coordinate.latitude),\(currentLocation.coordinate.longitude)&destination=\(destination.latitude),\(destination.longitude)&mode=driving&key=AIzaSyAsQrnM69UGzWJM_hgo8hceDo3ySc6as3w"
-        
-        Alamofire.request(url).responseJSON { response in
-            
-            if let res = response.result.value as? NSDictionary {
-                if let routes = res["routes"] as? [NSDictionary] {
-                    
-                    for route in routes {
-                        let overview = route["overview_polyline"] as? NSDictionary
-                        let points = overview!["points"] as? String
-                        let path = GMSPath(fromEncodedPath: points!)
-                        
-                        let polyline = GMSPolyline(path: path)
-                        polyline.strokeColor = .red
-                        polyline.strokeWidth = 10.0
-                        polyline.map = self.map
-                    }
-                    
-                }
-            }
-            
+    func addDirections(destination: String) {
+        let directions = GoogleDirections(origin: currentLocation.coordinate, destination: destination, mode: "transit")
+        directions.addPolyline(map: map)
+        directions.getDuration() { (text) -> () in
+            self.directionsBtn.setTitle(("Directions -- " + text + " via subway"), for: .normal)
         }
     }
     
