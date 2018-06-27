@@ -154,7 +154,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         let directions = GoogleDirections(origin: currentLocation.coordinate, destination: destination, mode: "transit")
         directions.addPolyline(map: map)
         directions.getDuration() { (text) -> () in
-            self.directionsBtn.setTitle(("Directions -- " + text + " via subway"), for: .normal)
+            self.directionsBtn.setTitle(("Directions -- " + text), for: .normal)
         }
     }
     
