@@ -20,10 +20,10 @@
         <scene sceneID="deR-AR-5c9">
             <objects>
                 <navigationController id="wn4-nE-Uck" sceneMemberID="viewController">
+                    <splitViewMasterSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9yg-d7-x7P">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="boldyear" family="boldyear" pointSize="27"/>
@@ -59,7 +59,6 @@
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="directionsAction:" destination="8FM-FN-4Eu" eventType="touchUpInside" id="Naj-YY-Kf6"/>
                                     <segue destination="Rea-h0-4Ke" kind="show" id="dR2-T2-MNU"/>
                                 </connections>
                             </button>
@@ -166,7 +165,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="14I-Yl-KGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Dollar Pizza Finder" id="8g5-Gh-lFq"/>
+                    <navigationItem key="navigationItem" title="Dollar Pizza Finder" id="8g5-Gh-lFq">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="byj-Gf-LRM"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="closestAddress" destination="8bt-oF-fsW" id="VOf-LL-eGy"/>
                         <outlet property="closestName" destination="q4w-xO-x3p" id="9DJ-KG-c37"/>
@@ -190,15 +191,15 @@
             </objects>
             <point key="canvasLocation" x="920.79999999999995" y="598.65067466266873"/>
         </scene>
-        <!--View Controller-->
+        <!--Directions View Controller-->
         <scene sceneID="u1r-NI-CiL">
             <objects>
-                <viewController id="Rea-h0-4Ke" sceneMemberID="viewController">
+                <viewController id="Rea-h0-4Ke" customClass="DirectionsViewController" customModule="Dollar_Pizza_Finder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ntp-nr-idU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wNJ-1p-7dI">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wNJ-1p-7dI" customClass="GMSMapView">
                                 <rect key="frame" x="0.0" y="64" width="375" height="409"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>

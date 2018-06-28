@@ -50,6 +50,17 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
        
     }
     
+    // prepare data for new storyboard
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        // if directions button is pressed
+        if let vc = segue.destination as? DirectionsViewController
+        {
+            vc.destination_name = self.closestName.text
+            vc.destination_address = self.closestAddress.text
+        }
+    }
+    
     // called after current location is updated
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
@@ -121,8 +132,17 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     // updates info on closest pizza place
     func updateInfo(place: GMSPlace) {
         self.closestName.text = place.name
-        self.closestAddress.text = String(place.formattedAddress!.split(separator: ",")[0])
+        
+        let address = String(place.formattedAddress!.split(separator: ",")[0])
+        self.closestAddress.text = address
+        
         self.closestStars.text = self.starString(rating: place.rating)
+        
+        let directions = GoogleDirections(origin: self.currentLocation.coordinate, destination: place.coordinate, mode: "transit")
+        directions.getDuration() { (text) -> () in
+            self.directionsBtn.setTitle("Directions -- " + text, for: .normal)
+        }
+        
     }
     
     // updates photo for closest pizza place
@@ -148,23 +168,12 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     // draw directions line on map
-    func addDirections(destination: String) {
+    func addDirections(destination: CLLocationCoordinate2D) {
         let directions = GoogleDirections(origin: currentLocation.coordinate, destination: destination, mode: "transit")
         directions.addPolyline(map: map)
         directions.getDuration() { (text) -> () in
             self.directionsBtn.setTitle(("Directions -- " + text), for: .normal)
         }
-    }
-    
-    // action for directions button
-    @IBAction func directionsAction(_ sender: Any) {
-        self.getClosest() { (place) -> () in
-            let vc = DirectionsViewController(nibName: "Directions", bundle: nil)
-            vc.destination = place.coordinate
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-            
-        
     }
     
     // action for phone button to call pizza place
