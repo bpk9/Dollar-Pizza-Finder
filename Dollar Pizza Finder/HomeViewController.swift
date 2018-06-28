@@ -22,8 +22,9 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     let manager = CLLocationManager()
     var currentLocation: CLLocation! // current location
     
-    // Info for closest place
+    // info for closest place
     @IBOutlet var closestName: UILabel!
+    @IBOutlet var closestAddress: UILabel!
     @IBOutlet var closestStars: UILabel!
     @IBOutlet var closestPic: UIImageView!
     @IBOutlet var directionsBtn: UIButton!
@@ -43,14 +44,10 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
             self.updateMap(place: place)
             self.updateInfo(place: place)
             self.updatePhoto(id: place.placeID)
-            self.addDirections(destination: place.placeID)
         }
+        
+        
        
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // TODO dispose of any resources that can be recreated.
     }
     
     // called after current location is updated
@@ -108,7 +105,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     func updateMap(place: GMSPlace) {
         
         // zoom to coordinate and show current location
-        self.map.camera = GMSCameraPosition.camera(withTarget: place.coordinate, zoom: 10)
+        self.map.camera = GMSCameraPosition.camera(withTarget: place.coordinate, zoom: 17)
         self.map.isMyLocationEnabled = true
         
         // add pin to map
@@ -124,6 +121,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     // updates info on closest pizza place
     func updateInfo(place: GMSPlace) {
         self.closestName.text = place.name
+        self.closestAddress.text = String(place.formattedAddress!.split(separator: ",")[0])
         self.closestStars.text = self.starString(rating: place.rating)
     }
     
@@ -158,15 +156,18 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    // Directions button opens google maps
-    @IBAction func directionsBtnAction(_ sender: Any) {
-        self.getClosest(completion: { (place) -> () in
-            self.openURL(url: URL(string: "https://www.google.com/maps/search/?api=1&query=\(place.coordinate.latitude),\(place.coordinate.longitude)&query_place_id=\(place.placeID)")!)
-        })
+    // action for directions button
+    @IBAction func directionsAction(_ sender: Any) {
+        self.getClosest() { (place) -> () in
+            let vc = DirectionsViewController(nibName: "Directions", bundle: nil)
+            vc.destination = place.coordinate
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+            
+        
     }
     
     // action for phone button to call pizza place
-    
     @IBAction func callLocation(_ sender: Any) {
         self.getClosest() { (place) -> () in
             let url = URL(string: "tel://\(self.getRawNum(input: place.phoneNumber!))")!
