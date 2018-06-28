@@ -33,11 +33,10 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
         
         // set up location services
-        manager.delegate = self
-        manager.desiredAccuracy = kCLLocationAccuracyBest // get most accurate location
-        manager.requestWhenInUseAuthorization() // get permission
+        self.manager.delegate = self
+        self.manager.desiredAccuracy = kCLLocationAccuracyBest // get most accurate location
+        self.manager.requestWhenInUseAuthorization() // get permission
         self.manager.startUpdatingLocation()  // update current location
-        
         
         // update UI
         self.getClosest() { (place) -> () in
@@ -46,8 +45,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
             self.updatePhoto(id: place.placeID)
         }
         
-        
-       
     }
     
     // prepare data for new storyboard
@@ -164,15 +161,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
                     })
                 }
             }
-        }
-    }
-    
-    // draw directions line on map
-    func addDirections(destination: CLLocationCoordinate2D) {
-        let directions = GoogleDirections(origin: currentLocation.coordinate, destination: destination, mode: "transit")
-        directions.addPolyline(map: map)
-        directions.getDuration() { (text) -> () in
-            self.directionsBtn.setTitle(("Directions -- " + text), for: .normal)
         }
     }
     

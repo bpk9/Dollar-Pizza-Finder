@@ -26,7 +26,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" name="boldyear" family="boldyear" pointSize="27"/>
+                            <fontDescription key="fontDescription" name="boldyear" family="boldyear" pointSize="20"/>
                             <color key="textColor" red="0.59999999999999998" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
                     </navigationBar>
@@ -221,6 +221,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="DYY-ui-Vgx"/>
                     </view>
+                    <connections>
+                        <outlet property="directionsTable" destination="jDm-FP-XM8" id="81c-LL-mwa"/>
+                        <outlet property="map" destination="wNJ-1p-7dI" id="mxN-tQ-V7e"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oR8-BO-O3r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
