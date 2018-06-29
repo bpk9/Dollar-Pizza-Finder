@@ -20,55 +20,39 @@ class GoogleDirections {
         
        self.url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin.latitude),\(origin.longitude)&destination=\(destination.latitude),\(destination.longitude)&mode=\(mode)&key=\(apikey)"
         
-    }
-    
-    func getDirections(completion: @escaping (NSDictionary) -> ()) {
-        Alamofire.request(self.url).responseJSON { response in
-            
-            completion(response.result.value as! NSDictionary)
+        self.getDirections() { (directions) -> () in
             
         }
+        
     }
     
-    func getDuration(completion: @escaping (String) -> ()) {
-        self.getDirections() { (response) -> () in
-            let routes = response["routes"] as! [NSDictionary]
-            let legs = routes[0]["legs"] as! [NSDictionary]
-            let duration = legs[0]["duration"] as! NSDictionary
-            let text = duration["text"] as! String
+    func getDirections(completion: @escaping (Route) -> ()) {
+        Alamofire.request(self.url).responseJSON { response in
             
-            completion(text)
+            let decoder = JSONDecoder()
+            let directions = try! decoder.decode(Response.self, from: response.data!)
+            
+            completion(directions.routes.first!)
+            
         }
     }
     
     func addPolyline(map: GMSMapView) {
         
-        self.getDirections() { (response) -> () in
-            
-            // get route path
-            let routes = response["routes"] as! [NSDictionary]
-            let legs = routes[0]["legs"] as! [NSDictionary]
-            let steps = legs[0]["steps"] as! [NSDictionary]
+        self.getDirections() { (route) -> () in
             
             // for each step in journey
-            for step in steps {
-                
-                // get travel type
-                let type = step["travel_mode"] as! String
+            for step in route.legs.first!.steps {
                 
                 // get polyline
-                let poly = step["polyline"] as! NSDictionary
-                let points = poly["points"] as! String
-                let path = GMSPath(fromEncodedPath: points)
+                let path = GMSPath(fromEncodedPath: step.polyline.points)
                 
                 // add polyline to map
                 let polyline = GMSPolyline(path: path)
-                if type == "TRANSIT" {
+                if step.travel_mode == "TRANSIT" {
                     
-                    // get transit color
-                    let details = step["transit_details"] as! NSDictionary
-                    let line = details["line"] as! NSDictionary
-                    if let color = line["color"] as? String {
+                    // change polyline color for transit line
+                    if let color = step.transit_details?.line.color {
                         polyline.strokeColor = self.hexStringToUIColor(hex: color)
                     } else {
                         polyline.strokeColor = .black
@@ -83,25 +67,25 @@ class GoogleDirections {
 
             }
             
-            // get map bounds
-            let bounds = routes[0]["bounds"] as! NSDictionary
-            let northeast = bounds["northeast"] as! NSDictionary
-            let nlat = northeast["lat"] as! Double
-            let nlng = northeast["lng"] as! Double
-            let southwest = bounds["southwest"] as! NSDictionary
-            let slat = southwest["lat"] as! Double
-            let slng = southwest["lng"] as! Double
-            
             // update map camera to bounds
-            let update = GMSCameraUpdate.fit(GMSCoordinateBounds(coordinate: CLLocationCoordinate2DMake(nlat, nlng), coordinate: CLLocationCoordinate2DMake(slat, slng)))
+            let bounds = route.bounds
+            let update = GMSCameraUpdate.fit(GMSCoordinateBounds(coordinate: CLLocationCoordinate2DMake(bounds.northeast.lat, bounds.northeast.lng), coordinate: CLLocationCoordinate2DMake(bounds.southwest.lat, bounds.southwest.lng)))
             map.moveCamera(update)
         
         }
         
     }
     
-    // self explainitory
-    func hexStringToUIColor (hex:String) -> UIColor {
+    func addDirections(table: UITableView) {
+        self.getDirections() { response in
+
+            
+            
+        }
+    }
+    
+    // changes hex string to UI Color for polyline
+    func hexStringToUIColor(hex:String) -> UIColor {
         var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
         
         if (cString.hasPrefix("#")) {

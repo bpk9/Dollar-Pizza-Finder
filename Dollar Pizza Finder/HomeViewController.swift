@@ -136,8 +136,9 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         self.closestStars.text = self.starString(rating: place.rating)
         
         let directions = GoogleDirections(origin: self.currentLocation.coordinate, destination: place.coordinate, mode: "transit")
-        directions.getDuration() { (text) -> () in
-            self.directionsBtn.setTitle("Directions -- " + text, for: .normal)
+        directions.getDirections() { (route) -> () in
+            let text = route.legs.first?.duration.text
+            self.directionsBtn.setTitle("Directions -- " + text!, for: .normal)
         }
         
     }

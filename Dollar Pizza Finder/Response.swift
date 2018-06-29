@@ -1,0 +1,73 @@
+//
+//  Response.swift
+//  Dollar Pizza Finder
+//
+//  Created by Brian Kasper on 6/28/18.
+//  Copyright © 2018 Brian P Kasper. All rights reserved.
+//
+
+struct Response: Codable {
+    let routes: [Route]
+}
+
+struct Route: Codable {
+    let bounds: Bounds
+    let legs: [Leg]
+}
+
+struct Bounds: Codable {
+    let northeast: Coordinate
+    let southwest: Coordinate
+}
+
+struct Coordinate: Codable {
+    let lat: Double
+    let lng: Double
+}
+
+struct Leg: Codable {
+    let arrival_time: Text
+    let departure_time: Text
+    let distance: Text
+    let duration: Text
+    let steps: [Step]
+}
+
+struct Text: Codable {
+    let text: String
+}
+
+struct Step: Codable {
+    let distance: Text
+    let duration: Text
+    let end_location: Coordinate
+    let html_instructions: String
+    let polyline: Polyline
+    let start_location: Coordinate
+    let transit_details: TransitDetails?
+    let travel_mode: String
+}
+
+struct Polyline: Codable {
+    let points: String
+}
+
+struct TransitDetails: Codable {
+    let arrival_stop: Stop
+    let arrival_time: Text
+    let departure_time: Text
+    let headsign: String
+    let line: Line
+    let num_stops: Int
+}
+
+struct Stop: Codable {
+    let location: Coordinate
+    let name: String
+}
+
+struct Line: Codable {
+    let color: String?
+    let name: String
+    
+}
