@@ -63,13 +63,16 @@ class GoogleDirections {
 
             }
             
-            // update map camera to bounds
-            let bounds = route.bounds
-            let update = GMSCameraUpdate.fit(GMSCoordinateBounds(coordinate: CLLocationCoordinate2DMake(bounds.northeast.lat, bounds.northeast.lng), coordinate: CLLocationCoordinate2DMake(bounds.southwest.lat, bounds.southwest.lng)))
-            map.moveCamera(update)
-        
+            self.updateCamera(map: map, route: route)
         }
         
+    }
+    
+    // update map camera to bounds
+    func updateCamera(map: GMSMapView, route: Route) {
+        let bounds = route.bounds
+        let update = GMSCameraUpdate.fit(GMSCoordinateBounds(coordinate: CLLocationCoordinate2DMake(bounds.northeast.lat, bounds.northeast.lng), coordinate: CLLocationCoordinate2DMake(bounds.southwest.lat, bounds.southwest.lng)))
+        map.moveCamera(update)
     }
     
     // changes hex string to UI Color for polyline

@@ -42,11 +42,6 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        // initialize buttons
-        self.backBtn.isHidden = true
-        self.nextBtn.setTitle("Start", for: .normal)
-        self.nextBtn.backgroundColor = .blue
-        
         // add title to view controller
         self.title = "Directions to " + destination_name
         
@@ -57,7 +52,7 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
         self.manager.startUpdatingLocation()  // update current location
         
         // initialize counter
-        self.step = 0
+        self.step = -1
         
         // find coordinates from street address
         self.getDestination() { (destination) -> () in
@@ -75,16 +70,9 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
             // add directions to map
             directions.addPolyline(map: self.map)
             
-            // set info for overview
-            directions.getDirections() { (route) -> () in
-                
-                self.directionsLabel.text = "Route to " + self.destination_name
-                self.distanceLabel.text = route.legs.first?.distance.text
-                self.durationLabel.text = route.legs.first?.duration.text
-                
-            }
-            
         }
+        
+        self.setOverview()
     }
     
     // fetches destination coordinate from address string
@@ -118,6 +106,9 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
     // when start/next button is tapped
     @IBAction func nextAction(_ sender: Any) {
         
+        // increment step
+        self.step = self.step + 1
+        
         // if overview is showing then set up buttons for directions
         if self.step == 0 {
             self.backBtn.isHidden = false
@@ -128,9 +119,47 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
         // update information
         self.setDirections(num: self.step)
         
-        // increment step
-        self.step = self.step + 1
+    }
+    
+    // when back button is tapped
+    @IBAction func backAction(_ sender: Any) {
         
+        // if next button is hidden then show it again
+        if self.nextBtn.isHidden {
+            self.nextBtn.isHidden = false
+        }
+        
+        // if on initial step, revert to overview
+        if self.step > 0 {
+            // decrement step
+            self.step = self.step - 1
+            
+            self.setDirections(num: self.step)
+        } else {
+            self.setOverview()
+        }
+        
+        
+    }
+    
+    // set info for overview
+    func setOverview() {
+        
+        self.backBtn.isHidden = true
+        self.nextBtn.backgroundColor = .blue
+        self.nextBtn.setTitle("Start", for: .normal)
+        
+        self.getDirections() { (directions) -> () in
+            directions.getDirections() { (route) -> () in
+                
+                directions.updateCamera(map: self.map, route: route)
+                
+                self.directionsLabel.text = "Route to " + self.destination_name
+                self.distanceLabel.text = route.legs.first?.distance.text
+                self.durationLabel.text = route.legs.first?.duration.text
+                
+            }
+        }
     }
     
     // set directions info for given step
@@ -159,7 +188,7 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
                 }
                 
                 // update directions label and hide the next button on last step
-                if self.step == steps.count {
+                if self.step == (steps.count - 1) {
                     self.directionsLabel.text = "Walk to " + self.destination_name
                     self.nextBtn.isHidden = true
                 } else {

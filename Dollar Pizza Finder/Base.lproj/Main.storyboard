@@ -213,6 +213,9 @@
                                 <state key="normal" title="Previous">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="backAction:" destination="Rea-h0-4Ke" eventType="touchUpInside" id="MEB-u5-H4N"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s58-H9-xke">
                                 <rect key="frame" x="199" y="629" width="160" height="30"/>
