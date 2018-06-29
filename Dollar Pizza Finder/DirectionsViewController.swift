@@ -141,6 +141,11 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
                 // get current step
                 let step = steps[num]
                 
+                // zoom map to step
+                let start = CLLocationCoordinate2DMake(step.start_location.lat, step.start_location.lng)
+                let end = CLLocationCoordinate2DMake(step.end_location.lat, step.end_location.lng)
+                self.map.moveCamera(GMSCameraUpdate.fit(GMSCoordinateBounds(coordinate: start, coordinate: end)))
+                
                 // update duration
                 self.durationLabel.text = step.duration.text
                 
