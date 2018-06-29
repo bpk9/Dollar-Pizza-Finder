@@ -111,10 +111,13 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
         self.step = self.step + 1
         
         // if overview is showing then set up buttons for directions
-        if self.step == 0 {
+        if self.backBtn.isHidden {
             self.backBtn.isHidden = false
-            self.nextBtn.backgroundColor = .green
+        }
+        
+        if self.nextBtn.currentTitle == "Start" {
             self.nextBtn.setTitle("Next", for: .normal)
+            self.nextBtn.backgroundColor = .green
         }
         
         // update information
@@ -125,18 +128,21 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
     // when back button is tapped
     @IBAction func backAction(_ sender: Any) {
         
+        // decrement step
+        self.step = self.step - 1
+        
         // if next button is hidden then show it again
-        if self.nextBtn.isHidden {
+        if self.nextBtn.isHidden || self.nextBtn.currentTitle == "Start" {
             self.nextBtn.isHidden = false
+            self.nextBtn.setTitle("Next", for: .normal)
+            self.nextBtn.backgroundColor = .green
         }
         
         // if on initial step, revert to overview
         if self.step > 0 {
-            // decrement step
-            self.step = self.step - 1
-            
             self.setDirections(num: self.step)
         } else {
+            self.step = 0
             self.setOverview()
         }
         
