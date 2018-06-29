@@ -13,7 +13,7 @@ import Firebase
 import GoogleMaps
 import GooglePlaces
 
-class HomeViewController: UIViewController, CLLocationManagerDelegate {
+class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
     
     // google map view
     @IBOutlet var map: GMSMapView!
@@ -38,11 +38,13 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         self.manager.requestWhenInUseAuthorization() // get permission
         self.manager.startUpdatingLocation()  // update current location
         
+        // set up google map view
+        self.map.delegate = self
+        
         // update UI
         self.getClosest() { (place) -> () in
             self.updateMap(place: place)
-            self.updateInfo(place: place)
-            self.updatePhoto(id: place.placeID)
+            self.updateUI(place: place)
         }
         
     }
@@ -68,6 +70,12 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         
     }
     
+    // update up given a place
+    func updateUI(place: GMSPlace) {
+        self.updateInfo(place: place)
+        self.updatePhoto(id: place.placeID)
+    }
+    
     // allows for access to closest pizza place
     func getClosest(completion: @escaping (GMSPlace) -> ()) {
         
@@ -83,29 +91,46 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
             let closestLong = children[0].childSnapshot(forPath: "longitude").value as? Double ?? 0.0
             var closestDistance = self.distance(location: CLLocationCoordinate2D(latitude: closestLat, longitude: closestLong))
             
+            // add first marker to map
+            let marker = GMSMarker()
+            marker.title = String(children[0].key.split(separator: "-")[0])
+            marker.position = CLLocationCoordinate2DMake(closestLat, closestLong)
+            marker.map = self.map
+            
+            // loop through rest of places to see if any are closer
             for child in children.dropFirst() {
+                
+                // get info from database
                 let placeLat = child.childSnapshot(forPath: "latitude").value as? Double ?? 0.0
                 let placeLon = child.childSnapshot(forPath: "longitude").value as? Double ?? 0.0
                 let placeCoordinate = CLLocationCoordinate2D(latitude: placeLat, longitude: placeLon)
                 let placeDistance = self.distance(location: placeCoordinate)
+                
+                // add marker to map
+                let marker = GMSMarker()
+                marker.title = String(child.key.split(separator: "-")[0])
+                marker.position = CLLocationCoordinate2DMake(placeLat, placeLon)
+                marker.map = self.map
+                
+                // check if its closer than the current closest place
                 if placeDistance < closestDistance {
                     let placeId = child.childSnapshot(forPath: "placeId").value as? String ?? ""
                     closestId = placeId
                     closestDistance = placeDistance
+                    self.map.selectedMarker = marker
                 }
             }
             
             // Loop up closest info by id
-            GMSPlacesClient.shared().lookUpPlaceID(closestId, callback: { (place, error) -> Void in
-                if let error = error {
-                    print("lookup place id query error: \(error.localizedDescription)")
-                    return
-                }
-                
-                if let place = place {
-                    completion(place)
-                }
-            })
+            self.lookUpPlace(placeId: closestId) { (place) -> () in
+                completion(place)
+            }
+        })
+    }
+    
+    func lookUpPlace(placeId: String, completion: @escaping (GMSPlace) -> ()) {
+        GMSPlacesClient.shared().lookUpPlaceID(placeId, callback: { (place, error) -> Void in
+                completion(place!)
         })
     }
     
@@ -113,7 +138,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     func updateMap(place: GMSPlace) {
         
         // zoom to coordinate and show current location
-        self.map.camera = GMSCameraPosition.camera(withTarget: place.coordinate, zoom: 17)
+        self.map.camera = GMSCameraPosition.camera(withTarget: place.coordinate, zoom: 10)
         self.map.isMyLocationEnabled = true
         
         // add pin to map
@@ -163,6 +188,35 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
                 }
             }
         }
+    }
+    
+    // called when marker is tapped
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        
+        // show as selected
+        self.map.selectedMarker = marker
+        
+        // find placeid in database
+        Database.database().reference().child("locations").observeSingleEvent(of: .value, with: { (snapshot) in
+          
+            for child in snapshot.children.allObjects as! [DataSnapshot] {
+                
+                if marker.title == String(child.key.split(separator: "-")[0]) {
+                    if Double(marker.position.latitude) == child.childSnapshot(forPath: "latitude").value as? Double && Double(marker.position.longitude) == child.childSnapshot(forPath: "longitude").value as? Double {
+                        self.lookUpPlace(placeId: child.childSnapshot(forPath: "placeId").value as! String) { (place) -> () in
+                            
+                            self.updateUI(place: place)
+                            
+                        }
+                    }
+                }
+                
+            }
+            
+        })
+        
+        return true
+        
     }
     
     // action for phone button to call pizza place
