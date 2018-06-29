@@ -139,10 +139,10 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
         }
         
         // if on initial step, revert to overview
-        if self.step > 0 {
+        if self.step >= 0 {
             self.setDirections(num: self.step)
         } else {
-            self.step = 0
+            self.step = -1
             self.setOverview()
         }
         
