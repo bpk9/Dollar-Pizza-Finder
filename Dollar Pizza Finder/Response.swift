@@ -68,6 +68,6 @@ struct Stop: Codable {
 
 struct Line: Codable {
     let color: String?
-    let name: String
+    let name: String?
     
 }

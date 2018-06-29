@@ -138,7 +138,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     func updateMap(place: GMSPlace) {
         
         // zoom to coordinate and show current location
-        self.map.camera = GMSCameraPosition.camera(withTarget: place.coordinate, zoom: 11)
+        self.map.camera = GMSCameraPosition.camera(withTarget: place.coordinate, zoom: 12)
         self.map.isMyLocationEnabled = true
         
         // add pin to map
