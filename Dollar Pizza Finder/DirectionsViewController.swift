@@ -5,13 +5,12 @@
 //  Created by Brian Kasper on 6/26/18.
 //  Copyright © 2018 Brian P Kasper. All rights reserved.
 //
-
 import UIKit
 import CoreLocation
 import GoogleMaps
 
 class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
-
+    
     // View Components
     @IBOutlet var map: GMSMapView!
     @IBOutlet var directionsLabel: UILabel!
@@ -70,9 +69,11 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
             // add directions to map
             directions.addPolyline(map: self.map)
             
+            self.setOverview()
+            
         }
         
-        self.setOverview()
+        
     }
     
     // fetches destination coordinate from address string
@@ -182,7 +183,7 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
                 if step.travel_mode == "TRANSIT" {
                     self.distanceLabel.text = String(step.transit_details!.num_stops) + " stops"
                 }
-                // else show distance in miles
+                    // else show distance in miles
                 else {
                     self.distanceLabel.text = step.distance.text
                 }

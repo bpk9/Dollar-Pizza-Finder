@@ -55,8 +55,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         // if directions button is pressed
         if let vc = segue.destination as? DirectionsViewController
         {
-            vc.destination_name = self.closestName.text
-            vc.destination_address = self.closestAddress.text
+            vc.destination_name = self.closestName.text!
+            vc.destination_address = self.closestAddress.text! + ", New York, NY"
         }
     }
     
@@ -138,7 +138,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     func updateMap(place: GMSPlace) {
         
         // zoom to coordinate and show current location
-        self.map.camera = GMSCameraPosition.camera(withTarget: place.coordinate, zoom: 10)
+        self.map.camera = GMSCameraPosition.camera(withTarget: place.coordinate, zoom: 11)
         self.map.isMyLocationEnabled = true
         
         // add pin to map
@@ -219,9 +219,24 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         
     }
     
+    // find placeid in database from name and address
+    func getCurrentPlace(completion: @escaping (GMSPlace) -> ()) {
+        Database.database().reference().child("locations").observeSingleEvent(of: .value, with: { (snapshot) in
+            for child in snapshot.children.allObjects as! [DataSnapshot] {
+                let address = child.childSnapshot(forPath: "address").value as? String
+                if self.closestAddress.text == String((address?.split(separator: ",")[0])!) {
+                    self.lookUpPlace(placeId: child.childSnapshot(forPath: "placeId").value as! String) { (place) -> () in
+                        completion(place)
+                    }
+                }
+            
+            }
+        })
+    }
+    
     // action for phone button to call pizza place
     @IBAction func callLocation(_ sender: Any) {
-        self.getClosest() { (place) -> () in
+        self.getCurrentPlace() { (place) -> () in
             let url = URL(string: "tel://\(self.getRawNum(input: place.phoneNumber!))")!
             self.openURL(url: url)
         }
@@ -229,7 +244,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     
     // action for website button to open URL
     @IBAction func visitWebsite(_ sender: Any) {
-        self.getClosest() { (place) -> () in
+        self.getCurrentPlace() { (place) -> () in
             self.openURL(url: place.website!)
         }
     }
