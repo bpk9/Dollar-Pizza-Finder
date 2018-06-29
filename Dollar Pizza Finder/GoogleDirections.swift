@@ -76,14 +76,6 @@ class GoogleDirections {
         
     }
     
-    func addDirections(table: UITableView) {
-        self.getDirections() { response in
-
-            
-            
-        }
-    }
-    
     // changes hex string to UI Color for polyline
     func hexStringToUIColor(hex:String) -> UIColor {
         var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()

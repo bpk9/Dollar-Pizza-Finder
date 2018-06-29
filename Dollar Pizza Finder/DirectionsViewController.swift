@@ -11,10 +11,9 @@ import CoreLocation
 import GoogleMaps
 
 class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
-    
+
     // View Components
     @IBOutlet var map: GMSMapView!
-    @IBOutlet var directionsTable: UITableView!
     
     // manages current location services
     let manager = CLLocationManager()
@@ -24,8 +23,8 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
     var destination_name: String! = ""
     var destination_address: String! = ""
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         // add title to view controller
         self.title = "Directions to " + destination_name
@@ -53,8 +52,11 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
             marker.map = self.map
             self.map.selectedMarker = marker
             
+            // set up google directions
+            let directions = GoogleDirections(origin: self.currentLocation.coordinate, destination: destination, mode: "transit")
+            
             // add directions to map
-            self.addDirections(destination: destination)
+            directions.addPolyline(map: self.map)
             
         }
     }
@@ -65,12 +67,6 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
         // update current location
         self.currentLocation = locations.last
         
-    }
-    
-    // draw directions line on map
-    func addDirections(destination: CLLocationCoordinate2D) {
-        let directions = GoogleDirections(origin: currentLocation.coordinate, destination: destination, mode: "transit")
-        directions.addPolyline(map: map)
     }
     
 }
