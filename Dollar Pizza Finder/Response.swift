@@ -26,8 +26,8 @@ struct Coordinate: Codable {
 }
 
 struct Leg: Codable {
-    let arrival_time: Text
-    let departure_time: Text
+    let arrival_time: Text?
+    let departure_time: Text?
     let distance: Text
     let duration: Text
     let steps: [Step]

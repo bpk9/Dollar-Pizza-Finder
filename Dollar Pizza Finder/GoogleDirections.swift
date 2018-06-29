@@ -20,10 +20,6 @@ class GoogleDirections {
         
        self.url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin.latitude),\(origin.longitude)&destination=\(destination.latitude),\(destination.longitude)&mode=\(mode)&key=\(apikey)"
         
-        self.getDirections() { (directions) -> () in
-            
-        }
-        
     }
     
     func getDirections(completion: @escaping (Route) -> ()) {
@@ -99,4 +95,13 @@ class GoogleDirections {
         )
     }
     
+    func getSteps(completion: @escaping ([Step]) -> ()) {
+        
+        self.getDirections() { (route) -> () in
+        
+            completion(route.legs.first!.steps)
+            
+        }
+    
+    }
 }
