@@ -156,6 +156,8 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
         self.nextBtn.backgroundColor = .blue
         self.nextBtn.setTitle("Start", for: .normal)
         
+        self.directionsPic.image = UIImage(named: "Launch.png")
+        
         self.getDirections() { (directions) -> () in
             directions.getDirections() { (route) -> () in
                 
@@ -188,10 +190,19 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
                 // if travel mode is transit show num of stops
                 if step.travel_mode == "TRANSIT" {
                     self.distanceLabel.text = String(step.transit_details!.num_stops) + " stops"
-                }
-                    // else show distance in miles
-                else {
+                    
+                    // try to set image for train line
+                    if let line = step.transit_details?.line.icon {
+                        self.setDirectionsPic(path: line)
+                    } else if let icon = step.transit_details?.line.vehicle.icon {
+                        self.setDirectionsPic(path: icon)
+                    } else {
+                        self.directionsPic.image = UIImage(named: "train-logo.png")
+                    }
+                    
+                } else {
                     self.distanceLabel.text = step.distance.text
+                    self.directionsPic.image = UIImage(named: "walking.png")
                 }
                 
                 // update directions label and hide the next button on last step
@@ -204,6 +215,12 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
                 
             }
         }
+    }
+    
+    func setDirectionsPic(path: String) {
+        let url = URL(string: "https:" + path)
+        let data = try? Data(contentsOf: url!)
+        self.directionsPic.image = UIImage(data: data!)
     }
     
 }

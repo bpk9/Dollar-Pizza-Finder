@@ -69,5 +69,12 @@ struct Stop: Codable {
 struct Line: Codable {
     let color: String?
     let name: String?
-    
+    let short_name: String?
+    let vehicle: Vehicle
+    let icon: String?
+}
+
+struct Vehicle: Codable {
+    let icon: String?
+    let name: String
 }
