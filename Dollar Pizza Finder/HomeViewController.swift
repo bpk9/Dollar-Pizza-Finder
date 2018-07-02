@@ -40,12 +40,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         
         // set up google map view
         self.map.delegate = self
-        
-        // update UI
-        self.getClosest() { (place) -> () in
-            self.updateMap(place: place)
-            self.updateUI(place: place)
-        }
+        self.map.isMyLocationEnabled = true
+        self.loadPlaces()
         
     }
     
@@ -68,6 +64,34 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
 
         self.manager.stopUpdatingLocation() // stop updating location
         
+    }
+    
+    // load locations from database onto google map
+    func loadPlaces() {
+        // load locations snapshot from database
+        Database.database().reference().child("locations").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            // loop through all locations
+            for location in snapshot.children.allObjects as! [DataSnapshot] {
+                let placeId = location.childSnapshot(forPath: "placeId").value as? String ?? ""
+                
+                // fetch place information from google places
+                GMSPlacesClient.shared().lookUpPlaceID(placeId, callback: { (place, error) -> Void in
+                    
+                    // if place is found
+                    if let data = place {
+                        DispatchQueue.main.async(execute: {
+                            
+                            // add place marker to map
+                            let marker = GMSMarker()
+                            marker.position = data.coordinate
+                            marker.map = self.map
+                            marker.userData = data
+                        })
+                    }
+                })
+            }
+        })
     }
     
     // update up given a place
@@ -100,6 +124,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
             // loop through rest of places to see if any are closer
             for child in children.dropFirst() {
                 
+                
+                
                 // get info from database
                 let placeLat = child.childSnapshot(forPath: "latitude").value as? Double ?? 0.0
                 let placeLon = child.childSnapshot(forPath: "longitude").value as? Double ?? 0.0
@@ -110,6 +136,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
                 let marker = GMSMarker()
                 marker.title = String(child.key.split(separator: "-")[0])
                 marker.position = CLLocationCoordinate2DMake(placeLat, placeLon)
+                marker.userData = child
                 marker.map = self.map
                 
                 // check if its closer than the current closest place
@@ -217,6 +244,19 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         
         return true
         
+    }
+    
+    // add info window to marker when selected
+    func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
+        
+        if let infoView = MapMarkerView.instanceFromNib() as? MapMarkerView {
+            
+            
+            
+            return infoView
+        } else {
+            return nil
+        }
     }
     
     // find placeid in database from name and address
