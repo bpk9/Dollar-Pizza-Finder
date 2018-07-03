@@ -26,7 +26,7 @@ class GoogleDirections {
         Alamofire.request(self.url).responseJSON { response in
             
             let decoder = JSONDecoder()
-            let directions = try! decoder.decode(Response.self, from: response.data!)
+            let directions = try! decoder.decode(DirectionsResponse.self, from: response.data!)
             
             completion(directions.routes.first!)
             

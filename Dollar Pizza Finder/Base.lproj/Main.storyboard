@@ -54,19 +54,20 @@
                                     <outlet property="delegate" destination="8FM-FN-4Eu" id="aPL-0b-F5Y"/>
                                 </connections>
                             </searchBar>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VwG-mv-3Jn" customClass="GMSMapView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VwG-mv-3Jn" customClass="GMSMapView">
                                 <rect key="frame" x="0.0" y="120" width="375" height="547"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="zMC-yG-xDV" firstAttribute="trailing" secondItem="VwG-mv-3Jn" secondAttribute="trailing" id="EOX-Ai-k1c"/>
-                            <constraint firstItem="VwG-mv-3Jn" firstAttribute="top" secondItem="zMC-yG-xDV" secondAttribute="bottom" id="Jxx-tR-GzI"/>
-                            <constraint firstItem="zMC-yG-xDV" firstAttribute="top" secondItem="14I-Yl-KGB" secondAttribute="top" id="Tti-lB-He0"/>
-                            <constraint firstAttribute="trailing" secondItem="zMC-yG-xDV" secondAttribute="trailing" id="swm-5T-mLO"/>
-                            <constraint firstItem="zMC-yG-xDV" firstAttribute="leading" secondItem="Hpf-LO-O6L" secondAttribute="leading" id="tZF-OH-cYM"/>
-                            <constraint firstItem="zMC-yG-xDV" firstAttribute="leading" secondItem="VwG-mv-3Jn" secondAttribute="leading" id="wun-G5-yMA"/>
+                            <constraint firstItem="VwG-mv-3Jn" firstAttribute="top" secondItem="zMC-yG-xDV" secondAttribute="bottom" id="5cJ-Gt-VyZ"/>
+                            <constraint firstItem="zMC-yG-xDV" firstAttribute="trailing" secondItem="VwG-mv-3Jn" secondAttribute="trailing" id="7Kc-Jb-3Gm"/>
+                            <constraint firstItem="VwG-mv-3Jn" firstAttribute="bottom" secondItem="14I-Yl-KGB" secondAttribute="bottom" id="UP3-Pp-byw"/>
+                            <constraint firstItem="zMC-yG-xDV" firstAttribute="leading" secondItem="VwG-mv-3Jn" secondAttribute="leading" id="VcC-d1-lQm"/>
+                            <constraint firstItem="zMC-yG-xDV" firstAttribute="leading" secondItem="Hpf-LO-O6L" secondAttribute="leading" id="ZBD-Zv-tNn"/>
+                            <constraint firstAttribute="trailing" secondItem="zMC-yG-xDV" secondAttribute="trailing" id="aZb-in-HOY"/>
+                            <constraint firstItem="zMC-yG-xDV" firstAttribute="top" secondItem="14I-Yl-KGB" secondAttribute="top" id="wVF-YN-cIB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="14I-Yl-KGB"/>
                     </view>
@@ -127,13 +128,13 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch" translatesAutoresizingMaskIntoConstraints="NO" id="2hD-64-DHD">
-                                <rect key="frame" x="16" y="565" width="60" height="57"/>
+                                <rect key="frame" x="16" y="565" width="60" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="MXV-Sg-fcs"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00 hr 00 min" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="678-Fm-OKW">
-                                <rect key="frame" x="239" y="607" width="120" height="15"/>
+                                <rect key="frame" x="239" y="607" width="120" height="14"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>

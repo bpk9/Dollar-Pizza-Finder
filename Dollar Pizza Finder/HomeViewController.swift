@@ -22,6 +22,9 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     let manager = CLLocationManager()
     var currentLocation: CLLocation! // current location
     
+    // manages loaded pizza locations
+    var markers: [GMSMarker] = []
+    
     // info for closest place
     @IBOutlet var closestName: UILabel!
     @IBOutlet var closestAddress: UILabel!
@@ -41,7 +44,17 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         // set up google map view
         self.map.delegate = self
         self.map.isMyLocationEnabled = true
-        self.loadPlaces()
+        
+        // load info from database
+        self.loadDatabase() { (snapshots) -> () in
+            for snap in snapshots {
+                if let id = snap.childSnapshot(forPath: "placeId").value as? String {
+                    GooglePlace.lookUpPlace(placeId: id) { (place) -> () in
+                        print(place.formatted_address)
+                    }
+                }
+            }
+        }
         
     }
     
@@ -67,37 +80,17 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     }
     
     // load locations from database onto google map
-    func loadPlaces() {
+    func loadDatabase(completion: @escaping ([DataSnapshot]) -> ()) {
         // load locations snapshot from database
         Database.database().reference().child("locations").observeSingleEvent(of: .value, with: { (snapshot) in
-            
-            // loop through all locations
-            for location in snapshot.children.allObjects as! [DataSnapshot] {
-                let placeId = location.childSnapshot(forPath: "placeId").value as? String ?? ""
-                
-                // fetch place information from google places
-                GMSPlacesClient.shared().lookUpPlaceID(placeId, callback: { (place, error) -> Void in
-                    
-                    // if place is found
-                    if let data = place {
-                        DispatchQueue.main.async(execute: {
-                            
-                            // add place marker to map
-                            let marker = GMSMarker()
-                            marker.position = data.coordinate
-                            marker.map = self.map
-                            marker.userData = data
-                        })
-                    }
-                })
-            }
+            completion(snapshot.children.allObjects as! [DataSnapshot])
         })
     }
     
     // update up given a place
     func updateUI(place: GMSPlace) {
         self.updateInfo(place: place)
-        self.updatePhoto(id: place.placeID)
+        //self.updatePhoto(id: place.placeID)
     }
     
     // allows for access to closest pizza place
@@ -185,7 +178,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         let address = String(place.formattedAddress!.split(separator: ",")[0])
         self.closestAddress.text = address
         
-        self.closestStars.text = self.starString(rating: place.rating)
+        //self.closestStars.text = self.starString(rating: place.rating)
         
         let directions = GoogleDirections(origin: self.currentLocation.coordinate, destination: place.coordinate, mode: "transit")
         directions.getDirections() { (route) -> () in
@@ -193,28 +186,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
             self.directionsBtn.setTitle("Directions -- " + text!, for: .normal)
         }
         
-    }
-    
-    // updates photo for closest pizza place
-    func updatePhoto(id: String) {
-        GMSPlacesClient.shared().lookUpPhotos(forPlaceID: id) { (photos, error) -> Void in
-            if let error = error {
-                // TODO: handle the error.
-                print("Error: \(error.localizedDescription)")
-            } else {
-                if let firstPhoto = photos?.results.first {
-                    GMSPlacesClient.shared().loadPlacePhoto(firstPhoto, callback: {
-                        (photo, error) -> Void in
-                        if let error = error {
-                            // TODO: handle the error.
-                            print("Error: \(error.localizedDescription)")
-                        } else {
-                            self.closestPic.image = photo
-                        }
-                    })
-                }
-            }
-        }
     }
     
     // called when marker is tapped
@@ -251,7 +222,10 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         
         if let infoView = MapMarkerView.instanceFromNib() as? MapMarkerView {
             
-            
+            if let location = marker.userData as? GMSPlace {
+                infoView.place = location
+                infoView.loadUI()
+            }
             
             return infoView
         } else {
@@ -292,15 +266,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     // Get Distance in Miles
     func distance(location: CLLocationCoordinate2D) -> Double {
         return Double(self.currentLocation.distance(from: CLLocation(latitude: location.latitude, longitude: location.longitude)) * 0.000621371)
-    }
-    
-    // Converts rating value to string with stars
-    func starString(rating: Float) -> String {
-        var output = String()
-        for _ in 0 ..< Int(round(rating)) {
-            output += "★"
-        }
-        return output + String(format: " %.1f", rating)
     }
     
     // only retrive digits from phone number

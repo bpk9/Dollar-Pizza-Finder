@@ -6,7 +6,7 @@
 //  Copyright © 2018 Brian P Kasper. All rights reserved.
 //
 
-struct Response: Codable {
+struct DirectionsResponse: Codable {
     let routes: [Route]
 }
 
