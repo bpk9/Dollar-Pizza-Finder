@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import GooglePlaces
 
 protocol MapMarkerDelegate: class {
     func didTapDirectionsButton(id: String)
@@ -27,7 +26,7 @@ class MapMarkerView: UIView {
     
     // instance variables
     var delegate: MapMarkerDelegate?
-    var place: GMSPlace?
+    var place: Place?
     
     // init function
     class func instanceFromNib() -> UIView {
@@ -38,20 +37,19 @@ class MapMarkerView: UIView {
     func loadUI() {
         if let location = self.place {
             self.name.text = location.name
-            self.address.text = String((location.formattedAddress?.split(separator: ",")[0])!)
+            self.address.text = String(location.formatted_address.split(separator: ",")[0])
             self.rating.text = starString(rating: location.rating)
-            self.updatePhoto(id: location.placeID)
         }
         
     }
     
     @IBAction func directionsAction(_ sender: Any) {
-        delegate?.didTapDirectionsButton(id: place!.placeID)
+        delegate?.didTapDirectionsButton(id: place!.place_id)
     }
 
     
     @IBAction func phoneAction(_ sender: Any) {
-        if let phoneNumber = place?.phoneNumber {
+        if let phoneNumber = place?.formatted_phone_number {
             delegate?.didTapPhoneButton(number: phoneNumber)
         } else {
             print("No phone number found")
@@ -59,7 +57,7 @@ class MapMarkerView: UIView {
     }
     
     @IBAction func websiteAction(_ sender: Any) {
-        if let website = place?.website {
+        if let website = URL(string: (place?.website)!) {
             delegate?.didTapWebsiteButton(url: website)
         } else {
             print("No website found")
@@ -67,7 +65,7 @@ class MapMarkerView: UIView {
     }
     
     // Converts rating value to string with stars
-    func starString(rating: Float) -> String {
+    func starString(rating: Double) -> String {
         var output = String()
         for _ in 0 ..< Int(round(rating)) {
             output += "★"
@@ -75,15 +73,4 @@ class MapMarkerView: UIView {
         return output + String(format: " %.1f", rating)
     }
     
-    // updates photo for closest pizza place
-    func updatePhoto(id: String) {
-        GMSPlacesClient.shared().lookUpPhotos(forPlaceID: id) { (photos, error) -> Void in
-            if let firstPhoto = photos?.results.first {
-                GMSPlacesClient.shared().loadPlacePhoto(firstPhoto, callback: {
-                    (photo, error) -> Void in
-                    self.image.image = photo
-                })
-            }
-        }
-    }
 }

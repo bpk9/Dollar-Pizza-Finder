@@ -11,7 +11,7 @@ struct PlacesResponse: Codable {
 }
 
 struct Place: Codable {
-    let address_components: [AddressComponents]
+    let name: String
     let formatted_address: String
     let formatted_phone_number: String?
     let geometry: Geometry
@@ -20,12 +20,6 @@ struct Place: Codable {
     let rating: Double
     let website: String?
     let opening_hours: Hours?
-}
-
-struct AddressComponents: Codable {
-    let long_name: String
-    let short_name: String
-    let types: [String]
 }
 
 struct Geometry: Codable {

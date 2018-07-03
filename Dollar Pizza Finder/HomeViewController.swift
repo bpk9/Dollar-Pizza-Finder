@@ -21,16 +21,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     // manages current location services
     let manager = CLLocationManager()
     var currentLocation: CLLocation! // current location
-    
-    // manages loaded pizza locations
-    var markers: [GMSMarker] = []
-    
-    // info for closest place
-    @IBOutlet var closestName: UILabel!
-    @IBOutlet var closestAddress: UILabel!
-    @IBOutlet var closestStars: UILabel!
-    @IBOutlet var closestPic: UIImageView!
-    @IBOutlet var directionsBtn: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,14 +36,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         self.map.isMyLocationEnabled = true
         
         // load info from database
-        self.loadDatabase() { (snapshots) -> () in
-            for snap in snapshots {
-                if let id = snap.childSnapshot(forPath: "placeId").value as? String {
-                    GooglePlace.lookUpPlace(placeId: id) { (place) -> () in
-                        print(place.formatted_address)
-                    }
-                }
-            }
+        FirebaseHelper.getData() { (locations) -> () in
+            self.addLocations(locations: locations)
         }
         
     }
@@ -64,8 +48,9 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         // if directions button is pressed
         if let vc = segue.destination as? DirectionsViewController
         {
-            vc.destination_name = self.closestName.text!
-            vc.destination_address = self.closestAddress.text! + ", New York, NY"
+            let place = self.map.selectedMarker?.userData as! Location
+            
+            vc.destination_name = place.placeId
         }
     }
     
@@ -87,71 +72,47 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         })
     }
     
-    // update up given a place
-    func updateUI(place: GMSPlace) {
-        self.updateInfo(place: place)
-        //self.updatePhoto(id: place.placeID)
-    }
-    
-    // allows for access to closest pizza place
-    func getClosest(completion: @escaping (GMSPlace) -> ()) {
+    // add locations from database to map while also checking for closest place
+    func addLocations(locations: [Location]) {
         
-        // Read Location Data from Database
-        Database.database().reference().child("locations").observeSingleEvent(of: .value, with: { (snapshot) in
-            
-            // Database list of places
-            let children = snapshot.children.allObjects as! [DataSnapshot]
-            
-            // Variable for closest pizza place initialized as first location in list
-            var closestId = children[0].childSnapshot(forPath: "placeId").value as? String ?? ""
-            let closestLat = children[0].childSnapshot(forPath: "latitude").value as? Double ?? 0.0
-            let closestLong = children[0].childSnapshot(forPath: "longitude").value as? Double ?? 0.0
-            var closestDistance = self.distance(location: CLLocationCoordinate2D(latitude: closestLat, longitude: closestLong))
-            
-            // add first marker to map
-            let marker = GMSMarker()
-            marker.title = String(children[0].key.split(separator: "-")[0])
-            marker.position = CLLocationCoordinate2DMake(closestLat, closestLong)
-            marker.map = self.map
-            
-            // loop through rest of places to see if any are closer
-            for child in children.dropFirst() {
-                
-                
-                
-                // get info from database
-                let placeLat = child.childSnapshot(forPath: "latitude").value as? Double ?? 0.0
-                let placeLon = child.childSnapshot(forPath: "longitude").value as? Double ?? 0.0
-                let placeCoordinate = CLLocationCoordinate2D(latitude: placeLat, longitude: placeLon)
-                let placeDistance = self.distance(location: placeCoordinate)
-                
-                // add marker to map
-                let marker = GMSMarker()
-                marker.title = String(child.key.split(separator: "-")[0])
-                marker.position = CLLocationCoordinate2DMake(placeLat, placeLon)
-                marker.userData = child
-                marker.map = self.map
-                
-                // check if its closer than the current closest place
-                if placeDistance < closestDistance {
-                    let placeId = child.childSnapshot(forPath: "placeId").value as? String ?? ""
-                    closestId = placeId
-                    closestDistance = placeDistance
-                    self.map.selectedMarker = marker
-                }
+        var closest: GMSMarker!
+        
+        // initialize closest marker as first place
+        closest = self.addMarker(location: locations.first!)
+        
+        // if any other places are closer then have that be the selected marker
+        for location in locations.dropFirst() {
+            let marker = self.addMarker(location: location)
+            if self.distance(marker: marker) < self.distance(marker: closest) {
+                closest = marker
             }
-            
-            // Loop up closest info by id
-            self.lookUpPlace(placeId: closestId) { (place) -> () in
-                completion(place)
-            }
-        })
+        }
+        
+        // init selected marker as closest place
+        self.map.selectedMarker = closest
     }
     
-    func lookUpPlace(placeId: String, completion: @escaping (GMSPlace) -> ()) {
-        GMSPlacesClient.shared().lookUpPlaceID(placeId, callback: { (place, error) -> Void in
-                completion(place!)
-        })
+    // look up place from place id in snapshot
+    func getPlace(data: DataSnapshot, completion: @escaping (Place) -> ()) {
+        let placeId = data.childSnapshot(forPath: "placeId").value as? String ?? ""
+        GooglePlace.lookUpPlace(placeId: placeId) { (place) -> () in
+            completion(place)
+        }
+    }
+    
+    // add marker to google map and return marker
+    func addMarker(location: Location) -> GMSMarker {
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2DMake(location.lat, location.lng)
+        marker.userData = location
+        marker.map = self.map
+        return marker
+    }
+    
+    // get CLLocationCoordinate2D from place
+    func getCoordinate(place: Place) -> CLLocationCoordinate2D {
+        let coordinate = place.geometry.location
+        return CLLocationCoordinate2DMake(coordinate.lat, coordinate.lng)
     }
     
     // update google map to be centered on coordinate
@@ -171,47 +132,10 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         self.map.selectedMarker = marker
     }
     
-    // updates info on closest pizza place
-    func updateInfo(place: GMSPlace) {
-        self.closestName.text = place.name
-        
-        let address = String(place.formattedAddress!.split(separator: ",")[0])
-        self.closestAddress.text = address
-        
-        //self.closestStars.text = self.starString(rating: place.rating)
-        
-        let directions = GoogleDirections(origin: self.currentLocation.coordinate, destination: place.coordinate, mode: "transit")
-        directions.getDirections() { (route) -> () in
-            let text = route.legs.first?.duration.text
-            self.directionsBtn.setTitle("Directions -- " + text!, for: .normal)
-        }
-        
-    }
-    
     // called when marker is tapped
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
-        // show as selected
         self.map.selectedMarker = marker
-        
-        // find placeid in database
-        Database.database().reference().child("locations").observeSingleEvent(of: .value, with: { (snapshot) in
-          
-            for child in snapshot.children.allObjects as! [DataSnapshot] {
-                
-                if marker.title == String(child.key.split(separator: "-")[0]) {
-                    if Double(marker.position.latitude) == child.childSnapshot(forPath: "latitude").value as? Double && Double(marker.position.longitude) == child.childSnapshot(forPath: "longitude").value as? Double {
-                        self.lookUpPlace(placeId: child.childSnapshot(forPath: "placeId").value as! String) { (place) -> () in
-                            
-                            self.updateUI(place: place)
-                            
-                        }
-                    }
-                }
-                
-            }
-            
-        })
         
         return true
         
@@ -220,11 +144,15 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     // add info window to marker when selected
     func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
         
+        self.map.camera = GMSCameraPosition.camera(withTarget: marker.position, zoom: 17)
+        
         if let infoView = MapMarkerView.instanceFromNib() as? MapMarkerView {
             
-            if let location = marker.userData as? GMSPlace {
-                infoView.place = location
-                infoView.loadUI()
+            if let location = marker.userData as? Location {
+                GooglePlace.lookUpPlace(placeId: location.placeId) { (place) in
+                    infoView.place = place
+                    infoView.loadUI()
+                }
             }
             
             return infoView
@@ -233,39 +161,26 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         }
     }
     
-    // find placeid in database from name and address
-    func getCurrentPlace(completion: @escaping (GMSPlace) -> ()) {
-        Database.database().reference().child("locations").observeSingleEvent(of: .value, with: { (snapshot) in
-            for child in snapshot.children.allObjects as! [DataSnapshot] {
-                let address = child.childSnapshot(forPath: "address").value as? String
-                if self.closestAddress.text == String((address?.split(separator: ",")[0])!) {
-                    self.lookUpPlace(placeId: child.childSnapshot(forPath: "placeId").value as! String) { (place) -> () in
-                        completion(place)
-                    }
-                }
-            
-            }
-        })
-    }
     
     // action for phone button to call pizza place
     @IBAction func callLocation(_ sender: Any) {
-        self.getCurrentPlace() { (place) -> () in
+        /*self.getCurrentPlace() { (place) -> () in
             let url = URL(string: "tel://\(self.getRawNum(input: place.phoneNumber!))")!
             self.openURL(url: url)
-        }
+        }*/
     }
     
     // action for website button to open URL
     @IBAction func visitWebsite(_ sender: Any) {
-        self.getCurrentPlace() { (place) -> () in
-            self.openURL(url: place.website!)
-        }
+        //self.getCurrentPlace() { (place) -> () in
+        //    self.openURL(url: place.website!)
+        //}
     }
     
     // Get Distance in Miles
-    func distance(location: CLLocationCoordinate2D) -> Double {
-        return Double(self.currentLocation.distance(from: CLLocation(latitude: location.latitude, longitude: location.longitude)) * 0.000621371)
+    func distance(marker: GMSMarker) -> Double {
+        let location = marker.userData as! Location
+        return Double(self.currentLocation.distance(from: CLLocation(latitude: location.lat, longitude: location.lng)))
     }
     
     // only retrive digits from phone number
