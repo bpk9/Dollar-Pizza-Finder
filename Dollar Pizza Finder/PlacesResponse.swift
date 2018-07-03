@@ -11,5 +11,39 @@ struct PlacesResponse: Codable {
 }
 
 struct Place: Codable {
+    let address_components: [AddressComponents]
     let formatted_address: String
+    let formatted_phone_number: String
+    let geometry: Geometry
+    let icon: String
+    let place_id: String
+    let rating: Double
+    let website: String
+    let opening_hours: Hours?
+    let permantly_closed: Bool
+}
+
+struct AddressComponents: Codable {
+    let long_name: String
+    let short_name: String
+    let types: [String]
+}
+
+struct Geometry: Codable {
+    let location: Coordinate
+    let viewport: Bounds
+}
+
+struct Hours: Codable {
+    let open_now: Bool
+    let periods: [Period]
+}
+
+struct Period: Codable {
+    let open: DayTime
+    let close: DayTime?
+}
+struct DayTime: Codable {
+    let day: Int
+    let time: Int
 }
