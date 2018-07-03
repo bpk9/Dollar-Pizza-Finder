@@ -11,7 +11,6 @@ import UIKit
 import CoreLocation
 import Firebase
 import GoogleMaps
-import GooglePlaces
 
 class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
     
@@ -95,7 +94,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     // look up place from place id in snapshot
     func getPlace(data: DataSnapshot, completion: @escaping (Place) -> ()) {
         let placeId = data.childSnapshot(forPath: "placeId").value as? String ?? ""
-        GooglePlace.lookUpPlace(placeId: placeId) { (place) -> () in
+        GooglePlaces.lookUpPlace(placeId: placeId) { (place) -> () in
             completion(place)
         }
     }
@@ -115,23 +114,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         return CLLocationCoordinate2DMake(coordinate.lat, coordinate.lng)
     }
     
-    // update google map to be centered on coordinate
-    func updateMap(place: GMSPlace) {
-        
-        // zoom to coordinate and show current location
-        self.map.camera = GMSCameraPosition.camera(withTarget: place.coordinate, zoom: 12)
-        self.map.isMyLocationEnabled = true
-        
-        // add pin to map
-        let marker = GMSMarker()
-        marker.position = place.coordinate
-        marker.title = place.name
-        marker.map = self.map
-        
-        // reveal marker info
-        self.map.selectedMarker = marker
-    }
-    
     // called when marker is tapped
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
@@ -147,11 +129,14 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         self.map.camera = GMSCameraPosition.camera(withTarget: marker.position, zoom: 17)
         
         if let infoView = MapMarkerView.instanceFromNib() as? MapMarkerView {
-            
-            if let location = marker.userData as? Location {
-                GooglePlace.lookUpPlace(placeId: location.placeId) { (place) in
+            if let place = marker.userData as? Place {
+                infoView.place = place
+                infoView.loadUI()
+            } else if let location = marker.userData as? Location {
+                GooglePlaces.lookUpPlace(placeId: location.placeId) { (place) in
                     infoView.place = place
                     infoView.loadUI()
+                    marker.userData = place
                 }
             }
             

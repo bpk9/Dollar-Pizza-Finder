@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1E9BFEBC64E07B1895E508A0 /* Pods_Dollar_Pizza_Finder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0FB80054C4421545AE10377 /* Pods_Dollar_Pizza_Finder.framework */; };
+		06E0D482C723F0E368C0EC82 /* Pods_Dollar_Pizza_Finder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 124CF4C6250C1A2B0611BDBA /* Pods_Dollar_Pizza_Finder.framework */; };
 		D31F552A20E2FAE400096383 /* GoogleDirections.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31F552920E2FAE400096383 /* GoogleDirections.swift */; };
 		D31F552C20E33A3600096383 /* DirectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31F552B20E33A3600096383 /* DirectionsViewController.swift */; };
 		D31F552E20E5AE8D00096383 /* DirectionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31F552D20E5AE8D00096383 /* DirectionsResponse.swift */; };
 		D36CE8DD20E9B012006C7EC8 /* MapMarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D36CE8DC20E9B012006C7EC8 /* MapMarkerView.xib */; };
 		D36CE8DF20E9B51D006C7EC8 /* MapMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36CE8DE20E9B51D006C7EC8 /* MapMarkerView.swift */; };
 		D36CE8E120EAEE40006C7EC8 /* PlacesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36CE8E020EAEE40006C7EC8 /* PlacesResponse.swift */; };
-		D36CE8E320EAEE67006C7EC8 /* GooglePlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36CE8E220EAEE67006C7EC8 /* GooglePlace.swift */; };
+		D36CE8E320EAEE67006C7EC8 /* GooglePlaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36CE8E220EAEE67006C7EC8 /* GooglePlaces.swift */; };
 		D36CE8E720EC0BC3006C7EC8 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36CE8E620EC0BC3006C7EC8 /* Location.swift */; };
 		D36CE8E920EC1C5F006C7EC8 /* FirebaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36CE8E820EC1C5F006C7EC8 /* FirebaseHelper.swift */; };
 		D3A9F32A20B64FDC0027F2F5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A9F32920B64FDC0027F2F5 /* MapKit.framework */; };
@@ -28,16 +28,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		95E87232B2D78ABECFA436A1 /* Pods-Dollar Pizza Finder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dollar Pizza Finder.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder.release.xcconfig"; sourceTree = "<group>"; };
-		B0FB80054C4421545AE10377 /* Pods_Dollar_Pizza_Finder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dollar_Pizza_Finder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BA6625CD4B0C3E92B0967EBA /* Pods-Dollar Pizza Finder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dollar Pizza Finder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder.debug.xcconfig"; sourceTree = "<group>"; };
+		124CF4C6250C1A2B0611BDBA /* Pods_Dollar_Pizza_Finder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dollar_Pizza_Finder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CD24006B7798DAC09DA5B9E /* Pods-Dollar Pizza Finder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dollar Pizza Finder.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder.release.xcconfig"; sourceTree = "<group>"; };
+		C9658B80F0A8C802D4C50849 /* Pods-Dollar Pizza Finder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dollar Pizza Finder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder.debug.xcconfig"; sourceTree = "<group>"; };
 		D31F552920E2FAE400096383 /* GoogleDirections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDirections.swift; sourceTree = "<group>"; };
 		D31F552B20E33A3600096383 /* DirectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsViewController.swift; sourceTree = "<group>"; };
 		D31F552D20E5AE8D00096383 /* DirectionsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsResponse.swift; sourceTree = "<group>"; };
 		D36CE8DC20E9B012006C7EC8 /* MapMarkerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapMarkerView.xib; sourceTree = "<group>"; };
 		D36CE8DE20E9B51D006C7EC8 /* MapMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarkerView.swift; sourceTree = "<group>"; };
 		D36CE8E020EAEE40006C7EC8 /* PlacesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesResponse.swift; sourceTree = "<group>"; };
-		D36CE8E220EAEE67006C7EC8 /* GooglePlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlace.swift; sourceTree = "<group>"; };
+		D36CE8E220EAEE67006C7EC8 /* GooglePlaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlaces.swift; sourceTree = "<group>"; };
 		D36CE8E620EC0BC3006C7EC8 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		D36CE8E820EC1C5F006C7EC8 /* FirebaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHelper.swift; sourceTree = "<group>"; };
 		D3A9F32920B64FDC0027F2F5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -65,18 +65,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3A9F32A20B64FDC0027F2F5 /* MapKit.framework in Frameworks */,
-				1E9BFEBC64E07B1895E508A0 /* Pods_Dollar_Pizza_Finder.framework in Frameworks */,
+				06E0D482C723F0E368C0EC82 /* Pods_Dollar_Pizza_Finder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4E2474F465156389D5AA7475 /* Pods */ = {
+		45D963900223A7CA50E71307 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				BA6625CD4B0C3E92B0967EBA /* Pods-Dollar Pizza Finder.debug.xcconfig */,
-				95E87232B2D78ABECFA436A1 /* Pods-Dollar Pizza Finder.release.xcconfig */,
+				C9658B80F0A8C802D4C50849 /* Pods-Dollar Pizza Finder.debug.xcconfig */,
+				8CD24006B7798DAC09DA5B9E /* Pods-Dollar Pizza Finder.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -87,7 +87,7 @@
 				D3F5D7F620AE896400073B45 /* Dollar Pizza Finder */,
 				D3F5D7F520AE896400073B45 /* Products */,
 				EF600003847A6DE50C0C4F28 /* Frameworks */,
-				4E2474F465156389D5AA7475 /* Pods */,
+				45D963900223A7CA50E71307 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -107,7 +107,7 @@
 				D31F552B20E33A3600096383 /* DirectionsViewController.swift */,
 				D36CE8E820EC1C5F006C7EC8 /* FirebaseHelper.swift */,
 				D36CE8E620EC0BC3006C7EC8 /* Location.swift */,
-				D36CE8E220EAEE67006C7EC8 /* GooglePlace.swift */,
+				D36CE8E220EAEE67006C7EC8 /* GooglePlaces.swift */,
 				D36CE8E020EAEE40006C7EC8 /* PlacesResponse.swift */,
 				D31F552920E2FAE400096383 /* GoogleDirections.swift */,
 				D31F552D20E5AE8D00096383 /* DirectionsResponse.swift */,
@@ -134,7 +134,7 @@
 				D3B8831C20C9DC8B008E19B8 /* GoogleToolboxForMac.framework */,
 				D3B8831A20C9DB7E008E19B8 /* GoogleToolboxForMac.framework */,
 				D3A9F32920B64FDC0027F2F5 /* MapKit.framework */,
-				B0FB80054C4421545AE10377 /* Pods_Dollar_Pizza_Finder.framework */,
+				124CF4C6250C1A2B0611BDBA /* Pods_Dollar_Pizza_Finder.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -146,13 +146,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D3F5D80620AE896600073B45 /* Build configuration list for PBXNativeTarget "Dollar Pizza Finder" */;
 			buildPhases = (
-				FCE627842AAC85F18FDB77DB /* [CP] Check Pods Manifest.lock */,
+				2EE450F925C210D4709A93DA /* [CP] Check Pods Manifest.lock */,
 				D3F5D7F020AE896400073B45 /* Sources */,
 				D3F5D7F120AE896400073B45 /* Frameworks */,
 				D3F5D7F220AE896400073B45 /* Resources */,
 				D3BDA76F20C89AB4002C205C /* ShellScript */,
-				F3A9B261C1F89225D675C9C1 /* [CP] Embed Pods Frameworks */,
-				6635F28EC76EBF9B5370AE52 /* [CP] Copy Pods Resources */,
+				99D30F0EEEBED2FBF29C8E1D /* [CP] Embed Pods Frameworks */,
+				EA9511BED0DC9EB6865D1B76 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -218,40 +218,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6635F28EC76EBF9B5370AE52 /* [CP] Copy Pods Resources */ = {
+		2EE450F925C210D4709A93DA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder-resources.sh",
-				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
-				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+				"$(DERIVED_FILE_DIR)/Pods-Dollar Pizza Finder-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder-resources.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D3BDA76F20C89AB4002C205C /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "";
-		};
-		F3A9B261C1F89225D675C9C1 /* [CP] Embed Pods Frameworks */ = {
+		99D30F0EEEBED2FBF29C8E1D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -275,22 +260,35 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FCE627842AAC85F18FDB77DB /* [CP] Check Pods Manifest.lock */ = {
+		D3BDA76F20C89AB4002C205C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
 			);
-			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Dollar Pizza Finder-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "";
+		};
+		EA9511BED0DC9EB6865D1B76 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -303,7 +301,7 @@
 				D36CE8E920EC1C5F006C7EC8 /* FirebaseHelper.swift in Sources */,
 				D31F552C20E33A3600096383 /* DirectionsViewController.swift in Sources */,
 				D3F5D7FA20AE896400073B45 /* HomeViewController.swift in Sources */,
-				D36CE8E320EAEE67006C7EC8 /* GooglePlace.swift in Sources */,
+				D36CE8E320EAEE67006C7EC8 /* GooglePlaces.swift in Sources */,
 				D31F552A20E2FAE400096383 /* GoogleDirections.swift in Sources */,
 				D36CE8E720EC0BC3006C7EC8 /* Location.swift in Sources */,
 				D31F552E20E5AE8D00096383 /* DirectionsResponse.swift in Sources */,
@@ -451,7 +449,7 @@
 		};
 		D3F5D80720AE896600073B45 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BA6625CD4B0C3E92B0967EBA /* Pods-Dollar Pizza Finder.debug.xcconfig */;
+			baseConfigurationReference = C9658B80F0A8C802D4C50849 /* Pods-Dollar Pizza Finder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "";
@@ -481,7 +479,7 @@
 		};
 		D3F5D80820AE896600073B45 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 95E87232B2D78ABECFA436A1 /* Pods-Dollar Pizza Finder.release.xcconfig */;
+			baseConfigurationReference = 8CD24006B7798DAC09DA5B9E /* Pods-Dollar Pizza Finder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "";
