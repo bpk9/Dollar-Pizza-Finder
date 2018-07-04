@@ -12,7 +12,7 @@ import CoreLocation
 import Firebase
 import GoogleMaps
 
-class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
+class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate, MapMarkerDelegate {
     
     // google map view
     @IBOutlet var map: GMSMapView!
@@ -63,14 +63,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         
     }
     
-    // load locations from database onto google map
-    func loadDatabase(completion: @escaping ([DataSnapshot]) -> ()) {
-        // load locations snapshot from database
-        Database.database().reference().child("locations").observeSingleEvent(of: .value, with: { (snapshot) in
-            completion(snapshot.children.allObjects as! [DataSnapshot])
-        })
-    }
-    
     // add locations from database to map while also checking for closest place
     func addLocations(locations: [Location]) {
         
@@ -91,14 +83,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         self.map.selectedMarker = closest
     }
     
-    // look up place from place id in snapshot
-    func getPlace(data: DataSnapshot, completion: @escaping (Place) -> ()) {
-        let placeId = data.childSnapshot(forPath: "placeId").value as? String ?? ""
-        GooglePlaces.lookUpPlace(placeId: placeId) { (place) -> () in
-            completion(place)
-        }
-    }
-    
     // add marker to google map and return marker
     func addMarker(location: Location) -> GMSMarker {
         let marker = GMSMarker()
@@ -106,12 +90,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         marker.userData = location
         marker.map = self.map
         return marker
-    }
-    
-    // get CLLocationCoordinate2D from place
-    func getCoordinate(place: Place) -> CLLocationCoordinate2D {
-        let coordinate = place.geometry.location
-        return CLLocationCoordinate2DMake(coordinate.lat, coordinate.lng)
     }
     
     // called when marker is tapped
@@ -131,6 +109,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         if let infoView = MapMarkerView.instanceFromNib() as? MapMarkerView {
             if let place = marker.userData as? Place {
                 infoView.place = place
+                infoView.delegate = self
                 infoView.loadUI()
             } else if let location = marker.userData as? Location {
                 GooglePlaces.lookUpPlace(placeId: location.placeId) { (place) in
@@ -146,43 +125,15 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         }
     }
     
-    
-    // action for phone button to call pizza place
-    @IBAction func callLocation(_ sender: Any) {
-        /*self.getCurrentPlace() { (place) -> () in
-            let url = URL(string: "tel://\(self.getRawNum(input: place.phoneNumber!))")!
-            self.openURL(url: url)
-        }*/
-    }
-    
-    // action for website button to open URL
-    @IBAction func visitWebsite(_ sender: Any) {
-        //self.getCurrentPlace() { (place) -> () in
-        //    self.openURL(url: place.website!)
-        //}
+    // show directions view when button is tapped
+    func didTapDirectionsButton(id: String) {
+        performSegue(withIdentifier: "", sender: <#T##Any?#>)
     }
     
     // Get Distance in Miles
     func distance(marker: GMSMarker) -> Double {
         let location = marker.userData as! Location
         return Double(self.currentLocation.distance(from: CLLocation(latitude: location.lat, longitude: location.lng)))
-    }
-    
-    // only retrive digits from phone number
-    func getRawNum(input: String) -> String {
-        var output = ""
-        for character in input {
-            let char = String(character)
-            if let num = Int(char) {
-                output += char
-            }
-        }
-        return output
-    }
-    
-    // opens url
-    func openURL(url: URL) {
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 
 }

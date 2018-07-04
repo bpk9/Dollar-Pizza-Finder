@@ -10,8 +10,6 @@ import UIKit
 
 protocol MapMarkerDelegate: class {
     func didTapDirectionsButton(id: String)
-    func didTapPhoneButton(number: String)
-    func didTapWebsiteButton(url: URL)
 }
 
 class MapMarkerView: UIView {
@@ -50,15 +48,16 @@ class MapMarkerView: UIView {
     
     @IBAction func phoneAction(_ sender: Any) {
         if let phoneNumber = place?.formatted_phone_number {
-            delegate?.didTapPhoneButton(number: phoneNumber)
+            let url = URL(string: "tel://\(self.getRawNum(input: phoneNumber))")!
+            self.openURL(url: url)
         } else {
             print("No phone number found")
         }
     }
     
     @IBAction func websiteAction(_ sender: Any) {
-        if let website = URL(string: (place?.website)!) {
-            delegate?.didTapWebsiteButton(url: website)
+        if let website = place?.website {
+            self.openURL(url: URL(string: website)!)
         } else {
             print("No website found")
         }
@@ -71,6 +70,23 @@ class MapMarkerView: UIView {
             output += "★"
         }
         return output + String(format: " %.1f", rating)
+    }
+    
+    // only retrive digits from phone number
+    func getRawNum(input: String) -> String {
+        var output = ""
+        for character in input {
+            let char = String(character)
+            if let num = Int(char) {
+                output += char
+            }
+        }
+        return output
+    }
+    
+    // opens url
+    func openURL(url: URL) {
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
 }
