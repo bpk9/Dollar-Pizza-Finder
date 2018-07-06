@@ -93,6 +93,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         
     }
     
+    // look up place information and pic in google places
     func updateMarker(marker: GMSMarker) {
         let location = marker.userData as! Location
         GooglePlaces.lookUpPlace(placeId: location.placeId) { (place) -> () in
@@ -103,8 +104,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     
     // called when marker is tapped
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        
-        if let place = marker.userData as? Place {
+
+        if ((marker.userData as? Place) != nil) {
             self.map.selectedMarker = marker
         } else {
             self.updateMarker(marker: marker)

@@ -63,7 +63,7 @@ class MapMarkerView: UIView {
         var output = ""
         for character in input {
             let char = String(character)
-            if let num = Int(char) {
+            if Int(char) != nil {
                 output += char
             }
         }
