@@ -34,6 +34,7 @@ class MapMarkerView: UIView {
     }
     
     @IBAction func phoneAction(_ sender: Any) {
+        print("Hi")
         if let phoneNumber = self.place?.formatted_phone_number {
             let url = URL(string: "tel://\(self.getRawNum(input: phoneNumber))")!
             self.openURL(url: url)

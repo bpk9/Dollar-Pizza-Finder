@@ -32,7 +32,6 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
     var origin: CLLocationCoordinate2D!
     
     // destination information
-    var destination: GMSMarker!
     var data: Place!
     
     // step counter
@@ -40,9 +39,6 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        // get destination data
-        self.data = destination.userData as! Place
         
         // add title to view controller
         self.title = "Directions to " + self.data.name
@@ -56,10 +52,6 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
         // initialize counter
         self.step = -1
         
-        // set up google directions
-        self.directions = GoogleDirections(origin: self.origin, destination: self.data.place_id, mode: "transit")
-        
-        
         // add destination pin to map
         let marker = GMSMarker()
         let location = self.data.geometry.location
@@ -68,6 +60,8 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
         marker.map = self.map
         self.map.selectedMarker = marker
         
+        // set up google directions
+        self.directions = GoogleDirections(origin: self.origin, destination: self.data.place_id, mode: "transit")
         
         // add directions to map
         self.directions.addPolyline(map: self.map)
@@ -81,7 +75,7 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
         // set origin
-        self.origin = locations.first?.coordinate
+        //self.origin = locations.last!.coordinate
         
         // enable location for google map
         self.map.isMyLocationEnabled = true

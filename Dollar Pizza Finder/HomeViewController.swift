@@ -14,12 +14,16 @@ import GoogleMaps
 
 class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
     
-    // google map view
+    // ui elements
     @IBOutlet var map: GMSMapView!
+    @IBOutlet var directionsBtn: UIButton!
     
     // manages current location services
     let manager = CLLocationManager()
     var currentLocation: CLLocation! // current location
+    
+    // last selected marker for directions
+    var lastMarker: GMSMarker?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +53,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         // if directions button is pressed
         if let vc = segue.destination as? DirectionsViewController
         {
-            vc.destination = map.selectedMarker!
+            vc.origin = self.currentLocation.coordinate
+            vc.data = self.lastMarker!.userData as! Place
         }
     }
     
@@ -95,10 +100,13 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     
     // look up place information and pic in google places
     func updateMarker(marker: GMSMarker) {
+        
         let location = marker.userData as! Location
         GooglePlaces.lookUpPlace(placeId: location.placeId) { (place) -> () in
             marker.userData = place
             self.map.selectedMarker = marker
+            self.lastMarker = marker
+            self.updateButton()
         }
     }
     
@@ -132,19 +140,21 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         
     }
     
-    // show directions view when button is tapped
-    func didTapDirectionsButton() {
-        if (self.map.selectedMarker != nil) {
-            performSegue(withIdentifier: "directionsSegue", sender: nil)
-            print("Hi")
-        }
-        print("Hello")
-    }
-    
     // Get Distance in Miles
     func distance(marker: GMSMarker) -> Double {
         let location = marker.userData as! Location
         return Double(self.currentLocation.distance(from: CLLocation(latitude: location.lat, longitude: location.lng)))
+    }
+    
+    // update button text
+    func updateButton() {
+        
+        let data = self.map.selectedMarker!.userData as! Place
+        
+        let directions = GoogleDirections(origin: self.currentLocation.coordinate, destination: data.place_id, mode: "transit")
+        directions.getDirections() { (route) -> () in
+            self.directionsBtn.setTitle("Directions -- " + route.legs.first!.duration.text, for: .normal)
+        }
     }
 
 }
