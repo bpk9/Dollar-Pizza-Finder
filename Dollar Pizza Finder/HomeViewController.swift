@@ -47,9 +47,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         // if directions button is pressed
         if let vc = segue.destination as? DirectionsViewController
         {
-            let place = self.map.selectedMarker?.userData as! Location
-            
-            vc.destination_name = place.placeId
+            vc.destination = map.selectedMarker!
         }
     }
     
@@ -95,6 +93,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     // called when marker is tapped
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
+        // update map
         self.map.selectedMarker = marker
         
         return true
@@ -113,10 +112,12 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
                 infoView.loadUI()
             } else if let location = marker.userData as? Location {
                 GooglePlaces.lookUpPlace(placeId: location.placeId) { (place) in
-                    infoView.place = place
-                    infoView.loadUI()
                     marker.userData = place
+                    infoView.place = place
+                    infoView.delegate = self
+                    infoView.loadUI()
                 }
+                
             }
             
             return infoView
@@ -126,8 +127,10 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     }
     
     // show directions view when button is tapped
-    func didTapDirectionsButton(id: String) {
-        performSegue(withIdentifier: "", sender: <#T##Any?#>)
+    func didTapDirectionsButton() {
+        if (self.map.selectedMarker != nil) {
+            performSegue(withIdentifier: "directionsSegue", sender: nil)
+        }
     }
     
     // Get Distance in Miles
