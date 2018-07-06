@@ -9,7 +9,7 @@
 import Alamofire
 
 class GooglePlaces {
-    
+        
     class func lookUpPlace(placeId: String, completion: @escaping (Place) -> ()) {
         
         // get response from google places

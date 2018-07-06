@@ -30,6 +30,7 @@ class MapMarkerView: UIView {
         self.name.text = self.place.name
         self.address.text = String(self.place.formatted_address.split(separator: ",")[0])
         self.rating.text = self.starString(rating: self.place.rating)
+        self.setTimeLabel()
     }
     
     @IBAction func phoneAction(_ sender: Any) {
@@ -73,6 +74,37 @@ class MapMarkerView: UIView {
     // opens url
     func openURL(url: URL) {
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+    
+    func setTimeLabel() {
+        
+        // init date and time
+        let date = Date()
+        let calendar = Calendar.current
+        let dayOfWeek = calendar.component(.weekday, from: date)
+        
+        // if place is open
+        if hours.open_now {
+            self.open.textColor = .green
+            if let close = hours.periods[dayOfWeek].close {
+                self.open.text = "OPEN until " + self.getTime(time: close.time)
+            } else {
+                self.open.text = "OPEN 24 Hours"
+            }
+        } else {
+            self.open.text = "CLOSED until " + self.getTime(time: hours.periods[dayOfWeek].open.time)
+        }
+        
+    }
+    
+    func getTime(time: String) -> String {
+        let hour = time.substring(to:time.index(time.startIndex, offsetBy: 2))
+        let num = Int(hour)!
+        if num  >= 12 {
+            return String(num - 12) + "PM"
+        } else {
+            return hour + "AM"
+        }
     }
     
 }
