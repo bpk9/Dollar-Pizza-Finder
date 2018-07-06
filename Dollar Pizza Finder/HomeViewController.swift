@@ -22,8 +22,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     let manager = CLLocationManager()
     var currentLocation: CLLocation! // current location
     
-    // last selected marker for directions
-    var lastMarker: GMSMarker?
+    // last selected place
+    var lastPlace: Place!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +41,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         // load info from database
         FirebaseHelper.getData() { (locations) -> () in
             let closest = self.addLocations(locations: locations)
-            self.map.camera = GMSCameraPosition.camera(withTarget: closest.position, zoom: 17)
+            self.map.camera = GMSCameraPosition.camera(withTarget: closest.position, zoom: 15)
             self.updateMarker(marker: closest)
         }
         
@@ -54,7 +54,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         if let vc = segue.destination as? DirectionsViewController
         {
             vc.origin = self.currentLocation.coordinate
-            vc.data = self.lastMarker!.userData as! Place
+            vc.data = self.lastPlace
         }
     }
     
@@ -105,7 +105,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         GooglePlaces.lookUpPlace(placeId: location.placeId) { (place) -> () in
             marker.userData = place
             self.map.selectedMarker = marker
-            self.lastMarker = marker
+            self.lastPlace = place
             self.updateButton()
         }
     }
@@ -140,10 +140,34 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         
     }
     
+    // call button action
+    @IBAction func callPlace(_ sender: Any) {
+        if let phoneNumber = self.lastPlace.formatted_phone_number {
+            let url = URL(string: "tel://\(self.getRawNum(input: phoneNumber))")!
+            self.openURL(url: url)
+        } else {
+            print("No phone number found")
+        }
+    }
+    
+    // website button action
+    @IBAction func visitWebsite(_ sender: Any) {
+        if let website = self.lastPlace.website {
+            self.openURL(url: URL(string: website)!)
+        } else {
+            print("No website found")
+        }
+    }
+    
     // Get Distance in Miles
     func distance(marker: GMSMarker) -> Double {
         let location = marker.userData as! Location
         return Double(self.currentLocation.distance(from: CLLocation(latitude: location.lat, longitude: location.lng)))
+    }
+    
+    // opens url
+    func openURL(url: URL) {
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
     // update button text
@@ -155,6 +179,18 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         directions.getDirections() { (route) -> () in
             self.directionsBtn.setTitle("Directions -- " + route.legs.first!.duration.text, for: .normal)
         }
+    }
+    
+    // only retrive digits from phone number
+    func getRawNum(input: String) -> String {
+        var output = ""
+        for character in input {
+            let char = String(character)
+            if Int(char) != nil {
+                output += char
+            }
+        }
+        return output
     }
 
 }

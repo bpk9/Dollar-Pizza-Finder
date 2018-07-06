@@ -16,7 +16,6 @@ class MapMarkerView: UIView {
     @IBOutlet var open: UILabel!
     @IBOutlet var rating: UILabel!
     @IBOutlet var image: UIImageView!
-    @IBOutlet var directionsBtn: UIButton!
     
     // place for marker
     var place: Place!
@@ -33,24 +32,6 @@ class MapMarkerView: UIView {
         self.setTimeLabel(hours: self.place.opening_hours!)
     }
     
-    @IBAction func phoneAction(_ sender: Any) {
-        print("Hi")
-        if let phoneNumber = self.place?.formatted_phone_number {
-            let url = URL(string: "tel://\(self.getRawNum(input: phoneNumber))")!
-            self.openURL(url: url)
-        } else {
-            print("No phone number found")
-        }
-    }
-    
-    @IBAction func websiteAction(_ sender: Any) {
-        if let website = self.place?.website {
-            self.openURL(url: URL(string: website)!)
-        } else {
-            print("No website found")
-        }
-    }
-    
     // Converts rating value to string with stars
     func starString(rating: Double) -> String {
         var output = String()
@@ -60,22 +41,7 @@ class MapMarkerView: UIView {
         return output + String(format: " %.1f", rating)
     }
     
-    // only retrive digits from phone number
-    func getRawNum(input: String) -> String {
-        var output = ""
-        for character in input {
-            let char = String(character)
-            if Int(char) != nil {
-                output += char
-            }
-        }
-        return output
-    }
-    
-    // opens url
-    func openURL(url: URL) {
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-    }
+
     
     func setTimeLabel(hours: Hours) {
         
