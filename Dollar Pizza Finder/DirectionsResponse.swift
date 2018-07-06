@@ -55,6 +55,7 @@ struct Polyline: Codable {
 struct TransitDetails: Codable {
     let arrival_stop: Stop
     let arrival_time: Text
+    let departure_stop: Stop
     let departure_time: Text
     let headsign: String
     let line: Line

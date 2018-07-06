@@ -14,7 +14,7 @@ import GoogleMaps
 
 class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
     
-    // ui elements
+    // UI elements
     @IBOutlet var map: GMSMapView!
     @IBOutlet var directionsBtn: UIButton!
     
@@ -23,8 +23,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     var currentLocation: CLLocation! // current location
     
     // last selected place
-    var lastPlace: Place!
-    var lastPhoto: UIImage!
+    var lastData: MarkerData!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,8 +53,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         // if directions button is pressed
         if let vc = segue.destination as? DirectionsViewController
         {
-            vc.origin = self.currentLocation.coordinate
-            vc.data = self.lastPlace
+            vc.data = self.lastData
         }
     }
     
@@ -105,19 +103,24 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         let location = marker.userData as! Location
         let places = GooglePlaces(place_id: location.placeId)
         places.getData() { (place, photo) -> () in
-            marker.userData = place
-            self.lastPlace = place
-            self.lastPhoto = photo
-            self.map.selectedMarker = marker
-            self.updateButton()
+            let directions = GoogleDirections(origin: self.currentLocation.coordinate, destination: place.place_id, mode: "transit")
+            directions.getDirections() { (route) -> () in
+                let markerData = MarkerData(place: place, photo: photo, route: route)
+                marker.userData = markerData
+                self.lastData = markerData
+                self.map.selectedMarker = marker
+                self.updateButton()
+            }
         }
     }
     
     // called when marker is tapped
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
 
-        if ((marker.userData as? Place) != nil) {
+        if let data = marker.userData as? MarkerData {
+            self.lastData = data
             self.map.selectedMarker = marker
+            self.updateButton()
         } else {
             self.updateMarker(marker: marker)
         }
@@ -131,9 +134,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         
         if let infoView = MapMarkerView.instanceFromNib() as? MapMarkerView {
             
-            let place = self.map.selectedMarker?.userData as! Place
-            infoView.place = place
-            infoView.photo = self.lastPhoto
+            let data = self.map.selectedMarker?.userData as! MarkerData
+            infoView.data = data
             infoView.loadUI()
             
             return infoView
@@ -146,20 +148,20 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     
     // call button action
     @IBAction func callPlace(_ sender: Any) {
-        if let phoneNumber = self.lastPlace.formatted_phone_number {
+        if let phoneNumber = self.lastData.place.formatted_phone_number {
             let url = URL(string: "tel://\(self.getRawNum(input: phoneNumber))")!
             self.openURL(url: url)
         } else {
-            self.showAlert(title: "Phone Number Not Found", message: (self.lastPlace.name + " does not have a listed phone number"))
+            self.showAlert(title: "Phone Number Not Found", message: (self.lastData.place.name + " does not have a listed phone number"))
         }
     }
     
     // website button action
     @IBAction func visitWebsite(_ sender: Any) {
-        if let website = self.lastPlace.website {
+        if let website = self.lastData.place.website {
             self.openURL(url: URL(string: website)!)
         } else {
-            self.showAlert(title: "Website Not Found", message: (self.lastPlace.name + " does not have a listed website"))
+            self.showAlert(title: "Website Not Found", message: (self.lastData.place.name + " does not have a listed website"))
         }
     }
     
@@ -176,13 +178,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     
     // update button text
     func updateButton() {
-        
-        let data = self.map.selectedMarker!.userData as! Place
-        
-        let directions = GoogleDirections(origin: self.currentLocation.coordinate, destination: data.place_id, mode: "transit")
-        directions.getDirections() { (route) -> () in
-            self.directionsBtn.setTitle("Directions -- " + route.legs.first!.duration.text, for: .normal)
-        }
+        self.directionsBtn.setTitle("Directions -- " + self.lastData.route.legs.first!.duration.text, for: .normal)
     }
     
     // only retrive digits from phone number
