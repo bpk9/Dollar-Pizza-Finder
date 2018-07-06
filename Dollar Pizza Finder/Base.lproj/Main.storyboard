@@ -77,6 +77,7 @@
                     <connections>
                         <outlet property="map" destination="VwG-mv-3Jn" id="kD2-6X-UkO"/>
                         <outlet property="searchDisplayController" destination="Edq-YY-3ef" id="Qgg-ET-sZy"/>
+                        <segue destination="Rea-h0-4Ke" kind="show" identifier="directionsSegue" id="GjX-gQ-AH6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fnn-jk-Pzi" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -101,7 +102,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wNJ-1p-7dI" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="20" width="375" height="537"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="493"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E6w-WT-ldD">

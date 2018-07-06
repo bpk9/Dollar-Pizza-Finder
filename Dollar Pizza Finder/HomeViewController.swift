@@ -12,7 +12,7 @@ import CoreLocation
 import Firebase
 import GoogleMaps
 
-class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate, MapMarkerDelegate {
+class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
     
     // google map view
     @IBOutlet var map: GMSMapView!
@@ -36,7 +36,9 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         
         // load info from database
         FirebaseHelper.getData() { (locations) -> () in
-            self.addLocations(locations: locations)
+            let closest = self.addLocations(locations: locations)
+            self.map.camera = GMSCameraPosition.camera(withTarget: closest.position, zoom: 17)
+            self.updateMarker(marker: closest)
         }
         
     }
@@ -62,7 +64,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     }
     
     // add locations from database to map while also checking for closest place
-    func addLocations(locations: [Location]) {
+    func addLocations(locations: [Location]) -> GMSMarker {
         
         var closest: GMSMarker!
         
@@ -77,24 +79,36 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
             }
         }
         
-        // init selected marker as closest place
-        self.map.selectedMarker = closest
+        return closest
     }
     
     // add marker to google map and return marker
     func addMarker(location: Location) -> GMSMarker {
+        
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2DMake(location.lat, location.lng)
         marker.userData = location
         marker.map = self.map
         return marker
+        
+    }
+    
+    func updateMarker(marker: GMSMarker) {
+        let location = marker.userData as! Location
+        GooglePlaces.lookUpPlace(placeId: location.placeId) { (place) -> () in
+            marker.userData = place
+            self.map.selectedMarker = marker
+        }
     }
     
     // called when marker is tapped
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
-        // update map
-        self.map.selectedMarker = marker
+        if let place = marker.userData as? Place {
+            self.map.selectedMarker = marker
+        } else {
+            self.updateMarker(marker: marker)
+        }
         
         return true
         
@@ -103,34 +117,27 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     // add info window to marker when selected
     func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
         
-        self.map.camera = GMSCameraPosition.camera(withTarget: marker.position, zoom: 17)
-        
         if let infoView = MapMarkerView.instanceFromNib() as? MapMarkerView {
-            if let place = marker.userData as? Place {
-                infoView.place = place
-                infoView.delegate = self
-                infoView.loadUI()
-            } else if let location = marker.userData as? Location {
-                GooglePlaces.lookUpPlace(placeId: location.placeId) { (place) in
-                    marker.userData = place
-                    infoView.place = place
-                    infoView.delegate = self
-                    infoView.loadUI()
-                }
-                
-            }
+            
+            let place = self.map.selectedMarker?.userData as! Place
+            infoView.place = place
+            infoView.loadUI()
             
             return infoView
+            
         } else {
             return nil
         }
+        
     }
     
     // show directions view when button is tapped
     func didTapDirectionsButton() {
         if (self.map.selectedMarker != nil) {
             performSegue(withIdentifier: "directionsSegue", sender: nil)
+            print("Hi")
         }
+        print("Hello")
     }
     
     // Get Distance in Miles

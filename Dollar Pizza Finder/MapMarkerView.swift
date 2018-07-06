@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol MapMarkerDelegate: class {
-    func didTapDirectionsButton(id: String)
-}
-
 class MapMarkerView: UIView {
     
     // UI elements
@@ -22,32 +18,22 @@ class MapMarkerView: UIView {
     @IBOutlet var image: UIImageView!
     @IBOutlet var directionsBtn: UIButton!
     
-    // instance variables
-    var delegate: MapMarkerDelegate?
-    var place: Place?
+    // place for marker
+    var place: Place!
     
     // init function
     class func instanceFromNib() -> UIView {
         return UINib(nibName: "MapMarkerView", bundle: nil).instantiate(withOwner: self, options: nil)[0] as! UIView
     }
     
-    // load UI elements from place
     func loadUI() {
-        if let location = self.place {
-            self.name.text = location.name
-            self.address.text = String(location.formatted_address.split(separator: ",")[0])
-            self.rating.text = starString(rating: location.rating)
-        }
-        
+        self.name.text = self.place.name
+        self.address.text = String(self.place.formatted_address.split(separator: ",")[0])
+        self.rating.text = self.starString(rating: self.place.rating)
     }
-    
-    @IBAction func directionsAction(_ sender: Any) {
-        delegate?.didTapDirectionsButton(id: place!.place_id)
-    }
-
     
     @IBAction func phoneAction(_ sender: Any) {
-        if let phoneNumber = place?.formatted_phone_number {
+        if let phoneNumber = self.place?.formatted_phone_number {
             let url = URL(string: "tel://\(self.getRawNum(input: phoneNumber))")!
             self.openURL(url: url)
         } else {
@@ -56,7 +42,7 @@ class MapMarkerView: UIView {
     }
     
     @IBAction func websiteAction(_ sender: Any) {
-        if let website = place?.website {
+        if let website = self.place?.website {
             self.openURL(url: URL(string: website)!)
         } else {
             print("No website found")

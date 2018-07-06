@@ -25,15 +25,15 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
     let manager = CLLocationManager()
     var currentLocation: CLLocation!
     
-    // manages geocoding for address
-    let geocoder = CLGeocoder()
+    // manages google directions
+    var directions: GoogleDirections!
     
     // origin information
     var origin: CLLocationCoordinate2D!
     
     // destination information
-    var destination_name: String! = ""
-    var destination_address: String! = ""
+    var destination: GMSMarker!
+    var data: Place!
     
     // step counter
     var step: Int!
@@ -41,8 +41,11 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        // get destination data
+        self.data = destination.userData as! Place
+        
         // add title to view controller
-        self.title = "Directions to " + destination_name
+        self.title = "Directions to " + self.data.name
         
         // set up location services
         self.manager.delegate = self
@@ -53,41 +56,25 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
         // initialize counter
         self.step = -1
         
-        // find coordinates from street address
-        self.getDestination() { (destination) -> () in
-            
-            // add destination pin to map
-            let marker = GMSMarker()
-            marker.position = destination
-            marker.title = self.destination_name
-            marker.map = self.map
-            self.map.selectedMarker = marker
-            
-            // set up google directions
-            let directions = GoogleDirections(origin: self.origin, destination: destination, mode: "transit")
-            
-            // add directions to map
-            directions.addPolyline(map: self.map)
-            
-            self.setOverview()
-            
-        }
+        // set up google directions
+        self.directions = GoogleDirections(origin: self.origin, destination: self.data.place_id, mode: "transit")
         
         
-    }
-    
-    // fetches destination coordinate from address string
-    func getDestination(completion: @escaping (CLLocationCoordinate2D) -> ()) {
-        self.geocoder.geocodeAddressString(destination_address) { (placemarks, error) in
-            completion((placemarks?.first?.location?.coordinate)!)
-        }
-    }
-    
-    // fetches directions
-    func getDirections(completion: @escaping (GoogleDirections) -> ()) {
-        self.getDestination() { (destination) -> () in
-            completion(GoogleDirections(origin: self.origin, destination: destination, mode: "transit"))
-        }
+        // add destination pin to map
+        let marker = GMSMarker()
+        let location = self.data.geometry.location
+        marker.position = CLLocationCoordinate2DMake(location.lat, location.lng)
+        marker.title = self.data.name
+        marker.map = self.map
+        self.map.selectedMarker = marker
+        
+        
+        // add directions to map
+        self.directions.addPolyline(map: self.map)
+        
+        self.setOverview()
+        
+        
     }
     
     // called after current location is updated
@@ -158,62 +145,59 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
         
         self.directionsPic.image = UIImage(named: "Launch.png")
         
-        self.getDirections() { (directions) -> () in
-            directions.getDirections() { (route) -> () in
+        self.directions.getDirections() { (route) -> () in
                 
-                directions.updateCamera(map: self.map, route: route)
+            self.directions.updateCamera(map: self.map, route: route)
                 
-                self.directionsLabel.text = "Route to " + self.destination_name
-                self.distanceLabel.text = route.legs.first?.distance.text
-                self.durationLabel.text = route.legs.first?.duration.text
+            self.directionsLabel.text = "Route to " + self.data.name
+            self.distanceLabel.text = route.legs.first?.distance.text
+            self.durationLabel.text = route.legs.first?.duration.text
                 
-            }
         }
+    
     }
     
     // set directions info for given step
     func setDirections(num: Int) {
-        self.getDirections() { (directions) -> () in
-            directions.getSteps() { (steps) -> () in
+        self.directions.getSteps() { (steps) -> () in
                 
-                // get current step
-                let step = steps[num]
+            // get current step
+            let step = steps[num]
                 
-                // zoom map to step
-                let start = CLLocationCoordinate2DMake(step.start_location.lat, step.start_location.lng)
-                let end = CLLocationCoordinate2DMake(step.end_location.lat, step.end_location.lng)
-                self.map.moveCamera(GMSCameraUpdate.fit(GMSCoordinateBounds(coordinate: start, coordinate: end)))
+            // zoom map to step
+            let start = CLLocationCoordinate2DMake(step.start_location.lat, step.start_location.lng)
+            let end = CLLocationCoordinate2DMake(step.end_location.lat, step.end_location.lng)
+            self.map.moveCamera(GMSCameraUpdate.fit(GMSCoordinateBounds(coordinate: start, coordinate: end)))
                 
-                // update duration
-                self.durationLabel.text = step.duration.text
+            // update duration
+            self.durationLabel.text = step.duration.text
                 
-                // if travel mode is transit show num of stops
-                if step.travel_mode == "TRANSIT" {
-                    self.distanceLabel.text = String(step.transit_details!.num_stops) + " stops"
+            // if travel mode is transit show num of stops
+            if step.travel_mode == "TRANSIT" {
+                self.distanceLabel.text = String(step.transit_details!.num_stops) + " stops"
                     
-                    // try to set image for train line
-                    if let line = step.transit_details?.line.icon {
-                        self.setDirectionsPic(path: line)
-                    } else if let icon = step.transit_details?.line.vehicle.icon {
-                        self.setDirectionsPic(path: icon)
-                    } else {
-                        self.directionsPic.image = UIImage(named: "train-logo.png")
-                    }
+                // try to set image for train line
+                if let line = step.transit_details?.line.icon {
+                    self.setDirectionsPic(path: line)
+                } else if let icon = step.transit_details?.line.vehicle.icon {
+                    self.setDirectionsPic(path: icon)
+                } else {
+                    self.directionsPic.image = UIImage(named: "train-logo.png")
+                }
                     
-                } else {
-                    self.distanceLabel.text = step.distance.text
-                    self.directionsPic.image = UIImage(named: "walking.png")
-                }
-                
-                // update directions label and hide the next button on last step
-                if self.step == (steps.count - 1) {
-                    self.directionsLabel.text = "Walk to " + self.destination_name
-                    self.nextBtn.isHidden = true
-                } else {
-                    self.directionsLabel.text = step.html_instructions
-                }
-                
+            } else {
+                self.distanceLabel.text = step.distance.text
+                self.directionsPic.image = UIImage(named: "walking.png")
             }
+                
+            // update directions label and hide the next button on last step
+            if self.step == (steps.count - 1) {
+                self.directionsLabel.text = "Walk to " + self.data.name
+                self.nextBtn.isHidden = true
+            } else {
+                self.directionsLabel.text = step.html_instructions
+            }
+                
         }
     }
     
