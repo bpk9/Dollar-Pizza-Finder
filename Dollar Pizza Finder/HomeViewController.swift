@@ -146,7 +146,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
             let url = URL(string: "tel://\(self.getRawNum(input: phoneNumber))")!
             self.openURL(url: url)
         } else {
-            print("No phone number found")
+            self.showAlert(title: "Phone Number Not Found", message: (self.lastPlace.name + " does not have a listed phone number"))
         }
     }
     
@@ -155,7 +155,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         if let website = self.lastPlace.website {
             self.openURL(url: URL(string: website)!)
         } else {
-            print("No website found")
+            self.showAlert(title: "Website Not Found", message: (self.lastPlace.name + " does not have a listed website"))
         }
     }
     
@@ -191,6 +191,14 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
             }
         }
         return output
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        
+        present(alertController, animated: true, completion: nil)
     }
 
 }
