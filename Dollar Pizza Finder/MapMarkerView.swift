@@ -30,7 +30,7 @@ class MapMarkerView: UIView {
         self.name.text = self.place.name
         self.address.text = String(self.place.formatted_address.split(separator: ",")[0])
         self.rating.text = self.starString(rating: self.place.rating)
-        self.setTimeLabel()
+        self.setTimeLabel(hours: self.place.opening_hours!)
     }
     
     @IBAction func phoneAction(_ sender: Any) {
@@ -76,7 +76,7 @@ class MapMarkerView: UIView {
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
-    func setTimeLabel() {
+    func setTimeLabel(hours: Hours) {
         
         // init date and time
         let date = Date()
