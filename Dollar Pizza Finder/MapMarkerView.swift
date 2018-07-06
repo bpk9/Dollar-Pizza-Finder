@@ -19,6 +19,7 @@ class MapMarkerView: UIView {
     
     // place for marker
     var place: Place!
+    var photo: UIImage!
     
     // init function
     class func instanceFromNib() -> UIView {
@@ -30,6 +31,7 @@ class MapMarkerView: UIView {
         self.address.text = String(self.place.formatted_address.split(separator: ",")[0])
         self.rating.text = self.starString(rating: self.place.rating)
         self.setTimeLabel(hours: self.place.opening_hours!)
+        self.image.image = self.photo
     }
     
     // Converts rating value to string with stars

@@ -24,6 +24,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     
     // last selected place
     var lastPlace: Place!
+    var lastPhoto: UIImage!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,10 +103,12 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     func updateMarker(marker: GMSMarker) {
         
         let location = marker.userData as! Location
-        GooglePlaces.lookUpPlace(placeId: location.placeId) { (place) -> () in
+        let places = GooglePlaces(place_id: location.placeId)
+        places.getData() { (place, photo) -> () in
             marker.userData = place
-            self.map.selectedMarker = marker
             self.lastPlace = place
+            self.lastPhoto = photo
+            self.map.selectedMarker = marker
             self.updateButton()
         }
     }
@@ -130,6 +133,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
             
             let place = self.map.selectedMarker?.userData as! Place
             infoView.place = place
+            infoView.photo = self.lastPhoto
             infoView.loadUI()
             
             return infoView

@@ -27,6 +27,8 @@ PODS:
   - GoogleMaps/Base (2.7.0)
   - GoogleMaps/Maps (2.7.0):
     - GoogleMaps/Base
+  - GooglePlaces (2.7.0):
+    - GoogleMaps/Base (= 2.7.0)
   - GoogleToolboxForMac/Defines (2.1.4)
   - "GoogleToolboxForMac/NSData+zlib (2.1.4)":
     - GoogleToolboxForMac/Defines (= 2.1.4)
@@ -42,6 +44,7 @@ DEPENDENCIES:
   - Firebase
   - Firebase/Database
   - GoogleMaps
+  - GooglePlaces
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -52,6 +55,7 @@ SPEC REPOS:
     - FirebaseDatabase
     - FirebaseInstanceID
     - GoogleMaps
+    - GooglePlaces
     - GoogleToolboxForMac
     - leveldb-library
     - nanopb
@@ -64,10 +68,11 @@ SPEC CHECKSUMS:
   FirebaseDatabase: 482bad9c2abd422bb2321194fb8c937e67426a89
   FirebaseInstanceID: 83e0040351565df711a5db3d8ebe5ea21aca998a
   GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
+  GooglePlaces: 3d06e6c99654545b4738ce49648745779c25f2ef
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
 
-PODFILE CHECKSUM: 12c03fc6c474773562b0d048c976cfe1938d9ed8
+PODFILE CHECKSUM: 0e9a6e50310db4413a6ee9c0fe26da613d4f4129
 
 COCOAPODS: 1.5.3

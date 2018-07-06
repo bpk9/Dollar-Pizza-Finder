@@ -20,7 +20,6 @@ struct Place: Codable {
     let rating: Double
     let website: String?
     let opening_hours: Hours?
-    let photos: [Photo]
 }
 
 struct Geometry: Codable {
@@ -42,6 +41,3 @@ struct DayTime: Codable {
     let time: String
 }
 
-struct Photo: Codable {
-    let photo_reference: String
-}
