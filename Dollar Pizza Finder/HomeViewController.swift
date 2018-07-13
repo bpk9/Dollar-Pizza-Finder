@@ -102,8 +102,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         
         let location = marker.userData as! Location
         let places = GooglePlaces(place_id: location.placeId)
-        places.lookUpPlace() { (place) -> () in
-            let data = MarkerData(place: place, photo: nil, route: nil)
+        places.getData() { (place, photo) -> () in
+            let data = MarkerData(place: place, photo: photo, route: nil)
             marker.userData = data
             self.lastData = data
             self.map.selectedMarker = marker

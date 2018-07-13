@@ -30,14 +30,7 @@ class MapMarkerView: UIView {
         self.address.text = String(self.data.place.formatted_address.split(separator: ",")[0])
         self.rating.text = self.starString(rating: self.data.place.rating)
         self.setTimeLabel(hours: self.data.place.opening_hours!)
-        if let photo = self.data.photo {
-            self.image.image = photo
-        } else {
-            let places = GooglePlaces(place_id: self.data.place.place_id)
-            places.lookUpPhoto() { (photo) -> () in
-                self.image.image = photo
-            }
-        }
+        self.image.image = self.data.photo
     }
     
     // Converts rating value to string with stars
