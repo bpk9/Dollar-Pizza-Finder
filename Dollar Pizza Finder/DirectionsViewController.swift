@@ -129,8 +129,8 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
         self.addPolyline()
                 
         self.directionsLabel.text = "Route to " + self.data.place.name
-        self.distanceLabel.text = self.data.route.legs.first?.distance.text
-        self.durationLabel.text = self.data.route.legs.first?.duration.text
+        self.distanceLabel.text = self.data.route!.legs.first?.distance.text
+        self.durationLabel.text = self.data.route!.legs.first?.duration.text
 
     
     }
@@ -139,7 +139,7 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
     func setDirections(num: Int) {
                 
         // get current step
-        let steps = self.data.route.legs.first!.steps
+        let steps = self.data.route!.legs.first!.steps
         let step = steps[num]
                 
         // zoom map to step
@@ -180,7 +180,7 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
     
     func addPolyline() {
         // for each step in journey
-        for step in self.data.route.legs.first!.steps {
+        for step in self.data.route!.legs.first!.steps {
             
             // get polyline
             let path = GMSPath(fromEncodedPath: step.polyline.points)
@@ -228,7 +228,7 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
     
     // update map camera to bounds
     func updateCamera() {
-        let bounds = self.data.route.bounds
+        let bounds = self.data.route!.bounds
         let update = GMSCameraUpdate.fit(GMSCoordinateBounds(coordinate: CLLocationCoordinate2DMake(bounds.northeast.lat, bounds.northeast.lng), coordinate: CLLocationCoordinate2DMake(bounds.southwest.lat, bounds.southwest.lng)))
         self.map.moveCamera(update)
     }

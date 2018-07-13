@@ -102,15 +102,12 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         
         let location = marker.userData as! Location
         let places = GooglePlaces(place_id: location.placeId)
-        places.getData() { (place, photo) -> () in
-            let directions = GoogleDirections(origin: self.currentLocation.coordinate, destination: place.place_id, mode: "transit")
-            directions.getDirections() { (route) -> () in
-                let markerData = MarkerData(place: place, photo: photo, route: route)
-                marker.userData = markerData
-                self.lastData = markerData
-                self.map.selectedMarker = marker
-                self.updateButton()
-            }
+        places.lookUpPlace() { (place) -> () in
+            let data = MarkerData(place: place, photo: nil, route: nil)
+            marker.userData = data
+            self.lastData = data
+            self.map.selectedMarker = marker
+            self.updateButton()
         }
     }
     
@@ -178,7 +175,15 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     
     // update button text
     func updateButton() {
-        self.directionsBtn.setTitle("Directions -- " + self.lastData.route.legs.first!.duration.text, for: .normal)
+        let directions = GoogleDirections(origin: self.currentLocation.coordinate, destination: self.lastData.place.place_id, mode: "transit")
+        directions.getDirections() { (route) -> () in
+            var data = self.map.selectedMarker!.userData as! MarkerData
+            data.route = route
+            self.map.selectedMarker!.userData = data
+            self.lastData = data
+            self.directionsBtn.setTitle("Directions -- " + route.legs.first!.duration.text, for: .normal)
+        }
+        
     }
     
     // only retrive digits from phone number
