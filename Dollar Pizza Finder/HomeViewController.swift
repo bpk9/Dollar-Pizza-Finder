@@ -107,7 +107,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
             marker.userData = data
             self.lastData = data
             self.map.selectedMarker = marker
-            self.updateButton()
+            self.updateButton(data: data)
         }
     }
     
@@ -117,7 +117,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         if let data = marker.userData as? MarkerData {
             self.lastData = data
             self.map.selectedMarker = marker
-            self.updateButton()
+            self.updateButton(data: data)
         } else {
             self.updateMarker(marker: marker)
         }
@@ -174,14 +174,18 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     }
     
     // update button text
-    func updateButton() {
-        let directions = GoogleDirections(origin: self.currentLocation.coordinate, destination: self.lastData.place.place_id, mode: "transit")
-        directions.getDirections() { (route) -> () in
-            var data = self.map.selectedMarker!.userData as! MarkerData
-            data.route = route
-            self.map.selectedMarker!.userData = data
-            self.lastData = data
+    func updateButton(data: MarkerData) {
+        if let route = data.route {
             self.directionsBtn.setTitle("Directions -- " + route.legs.first!.duration.text, for: .normal)
+        } else {
+            let directions = GoogleDirections(origin: self.currentLocation.coordinate, destination: self.lastData.place.place_id, mode: "transit")
+            directions.getDirections() { (route) -> () in
+                var data = self.map.selectedMarker!.userData as! MarkerData
+                data.route = route
+                self.map.selectedMarker!.userData = data
+                self.lastData = data
+                self.directionsBtn.setTitle("Directions -- " + route.legs.first!.duration.text, for: .normal)
+            }
         }
         
     }
