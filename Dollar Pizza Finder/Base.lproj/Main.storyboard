@@ -133,7 +133,7 @@
             </objects>
             <point key="canvasLocation" x="919.20000000000005" y="597.75112443778119"/>
         </scene>
-        <!--Directions View Controller-->
+        <!--Directions-->
         <scene sceneID="u1r-NI-CiL">
             <objects>
                 <viewController id="Rea-h0-4Ke" customClass="DirectionsViewController" customModule="Dollar_Pizza_Finder" customModuleProvider="target" sceneMemberID="viewController">
@@ -142,11 +142,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wNJ-1p-7dI" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="64" width="375" height="493"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="449"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E6w-WT-ldD">
-                                <rect key="frame" x="16" y="629" width="160" height="30"/>
+                                <rect key="frame" x="16" y="585" width="160" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Previous">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -156,7 +156,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s58-H9-xke">
-                                <rect key="frame" x="199" y="629" width="160" height="30"/>
+                                <rect key="frame" x="199" y="585" width="160" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Start">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -166,19 +166,19 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch" translatesAutoresizingMaskIntoConstraints="NO" id="2hD-64-DHD">
-                                <rect key="frame" x="16" y="565" width="60" height="56"/>
+                                <rect key="frame" x="16" y="521" width="60" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="fnp-7R-9sD"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00 hr 00 min" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="678-Fm-OKW">
-                                <rect key="frame" x="200" y="607" width="159" height="14"/>
+                                <rect key="frame" x="200" y="563" width="159" height="14"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00.00 mi" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wII-Gd-4Kn">
-                                <rect key="frame" x="84" y="607" width="92" height="14"/>
+                                <rect key="frame" x="84" y="563" width="92" height="14"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="14" id="5AU-oh-9q9"/>
                                     <constraint firstAttribute="width" constant="92" id="b0h-1F-lwE"/>
@@ -188,7 +188,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Route to Closest Pizza Place " lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GbC-Y6-m60">
-                                <rect key="frame" x="84" y="565" width="275" height="34"/>
+                                <rect key="frame" x="84" y="521" width="275" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="hcz-Nn-Zk2"/>
                                 </constraints>
@@ -223,6 +223,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="DYY-ui-Vgx"/>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Directions" id="U2I-Er-MxV">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="tGG-6s-QKk"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="Ygg-3x-7l1">
+                            <connections>
+                                <action selector="openMaps:" destination="Rea-h0-4Ke" id="vaX-nl-wfJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="backBtn" destination="E6w-WT-ldD" id="j1X-Z5-xsh"/>
                         <outlet property="directionsLabel" destination="GbC-Y6-m60" id="ojX-ky-Msf"/>

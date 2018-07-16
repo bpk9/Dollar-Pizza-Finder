@@ -112,6 +112,11 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
         
     }
     
+    // open directions in google/apple maps
+    @IBAction func openMaps(_ sender: Any) {
+        
+    }
+    
     // set info for overview
     func setOverview() {
         
