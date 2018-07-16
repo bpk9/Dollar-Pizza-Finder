@@ -112,9 +112,12 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
         
     }
     
-    // open directions in google/apple maps
+    // open directions in google maps
     @IBAction func openMaps(_ sender: Any) {
-        
+        let place = self.data.place
+        if let url = URL(string: "https://www.google.com/maps/search/?api=1&query=\(place.geometry.location.lat),\(place.geometry.location.lat)&query_place_id=\(place.place_id)") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
     }
     
     // set info for overview
