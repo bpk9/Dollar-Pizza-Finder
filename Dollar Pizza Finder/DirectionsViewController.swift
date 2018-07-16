@@ -31,6 +31,9 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
     // step counter
     var step: Int!
     
+    // step destination markers
+    var destinations = [GMSMarker]()
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -45,14 +48,6 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
         
         // initialize counter
         self.step = -1
-        
-        // add destination pin to map
-        let marker = GMSMarker()
-        let location = self.data.place.geometry.location
-        marker.position = CLLocationCoordinate2DMake(location.lat, location.lng)
-        marker.title = self.data.place.name
-        marker.map = self.map
-        self.map.selectedMarker = marker
         
         // set up ui
         self.setOverview()
@@ -120,18 +115,24 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
     // set info for overview
     func setOverview() {
         
+        // set up start button
         self.backBtn.isHidden = true
         self.nextBtn.backgroundColor = .blue
         self.nextBtn.setTitle("Start", for: .normal)
         
-        self.directionsPic.image = UIImage(named: "Launch.png")
+        // set image to pizza place
+        self.directionsPic.image = self.data.photo
         
+        // add polyline to map
         self.addPolyline()
-                
+        
+        // show route info
         self.directionsLabel.text = "Route to " + self.data.place.name
         self.distanceLabel.text = self.data.route!.legs.first?.distance.text
         self.durationLabel.text = self.data.route!.legs.first?.duration.text
 
+        // select destination marker
+        self.map.selectedMarker = self.destinations.last
     
     }
     
@@ -145,7 +146,10 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
         // zoom map to step
         let start = CLLocationCoordinate2DMake(step.start_location.lat, step.start_location.lng)
         let end = CLLocationCoordinate2DMake(step.end_location.lat, step.end_location.lng)
-        self.map.moveCamera(GMSCameraUpdate.fit(GMSCoordinateBounds(coordinate: start, coordinate: end)))
+        self.map.moveCamera(GMSCameraUpdate.fit(GMSCoordinateBounds(coordinate: start, coordinate: end), withPadding: 100))
+        
+        // select destination marker
+        self.map.selectedMarker = self.destinations[num]
                 
         // update duration
         self.durationLabel.text = step.duration.text
@@ -199,14 +203,16 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
                 // add departure marker to map
                 let start = step.start_location
                 let departure = GMSMarker(position: CLLocationCoordinate2DMake(start.lat, start.lng))
-                departure.title = details.departure_time.text + " from " + details.departure_stop.name
+                departure.title = details.departure_stop.name
                 departure.map = map
+                self.destinations.append(departure)
                 
                 // add arrival marker to map
                 let end = step.end_location
                 let arrival = GMSMarker(position: CLLocationCoordinate2DMake(end.lat, end.lng))
-                arrival.title = details.arrival_stop.name + " at " + details.arrival_time.text
+                arrival.title = details.arrival_stop.name
                 arrival.map = map
+                self.destinations.append(arrival)
                 
                 polyline.strokeWidth = 10.0
             } else {
@@ -216,6 +222,13 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
             polyline.map = self.map
             
         }
+        
+        // add pizza place marker to map
+        let location = self.data.place.geometry.location
+        let marker = GMSMarker(position: CLLocationCoordinate2DMake(location.lat, location.lng))
+        marker.title = self.data.place.name
+        marker.map = self.map
+        self.destinations.append(marker)
         
         self.updateCamera()
     }
@@ -229,7 +242,7 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
     // update map camera to bounds
     func updateCamera() {
         let bounds = self.data.route!.bounds
-        let update = GMSCameraUpdate.fit(GMSCoordinateBounds(coordinate: CLLocationCoordinate2DMake(bounds.northeast.lat, bounds.northeast.lng), coordinate: CLLocationCoordinate2DMake(bounds.southwest.lat, bounds.southwest.lng)))
+        let update = GMSCameraUpdate.fit(GMSCoordinateBounds(coordinate: CLLocationCoordinate2DMake(bounds.northeast.lat, bounds.northeast.lng), coordinate: CLLocationCoordinate2DMake(bounds.southwest.lat, bounds.southwest.lng)), withPadding: 50)
         self.map.moveCamera(update)
     }
     
