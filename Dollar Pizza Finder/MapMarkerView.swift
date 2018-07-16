@@ -52,27 +52,28 @@ class MapMarkerView: UIView {
         let dayOfWeek = calendar.component(.weekday, from: date)
         
         // if place is open
-        if hours.open_now {
-            self.open.textColor = .green
-            if let close = hours.periods[dayOfWeek].close {
-                self.open.text = "OPEN until " + self.getTime(time: close.time)
-            } else {
-                self.open.text = "OPEN 24 Hours"
-            }
+        if hours.periods.count == 1 {
+            self.open.text = "OPEN 24 Hours"
+        } else if hours.open_now {
+            self.open.text = "OPEN until " + self.getTime(time: hours.periods[dayOfWeek].close!.time)
         } else {
+            self.open.textColor = .red
             self.open.text = "CLOSED until " + self.getTime(time: hours.periods[dayOfWeek].open.time)
         }
-        
     }
     
     func getTime(time: String) -> String {
         let hour = time.substring(to:time.index(time.startIndex, offsetBy: 2))
-        var num = Int(hour)!
-        if num  > 12 {
-            num -= 12
-            return String(num) + "PM"
+        let num = Int(hour)!
+        if num == 0 {
+            return "12AM"
+        } else if num < 12 {
+            return String(num) + "AM"
+        } else if num == 12 {
+            return "12PM"
+        } else {
+            return String(num - 12) + "PM"
         }
-        return String(num) + "AM"
             
     }
     

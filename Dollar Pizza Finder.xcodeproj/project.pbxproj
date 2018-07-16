@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		06E0D482C723F0E368C0EC82 /* Pods_Dollar_Pizza_Finder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 124CF4C6250C1A2B0611BDBA /* Pods_Dollar_Pizza_Finder.framework */; };
-		D303635620EFFDBA005BDB76 /* DirectionsMarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D303635520EFFDBA005BDB76 /* DirectionsMarkerView.xib */; };
-		D303635820EFFDDB005BDB76 /* DirectionsMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D303635720EFFDDB005BDB76 /* DirectionsMarkerView.swift */; };
 		D303635A20F00DA8005BDB76 /* MarkerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D303635920F00DA8005BDB76 /* MarkerData.swift */; };
 		D31F552A20E2FAE400096383 /* GoogleDirections.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31F552920E2FAE400096383 /* GoogleDirections.swift */; };
 		D31F552C20E33A3600096383 /* DirectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31F552B20E33A3600096383 /* DirectionsViewController.swift */; };
@@ -34,8 +32,6 @@
 		124CF4C6250C1A2B0611BDBA /* Pods_Dollar_Pizza_Finder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dollar_Pizza_Finder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CD24006B7798DAC09DA5B9E /* Pods-Dollar Pizza Finder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dollar Pizza Finder.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder.release.xcconfig"; sourceTree = "<group>"; };
 		C9658B80F0A8C802D4C50849 /* Pods-Dollar Pizza Finder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dollar Pizza Finder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder.debug.xcconfig"; sourceTree = "<group>"; };
-		D303635520EFFDBA005BDB76 /* DirectionsMarkerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DirectionsMarkerView.xib; sourceTree = "<group>"; };
-		D303635720EFFDDB005BDB76 /* DirectionsMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsMarkerView.swift; sourceTree = "<group>"; };
 		D303635920F00DA8005BDB76 /* MarkerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerData.swift; sourceTree = "<group>"; };
 		D31F552920E2FAE400096383 /* GoogleDirections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDirections.swift; sourceTree = "<group>"; };
 		D31F552B20E33A3600096383 /* DirectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsViewController.swift; sourceTree = "<group>"; };
@@ -119,9 +115,7 @@
 				D31F552D20E5AE8D00096383 /* DirectionsResponse.swift */,
 				D303635920F00DA8005BDB76 /* MarkerData.swift */,
 				D36CE8DE20E9B51D006C7EC8 /* MapMarkerView.swift */,
-				D303635720EFFDDB005BDB76 /* DirectionsMarkerView.swift */,
 				D36CE8DC20E9B012006C7EC8 /* MapMarkerView.xib */,
-				D303635520EFFDBA005BDB76 /* DirectionsMarkerView.xib */,
 				D3F5D81120B1481600073B45 /* Main.storyboard */,
 				D3F5D80020AE896600073B45 /* LaunchScreen.storyboard */,
 				D3F5D7FE20AE896600073B45 /* Assets.xcassets */,
@@ -219,7 +213,6 @@
 				D3F5D80A20AE8A3400073B45 /* GoogleService-Info.plist in Resources */,
 				D3B5DC8D20C3B99C0032B14F /* boldyear.otf in Resources */,
 				D36CE8DD20E9B012006C7EC8 /* MapMarkerView.xib in Resources */,
-				D303635620EFFDBA005BDB76 /* DirectionsMarkerView.xib in Resources */,
 				D3F5D7FF20AE896600073B45 /* Assets.xcassets in Resources */,
 				D3F5D81320B1481600073B45 /* Main.storyboard in Resources */,
 			);
@@ -316,7 +309,6 @@
 				D36CE8E320EAEE67006C7EC8 /* GooglePlaces.swift in Sources */,
 				D31F552A20E2FAE400096383 /* GoogleDirections.swift in Sources */,
 				D36CE8E720EC0BC3006C7EC8 /* Location.swift in Sources */,
-				D303635820EFFDDB005BDB76 /* DirectionsMarkerView.swift in Sources */,
 				D303635A20F00DA8005BDB76 /* MarkerData.swift in Sources */,
 				D31F552E20E5AE8D00096383 /* DirectionsResponse.swift in Sources */,
 				D3F5D7F820AE896400073B45 /* AppDelegate.swift in Sources */,
