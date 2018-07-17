@@ -97,9 +97,11 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         // if directions button is pressed
-        if let vc = segue.destination as? DirectionsViewController
-        {
+        if let vc = segue.destination as? DirectionsViewController {
             vc.data = self.lastData
+        }
+        if let vc = segue.destination as? SearchViewController {
+            vc.markers = self.places
         }
     }
     

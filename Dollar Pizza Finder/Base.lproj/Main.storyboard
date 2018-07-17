@@ -113,6 +113,11 @@
                     </view>
                     <navigationItem key="navigationItem" title="Dollar Pizza Finder" id="8g5-Gh-lFq">
                         <barButtonItem key="backBarButtonItem" title="Back" id="byj-Gf-LRM"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="Q2X-Rv-E5d">
+                            <connections>
+                                <segue destination="af5-IV-a2p" kind="show" id="8hA-tZ-STr"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="directionsBtn" destination="ECL-Xa-64X" id="5DO-A3-edQ"/>
@@ -132,6 +137,67 @@
                 </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="919.20000000000005" y="597.75112443778119"/>
+        </scene>
+        <!--Search View Controller-->
+        <scene sceneID="ASy-Mt-u5I">
+            <objects>
+                <viewController id="af5-IV-a2p" customClass="SearchViewController" customModule="Dollar_Pizza_Finder" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="X9H-e8-ybt">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="7k2-7g-Ewn">
+                                <rect key="frame" x="0.0" y="64" width="375" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nWf-xq-ECj">
+                                <rect key="frame" x="0.0" y="120" width="375" height="547"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TableCell" rowHeight="75" id="ByR-g1-zp9" customClass="TableCell" customModule="Dollar_Pizza_Finder" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="75"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ByR-g1-zp9" id="YwD-VB-FVa">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="74.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ngF-H3-KdH">
+                                                    <rect key="frame" x="15" y="11" width="345" height="41"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="name" destination="ngF-H3-KdH" id="dVa-7D-vSN"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="7k2-7g-Ewn" firstAttribute="top" secondItem="HdM-yJ-AWc" secondAttribute="top" id="1xj-tD-jdx"/>
+                            <constraint firstAttribute="trailing" secondItem="7k2-7g-Ewn" secondAttribute="trailing" id="2wB-l3-tuT"/>
+                            <constraint firstItem="7k2-7g-Ewn" firstAttribute="leading" secondItem="X9H-e8-ybt" secondAttribute="leading" id="A3g-Tg-GRO"/>
+                            <constraint firstItem="7k2-7g-Ewn" firstAttribute="leading" secondItem="nWf-xq-ECj" secondAttribute="leading" id="Aum-KK-hZF"/>
+                            <constraint firstItem="nWf-xq-ECj" firstAttribute="bottom" secondItem="HdM-yJ-AWc" secondAttribute="bottom" id="MEa-Us-5Ow"/>
+                            <constraint firstItem="nWf-xq-ECj" firstAttribute="top" secondItem="7k2-7g-Ewn" secondAttribute="bottom" id="iEp-kr-Pf7"/>
+                            <constraint firstItem="7k2-7g-Ewn" firstAttribute="trailing" secondItem="nWf-xq-ECj" secondAttribute="trailing" id="zBl-a7-IdZ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="HdM-yJ-AWc"/>
+                    </view>
+                    <connections>
+                        <outlet property="search" destination="7k2-7g-Ewn" id="RS4-i8-A2J"/>
+                        <outlet property="table" destination="nWf-xq-ECj" id="RCz-rF-hbb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ipd-XP-7Fz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1744.8" y="308.9955022488756"/>
         </scene>
         <!--Directions-->
         <scene sceneID="u1r-NI-CiL">
@@ -246,7 +312,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oR8-BO-O3r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1973.5" y="601.5"/>
+            <point key="canvasLocation" x="1740" y="989"/>
         </scene>
     </scenes>
     <resources>
