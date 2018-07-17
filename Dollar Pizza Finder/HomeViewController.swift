@@ -22,9 +22,50 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     let manager = CLLocationManager()
     var currentLocation: CLLocation! // current location
     
+    // all open pizza places
+    var places = [GMSMarker]()
+    
     // last selected place
     var lastData: MarkerData!
 
+    
+    // load data from firebase / google places
+    override func loadView() {
+        super.loadView()
+        
+        // lock method until data is finished loading
+        DispatchQueue.global().async {
+            let lock = DispatchSemaphore(value: 0)
+            
+            // get data
+            FirebaseHelper.getData() { (place_ids) -> () in
+                for id in place_ids {
+                    GooglePlaces.lookUpPlace(place_id: id) { (place) -> () in
+                        
+                        // if place is open
+                        if place.opening_hours!.open_now {
+                            // add marker to map
+                            let location = place.geometry.location
+                            let marker = GMSMarker(position: CLLocationCoordinate2DMake(location.lat, location.lng))
+                            marker.userData = MarkerData(place: place, photo: nil, route: nil)
+                            marker.map = self.map
+                            self.places.append(marker)
+                        }
+                        
+                        // if place is last signal lock
+                        if id == place_ids.last {
+                            lock.signal()
+                        }
+                    }
+                }
+            }
+            
+            // wait for signal
+            lock.wait()
+        }
+    }
+    
+    // set up view
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,12 +79,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         self.map.delegate = self
         self.map.isMyLocationEnabled = true
         
-        // load info from database
-        FirebaseHelper.getData() { (locations) -> () in
-            let closest = self.addLocations(locations: locations)
-            self.map.camera = GMSCameraPosition.camera(withTarget: closest.position, zoom: 15)
-            self.updateMarker(marker: closest)
-        }
+        // TODO highlight closest pizza place
         
     }
     
@@ -101,8 +137,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     func updateMarker(marker: GMSMarker) {
         
         let location = marker.userData as! Location
-        let places = GooglePlaces(place_id: location.placeId)
-        places.getData() { (place, photo) -> () in
+        GooglePlaces.getData(place_id: location.placeId) { (place, photo) -> () in
             let data = MarkerData(place: place, photo: photo, route: nil)
             marker.userData = data
             self.lastData = data

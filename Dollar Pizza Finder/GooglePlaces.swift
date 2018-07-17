@@ -11,24 +11,18 @@ import GooglePlaces
 
 class GooglePlaces {
     
-    var placeId: String
-    
-    init(place_id: String) {
-        self.placeId = place_id
-    }
-    
-    func getData(completion: @escaping (Place, UIImage) -> ()) {
-        self.lookUpPlace() { (place) -> () in
-            self.lookUpPhoto() { (photo) -> () in
+    class func getData(place_id: String, completion: @escaping (Place, UIImage) -> ()) {
+        self.lookUpPlace(place_id: place_id) { (place) -> () in
+            self.lookUpPhoto(place_id: place_id) { (photo) -> () in
                 completion(place, photo)
             }
         }
     }
         
-    func lookUpPlace(completion: @escaping (Place) -> ()) {
+    class func lookUpPlace(place_id: String, completion: @escaping (Place) -> ()) {
         
         // get response from google places
-        Alamofire.request("https://maps.googleapis.com/maps/api/place/details/json?placeid=\(self.placeId)&key=AIzaSyBVsu4GKsTC7X0l7CpCur1WpVAcxgP5wro").responseJSON { response in
+        Alamofire.request("https://maps.googleapis.com/maps/api/place/details/json?placeid=\(place_id)&key=AIzaSyBVsu4GKsTC7X0l7CpCur1WpVAcxgP5wro").responseJSON { response in
             
             let decoder = JSONDecoder()
             let data = try! decoder.decode(PlacesResponse.self, from: response.data!)
@@ -38,8 +32,8 @@ class GooglePlaces {
         }
     }
     
-    func lookUpPhoto(completion: @escaping (UIImage) -> ()) {
-        GMSPlacesClient.shared().lookUpPhotos(forPlaceID: self.placeId) { (photos, error) -> Void in
+    class func lookUpPhoto(place_id: String, completion: @escaping (UIImage) -> ()) {
+        GMSPlacesClient.shared().lookUpPhotos(forPlaceID: place_id) { (photos, error) -> Void in
             if let error = error {
                 // TODO: handle the error.
                 print("Error: \(error.localizedDescription)")
@@ -53,7 +47,7 @@ class GooglePlaces {
         }
     }
     
-    func loadImageForMetadata(photoMetadata: GMSPlacePhotoMetadata, completion: @escaping (UIImage) -> ()) {
+    class func loadImageForMetadata(photoMetadata: GMSPlacePhotoMetadata, completion: @escaping (UIImage) -> ()) {
         GMSPlacesClient.shared().loadPlacePhoto(photoMetadata, callback: {
             (photo, error) -> Void in
             if let error = error {

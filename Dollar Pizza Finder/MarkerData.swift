@@ -10,6 +10,6 @@ import UIKit
 
 struct MarkerData {
     var place: Place
-    var photo: UIImage
+    var photo: UIImage?
     var route: Route?
 }
