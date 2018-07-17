@@ -40,14 +40,14 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
             // get data
             FirebaseHelper.getData() { (place_ids) -> () in
                 for id in place_ids {
-                    GooglePlaces.lookUpPlace(place_id: id) { (place) -> () in
+                    GooglePlaces.getData(place_id: id) { (place, photo) -> () in
                         
                         // if place is open
                         if place.opening_hours!.open_now {
                             // add marker to map
                             let location = place.geometry.location
                             let marker = GMSMarker(position: CLLocationCoordinate2DMake(location.lat, location.lng))
-                            marker.userData = MarkerData(place: place, photo: nil, route: nil)
+                            marker.userData = MarkerData(place: place, photo: photo, route: nil)
                             marker.map = self.map
                             self.places.append(marker)
                         }
@@ -61,6 +61,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
                             // select closest pizza place
                             self.map.selectedMarker = self.places.first
                             
+                            // zoom camera to closest place
+                            self.map.moveCamera(GMSCameraUpdate.setTarget(self.map.selectedMarker!.position))
                             self.map.animate(toZoom: 14)
                             
                             lock.signal()
@@ -87,7 +89,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         // set up google map view
         self.map.delegate = self
         self.map.isMyLocationEnabled = true
-        self.map.camera = GMSCameraPosition.camera(withLatitude: 40.7831, longitude: -73.9712, zoom: 9)
+        self.map.camera = GMSCameraPosition.camera(withLatitude: 40.7831, longitude: -73.9712, zoom: 8)
         
     }
     
@@ -113,8 +115,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     
     // add info window to marker when selected
     func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
-        
-        self.map.moveCamera(GMSCameraUpdate.setTarget(marker.position))
         
         let data = marker.userData as! MarkerData
         self.lastData = data
