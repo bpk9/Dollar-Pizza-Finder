@@ -99,8 +99,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         // if directions button is pressed
         if let vc = segue.destination as? DirectionsViewController {
             vc.data = self.lastData
-        }
-        if let vc = segue.destination as? SearchViewController {
+        } else if let vc = segue.destination as? SearchViewController {
             vc.markers = self.places
         }
     }

@@ -46,15 +46,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="zMC-yG-xDV">
-                                <rect key="frame" x="0.0" y="64" width="375" height="56"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="8FM-FN-4Eu" id="aPL-0b-F5Y"/>
-                                </connections>
-                            </searchBar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VwG-mv-3Jn" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="120" width="375" height="439"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="495"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ECL-Xa-64X">
@@ -71,7 +64,7 @@
                                 <rect key="frame" x="16" y="579" width="165" height="30"/>
                                 <color key="backgroundColor" red="0.0055994331921947445" green="0.72884875786787573" blue="0.0086905666145992537" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="165" id="IKw-db-U3B"/>
+                                    <constraint firstAttribute="width" constant="165" id="Y6a-z5-a61"/>
                                 </constraints>
                                 <state key="normal" title="Call">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -93,21 +86,18 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="zMC-yG-xDV" firstAttribute="leading" secondItem="VwG-mv-3Jn" secondAttribute="leading" id="09e-jL-WUp"/>
-                            <constraint firstItem="t5k-ok-nob" firstAttribute="leading" secondItem="Hpf-LO-O6L" secondAttribute="leadingMargin" id="8Si-CW-URE"/>
-                            <constraint firstItem="Hep-eK-LaF" firstAttribute="leading" secondItem="t5k-ok-nob" secondAttribute="trailing" constant="13" id="Avi-cw-TbU"/>
-                            <constraint firstItem="t5k-ok-nob" firstAttribute="baseline" secondItem="Hep-eK-LaF" secondAttribute="baseline" id="Ckg-UP-4Ug"/>
-                            <constraint firstItem="Hep-eK-LaF" firstAttribute="trailing" secondItem="ECL-Xa-64X" secondAttribute="trailing" id="DzJ-sA-niO"/>
-                            <constraint firstItem="ECL-Xa-64X" firstAttribute="top" secondItem="t5k-ok-nob" secondAttribute="bottom" constant="8" symbolic="YES" id="H2t-TP-hMH"/>
-                            <constraint firstItem="zMC-yG-xDV" firstAttribute="trailing" secondItem="VwG-mv-3Jn" secondAttribute="trailing" id="RA3-2G-kC3"/>
-                            <constraint firstItem="t5k-ok-nob" firstAttribute="leading" secondItem="ECL-Xa-64X" secondAttribute="leading" id="ShG-9m-RY9"/>
-                            <constraint firstItem="VwG-mv-3Jn" firstAttribute="centerX" secondItem="ECL-Xa-64X" secondAttribute="centerX" id="bDi-66-6al"/>
-                            <constraint firstItem="zMC-yG-xDV" firstAttribute="top" secondItem="14I-Yl-KGB" secondAttribute="top" id="dep-Tl-Udu"/>
-                            <constraint firstAttribute="bottom" secondItem="ECL-Xa-64X" secondAttribute="bottom" constant="20" symbolic="YES" id="dym-fY-mD1"/>
-                            <constraint firstItem="zMC-yG-xDV" firstAttribute="leading" secondItem="Hpf-LO-O6L" secondAttribute="leading" id="fHy-wH-AG4"/>
-                            <constraint firstAttribute="trailing" secondItem="zMC-yG-xDV" secondAttribute="trailing" id="il5-t4-6L8"/>
-                            <constraint firstItem="VwG-mv-3Jn" firstAttribute="top" secondItem="zMC-yG-xDV" secondAttribute="bottom" id="yj0-uI-T74"/>
-                            <constraint firstItem="t5k-ok-nob" firstAttribute="top" secondItem="VwG-mv-3Jn" secondAttribute="bottom" constant="20" id="ync-Ur-N5i"/>
+                            <constraint firstItem="Hep-eK-LaF" firstAttribute="leading" secondItem="t5k-ok-nob" secondAttribute="trailing" constant="13" id="8rx-6s-1SN"/>
+                            <constraint firstItem="ECL-Xa-64X" firstAttribute="top" secondItem="t5k-ok-nob" secondAttribute="bottom" constant="8" symbolic="YES" id="9AC-pQ-FMB"/>
+                            <constraint firstItem="t5k-ok-nob" firstAttribute="leading" secondItem="ECL-Xa-64X" secondAttribute="leading" id="Cnn-oq-o7R"/>
+                            <constraint firstItem="t5k-ok-nob" firstAttribute="top" secondItem="VwG-mv-3Jn" secondAttribute="bottom" constant="20" id="DWL-CA-uDg"/>
+                            <constraint firstAttribute="trailing" secondItem="VwG-mv-3Jn" secondAttribute="trailing" id="EbV-wS-48B"/>
+                            <constraint firstItem="Hep-eK-LaF" firstAttribute="trailing" secondItem="ECL-Xa-64X" secondAttribute="trailing" id="HDw-Kt-SCk"/>
+                            <constraint firstItem="t5k-ok-nob" firstAttribute="leading" secondItem="Hpf-LO-O6L" secondAttribute="leadingMargin" id="Lx6-F9-b6o"/>
+                            <constraint firstItem="VwG-mv-3Jn" firstAttribute="leading" secondItem="Hpf-LO-O6L" secondAttribute="leading" id="X6j-wQ-KQU"/>
+                            <constraint firstAttribute="bottom" secondItem="ECL-Xa-64X" secondAttribute="bottom" constant="20" symbolic="YES" id="YMb-KC-yTJ"/>
+                            <constraint firstItem="t5k-ok-nob" firstAttribute="baseline" secondItem="Hep-eK-LaF" secondAttribute="baseline" id="eDi-tw-d35"/>
+                            <constraint firstItem="VwG-mv-3Jn" firstAttribute="top" secondItem="14I-Yl-KGB" secondAttribute="top" id="fZQ-U4-mfx"/>
+                            <constraint firstItem="VwG-mv-3Jn" firstAttribute="centerX" secondItem="ECL-Xa-64X" secondAttribute="centerX" id="zTj-Yf-6YW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="14I-Yl-KGB"/>
                     </view>
@@ -129,7 +119,6 @@
                 <searchDisplayController id="Edq-YY-3ef">
                     <connections>
                         <outlet property="delegate" destination="8FM-FN-4Eu" id="vNQ-yp-aW6"/>
-                        <outlet property="searchBar" destination="zMC-yG-xDV" id="Gv6-aE-Yzt"/>
                         <outlet property="searchContentsController" destination="8FM-FN-4Eu" id="uXc-DC-lnr"/>
                         <outlet property="searchResultsDataSource" destination="8FM-FN-4Eu" id="JVS-UT-XfC"/>
                         <outlet property="searchResultsDelegate" destination="8FM-FN-4Eu" id="wW6-2j-bwD"/>
@@ -138,7 +127,7 @@
             </objects>
             <point key="canvasLocation" x="919.20000000000005" y="597.75112443778119"/>
         </scene>
-        <!--Search View Controller-->
+        <!--Search-->
         <scene sceneID="ASy-Mt-u5I">
             <objects>
                 <viewController id="af5-IV-a2p" customClass="SearchViewController" customModule="Dollar_Pizza_Finder" customModuleProvider="target" sceneMemberID="viewController">
@@ -190,6 +179,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HdM-yJ-AWc"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Search" id="9aK-MJ-awY"/>
                     <connections>
                         <outlet property="search" destination="7k2-7g-Ewn" id="RS4-i8-A2J"/>
                         <outlet property="table" destination="nWf-xq-ECj" id="RCz-rF-hbb"/>
