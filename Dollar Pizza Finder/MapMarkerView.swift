@@ -17,20 +17,17 @@ class MapMarkerView: UIView {
     @IBOutlet var rating: UILabel!
     @IBOutlet var image: UIImageView!
     
-    // place for marker
-    var data: MarkerData!
-    
     // init function
     class func instanceFromNib() -> UIView {
         return UINib(nibName: "MapMarkerView", bundle: nil).instantiate(withOwner: self, options: nil)[0] as! UIView
     }
     
-    func loadUI() {
-        self.name.text = self.data.place.name
-        self.address.text = String(self.data.place.formatted_address.split(separator: ",")[0])
-        self.rating.text = self.starString(rating: self.data.place.rating)
-        self.setTimeLabel(hours: self.data.place.opening_hours!)
-        self.image.image = self.data.photo
+    func loadUI(data: MarkerData) {
+        self.name.text = data.place.name
+        self.address.text = String(data.place.formatted_address.split(separator: ",")[0])
+        self.rating.text = self.starString(rating: data.place.rating)
+        self.setTimeLabel(hours: data.place.opening_hours!)
+        //self.image.image = data.photo
     }
     
     // Converts rating value to string with stars

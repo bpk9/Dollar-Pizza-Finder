@@ -54,6 +54,15 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
                         
                         // if place is last signal lock
                         if id == place_ids.last {
+                            
+                            // sort places by distance
+                            self.places.sort(by: { self.distance(marker: $0) < self.distance(marker: $1) })
+                            
+                            // select closest pizza place
+                            self.map.selectedMarker = self.places.first
+                            
+                            self.map.animate(toZoom: 14)
+                            
                             lock.signal()
                         }
                     }
@@ -78,8 +87,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         // set up google map view
         self.map.delegate = self
         self.map.isMyLocationEnabled = true
-        
-        // TODO highlight closest pizza place
+        self.map.camera = GMSCameraPosition.camera(withLatitude: 40.7831, longitude: -73.9712, zoom: 9)
         
     }
     
@@ -103,72 +111,19 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         
     }
     
-    // add locations from database to map while also checking for closest place
-    func addLocations(locations: [Location]) -> GMSMarker {
-        
-        var closest: GMSMarker!
-        
-        // initialize closest marker as first place
-        closest = self.addMarker(location: locations.first!)
-        
-        // if any other places are closer then have that be the selected marker
-        for location in locations.dropFirst() {
-            let marker = self.addMarker(location: location)
-            if self.distance(marker: marker) < self.distance(marker: closest) {
-                closest = marker
-            }
-        }
-        
-        return closest
-    }
-    
-    // add marker to google map and return marker
-    func addMarker(location: Location) -> GMSMarker {
-        
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2DMake(location.lat, location.lng)
-        marker.userData = location
-        marker.map = self.map
-        return marker
-        
-    }
-    
-    // look up place information and pic in google places
-    func updateMarker(marker: GMSMarker) {
-        
-        let location = marker.userData as! Location
-        GooglePlaces.getData(place_id: location.placeId) { (place, photo) -> () in
-            let data = MarkerData(place: place, photo: photo, route: nil)
-            marker.userData = data
-            self.lastData = data
-            self.map.selectedMarker = marker
-            self.updateButton(data: data)
-        }
-    }
-    
-    // called when marker is tapped
-    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-
-        if let data = marker.userData as? MarkerData {
-            self.lastData = data
-            self.map.selectedMarker = marker
-            self.updateButton(data: data)
-        } else {
-            self.updateMarker(marker: marker)
-        }
-        
-        return true
-        
-    }
-    
     // add info window to marker when selected
     func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
         
+        self.map.moveCamera(GMSCameraUpdate.setTarget(marker.position))
+        
+        let data = marker.userData as! MarkerData
+        self.lastData = data
+        
+        self.updateButton(data: self.lastData)
+        
         if let infoView = MapMarkerView.instanceFromNib() as? MapMarkerView {
             
-            let data = self.map.selectedMarker?.userData as! MarkerData
-            infoView.data = data
-            infoView.loadUI()
+            infoView.loadUI(data: data)
             
             return infoView
             
@@ -199,7 +154,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     
     // Get Distance in Miles
     func distance(marker: GMSMarker) -> Double {
-        let location = marker.userData as! Location
+        let data = marker.userData as! MarkerData
+        let location = data.place.geometry.location
         return Double(self.currentLocation.distance(from: CLLocation(latitude: location.lat, longitude: location.lng)))
     }
     
