@@ -72,7 +72,7 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
             self.filtered.removeAll(keepingCapacity: false)
             let predicate = searchBar.text!.lowercased()
             self.filtered = self.markers.filter({ ($0.userData as! MarkerData).place.name.lowercased().range(of: predicate) != nil })
-            self.filtered.sort{ ($0.userData as! MarkerData).place.name < ($1.userData as! MarkerData).place.name }
+            self.filtered.sort{ ($0.userData as! MarkerData).place.name > ($1.userData as! MarkerData).place.name }
         }
         
         self.tableView.reloadData()
@@ -80,7 +80,7 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     
     // dismiss keyboard with search button
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.search.endEditing(true)
+        searchBar.endEditing(true)
     }
     
 }

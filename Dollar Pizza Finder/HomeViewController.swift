@@ -17,6 +17,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     // UI elements
     @IBOutlet var map: GMSMapView!
     @IBOutlet var directionsBtn: UIButton!
+    @IBOutlet var callBtn: UIButton!
+    @IBOutlet var websiteBtn: UIButton!
     
     // manages current location services
     let manager = CLLocationManager()
@@ -120,6 +122,20 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         let data = marker.userData as! MarkerData
         self.lastData = data
         
+        // hide call button if phone number is not listed
+        if data.place.formatted_phone_number != nil {
+            self.callBtn.isHidden = false
+        } else {
+            self.callBtn.isHidden = true
+        }
+        
+        // hide website button if website is not listed
+        if data.place.website != nil {
+            self.websiteBtn.isHidden = false
+        } else {
+            self.websiteBtn.isHidden = true
+        }
+        
         self.updateButton(data: self.lastData)
         
         if let infoView = MapMarkerView.instanceFromNib() as? MapMarkerView {
@@ -139,8 +155,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         if let phoneNumber = self.lastData.place.formatted_phone_number {
             let url = URL(string: "tel://\(self.getRawNum(input: phoneNumber))")!
             self.openURL(url: url)
-        } else {
-            self.showAlert(title: "Phone Number Not Found", message: (self.lastData.place.name + " does not have a listed phone number"))
         }
     }
     
@@ -148,14 +162,11 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     @IBAction func visitWebsite(_ sender: Any) {
         if let website = self.lastData.place.website {
             self.openURL(url: URL(string: website)!)
-        } else {
-            self.showAlert(title: "Website Not Found", message: (self.lastData.place.name + " does not have a listed website"))
         }
     }
     
     // gets data back from search result
     @IBAction func unwindHome(segue: UIStoryboardSegue) {
-        print("Hey")
         if let vc = segue.source as? SearchViewController {
             if let marker = vc.selectedMarker {
                 self.map.selectedMarker = marker
@@ -203,14 +214,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
             }
         }
         return output
-    }
-    
-    func showAlert(title: String, message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        
-        present(alertController, animated: true, completion: nil)
     }
 
 }

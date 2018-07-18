@@ -110,9 +110,11 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="callBtn" destination="t5k-ok-nob" id="7nW-Lo-yKK"/>
                         <outlet property="directionsBtn" destination="ECL-Xa-64X" id="5DO-A3-edQ"/>
                         <outlet property="map" destination="VwG-mv-3Jn" id="kD2-6X-UkO"/>
                         <outlet property="searchDisplayController" destination="Edq-YY-3ef" id="Qgg-ET-sZy"/>
+                        <outlet property="websiteBtn" destination="Hep-eK-LaF" id="p2y-c0-npZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fnn-jk-Pzi" userLabel="First Responder" sceneMemberID="firstResponder"/>
