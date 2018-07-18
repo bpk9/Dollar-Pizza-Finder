@@ -9,40 +9,49 @@
 import UIKit
 import GoogleMaps
 
-class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SearchViewController: UITableViewController {
     
     // view components
     @IBOutlet var search: UISearchBar!
-    @IBOutlet var table: UITableView!
     
     // markers on map
     var markers: [GMSMarker]!
     
-    // init view
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    // marker selected
+    var selectedMarker: GMSMarker?
+    
+    // init view when appears
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        // set up table view
-        self.table.delegate = self
-        self.table.dataSource = self
+        // set selected marker to nil
+        self.selectedMarker = nil
     }
     
     // returns number of rows in section
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return markers.count
     }
     
     // returns cell for table view at given index
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        // get data from marker at index
-        let data = markers[indexPath.row].userData as! MarkerData
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // create cell and fill with data
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableCell") as! TableCell
-        cell.name.text = data.place.name
+        cell.loadUI(data: markers[indexPath.row].userData as! MarkerData)
         
         return cell
+    }
+    
+    // when cell is tapped by user
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.selectedMarker = self.markers[indexPath.row]
+        performSegue(withIdentifier: "unwindHome", sender: self)
+    }
+    
+    // height of cells
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 75
     }
     
 }

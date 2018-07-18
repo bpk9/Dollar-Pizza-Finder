@@ -13,4 +13,9 @@ class TableCell: UITableViewCell {
     // ui elements
     @IBOutlet var name: UILabel!
     
+    // load ui elements from data
+    func loadUI(data: MarkerData) {
+        self.name.text = data.place.name
+    }
+    
 }

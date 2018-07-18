@@ -153,6 +153,17 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         }
     }
     
+    // gets data back from search result
+    @IBAction func unwindHome(segue: UIStoryboardSegue) {
+        print("Hey")
+        if let vc = segue.source as? SearchViewController {
+            if let marker = vc.selectedMarker {
+                self.map.selectedMarker = marker
+                self.map.animate(toLocation: marker.position)
+            }
+        }
+    }
+    
     // Get Distance in Miles
     func distance(marker: GMSMarker) -> Double {
         let data = marker.userData as! MarkerData
