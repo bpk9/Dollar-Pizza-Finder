@@ -18,9 +18,6 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     var markers: [GMSMarker]!
     var filtered = [GMSMarker]()
     
-    // currently searching
-    var isSearching: Bool = false
-    
     // marker selected
     var selectedMarker: GMSMarker?
     
@@ -33,33 +30,24 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.filtered = self.markers
+        
         // set selected marker to nil
         self.selectedMarker = nil
     }
     
     // returns number of rows in section
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isSearching {
-            return filtered.count
-        }
-        return markers.count
+        return filtered.count
         
     }
     
     // returns cell for table view at given index
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var places: [GMSMarker]!
-        
-        if isSearching {
-            places = filtered
-        } else {
-            places = markers
-        }
-        
         // create cell and fill with data
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableCell") as! TableCell
-        cell.loadUI(data: places[indexPath.row].userData as! MarkerData)
+        cell.loadUI(data: filtered[indexPath.row].userData as! MarkerData)
         
         return cell
     }
@@ -67,15 +55,7 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     // when cell is tapped by user
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
        
-        var places: [GMSMarker]!
-        
-        if isSearching {
-            places = filtered
-        } else {
-            places = markers
-        }
-        
-        self.selectedMarker = places[indexPath.row]
+        self.selectedMarker = filtered[indexPath.row]
         performSegue(withIdentifier: "unwindHome", sender: self)
     }
     
@@ -84,29 +64,23 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
         return 75
     }
     
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        self.isSearching = true
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        self.isSearching = false
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        self.isSearching = false
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.isSearching = false
-    }
-    
+    // filter results when text changes
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.filtered.removeAll(keepingCapacity: false)
-        let predicate = searchBar.text!
-        self.filtered = self.markers.filter({ ($0.userData as! MarkerData).place.name.range(of: predicate) != nil })
-        self.filtered.sort{ ($0.userData as! MarkerData).place.name < ($1.userData as! MarkerData).place.name }
-        self.isSearching = (self.filtered.count == 0) ? false: true
+        if searchBar.text! == "" {
+            self.filtered = self.markers
+        } else {
+            self.filtered.removeAll(keepingCapacity: false)
+            let predicate = searchBar.text!.lowercased()
+            self.filtered = self.markers.filter({ ($0.userData as! MarkerData).place.name.lowercased().range(of: predicate) != nil })
+            self.filtered.sort{ ($0.userData as! MarkerData).place.name < ($1.userData as! MarkerData).place.name }
+        }
+        
         self.tableView.reloadData()
+    }
+    
+    // dismiss keyboard with search button
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.search.endEditing(true)
     }
     
 }
