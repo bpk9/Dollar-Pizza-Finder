@@ -77,6 +77,7 @@
                         <outlet property="map" destination="VwG-mv-3Jn" id="kD2-6X-UkO"/>
                         <outlet property="searchDisplayController" destination="Edq-YY-3ef" id="Qgg-ET-sZy"/>
                         <segue destination="PYu-vt-kAD" kind="show" identifier="placeInfo" id="Jjb-dv-XLi"/>
+                        <segue destination="Rea-h0-4Ke" kind="show" identifier="directionsFromHome" id="Fu7-kn-vVt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fnn-jk-Pzi" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -302,7 +303,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BWB-MC-0fo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1760.8" y="1346.176911544228"/>
+            <point key="canvasLocation" x="919" y="1384"/>
         </scene>
         <!--Directions-->
         <scene sceneID="u1r-NI-CiL">
@@ -417,11 +418,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oR8-BO-O3r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2646" y="1346"/>
+            <point key="canvasLocation" x="1761" y="1384"/>
         </scene>
     </scenes>
     <resources>
         <image name="Launch" width="375" height="375"/>
         <image name="settings" width="25" height="25"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Fu7-kn-vVt"/>
+    </inferredMetricsTieBreakers>
 </document>

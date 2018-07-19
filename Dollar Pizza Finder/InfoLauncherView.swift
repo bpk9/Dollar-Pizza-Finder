@@ -8,10 +8,17 @@
 
 import UIKit
 
+protocol InfoDelegate {
+    func runSegue(_ identifier: String)
+}
+
 class InfoLauncherView: UIView {
     
     // UI elements
     @IBOutlet var directionsBtn: UIButton!
+    
+    // instance delegate
+    var delegate: InfoDelegate?
     
     // init function
     class func instanceFromNib() -> UIView {
@@ -20,6 +27,11 @@ class InfoLauncherView: UIView {
     
     func loadUI(data: MarkerData) {
         self.directionsBtn.setTitle("Directions -- " + data.route!.legs.first!.duration.text, for: .normal)
+    }
+    
+    // show directions view when button is tapped
+    @IBAction func directionsAction(_ sender: Any) {
+        delegate?.runSegue("directionsFromHome")
     }
     
 }

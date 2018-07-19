@@ -12,7 +12,7 @@ import CoreLocation.CLLocation
 import Firebase
 import GoogleMaps
 
-class HomeViewController: UIViewController, GMSMapViewDelegate {
+class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate {
     
     // UI elements
     @IBOutlet var map: GMSMapView!
@@ -88,7 +88,17 @@ class HomeViewController: UIViewController, GMSMapViewDelegate {
         
         // set up info view
         self.infoLauncher = InfoLauncher(map: self.map)
+        self.infoLauncher.infoView.delegate = self
         
+    }
+    
+    // show info when view appears if marker is selected
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if self.map.selectedMarker != nil {
+            self.infoLauncher.showInfo()
+        }
     }
     
     // prepare data for new storyboard
@@ -100,7 +110,14 @@ class HomeViewController: UIViewController, GMSMapViewDelegate {
         } else if let vc = segue.destination as? PlaceInfoViewController {
             vc.currentLocation = self.map.myLocation!.coordinate
             vc.data = self.map.selectedMarker?.userData as! MarkerData
+        } else if let vc = segue.destination as? DirectionsViewController {
+            vc.data = self.map.selectedMarker?.userData as! MarkerData
         }
+        
+        if self.infoLauncher.isVisible {
+            self.infoLauncher.hideInfo()
+        }
+        
     }
     
     // add info when marker is selected
@@ -136,6 +153,11 @@ class HomeViewController: UIViewController, GMSMapViewDelegate {
             self.infoLauncher.hideInfo()
         }
         
+    }
+    
+    // go to directions view when directions button is tapped
+    func runSegue(_ identifier: String) {
+        performSegue(withIdentifier: identifier, sender: nil)
     }
     
     // call button action
