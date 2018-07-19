@@ -6,10 +6,10 @@
 //  Copyright © 2018 Brian P Kasper. All rights reserved.
 //
 import UIKit
-import CoreLocation
+import CoreLocation.CLLocation
 import GoogleMaps
 
-class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
+class DirectionsViewController: UIViewController {
     
     // View Components
     @IBOutlet var map: GMSMapView!
@@ -20,10 +20,6 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet var directionsPic: UIImageView!
     @IBOutlet var backBtn: UIButton!
     @IBOutlet var nextBtn: UIButton!
-    
-    // manages current location services
-    let manager = CLLocationManager()
-    var currentLocation: CLLocation!
     
     // destination information
     var data: MarkerData!
@@ -40,30 +36,12 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
         // add title to view controller
         self.title = "Directions to " + self.data.place.name
         
-        // set up location services
-        self.manager.delegate = self
-        self.manager.desiredAccuracy = kCLLocationAccuracyBest // get most accurate location
-        self.manager.requestWhenInUseAuthorization() // get permission
-        self.manager.startUpdatingLocation()  // update current location
-        
         // initialize counter
         self.step = -1
         
         // set up ui
         self.setOverview()
         
-        
-    }
-    
-    // called after current location is updated
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
-    {
-        
-        // enable location for google map
-        self.map.isMyLocationEnabled = true
-        
-        // stop updating location
-        self.manager.stopUpdatingLocation()
         
     }
     

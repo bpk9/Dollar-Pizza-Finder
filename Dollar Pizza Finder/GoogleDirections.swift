@@ -6,7 +6,7 @@
 //  Copyright © 2018 Brian P Kasper. All rights reserved.
 //
 
-import CoreLocation
+import CoreLocation.CLLocation
 import GoogleMaps
 import Alamofire
 

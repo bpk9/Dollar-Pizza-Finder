@@ -8,21 +8,17 @@
 //
 
 import UIKit
-import CoreLocation
+import CoreLocation.CLLocation
 import Firebase
 import GoogleMaps
 
-class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate {
+class HomeViewController: UIViewController, GMSMapViewDelegate {
     
     // UI elements
     @IBOutlet var map: GMSMapView!
     @IBOutlet var directionsBtn: UIButton!
     @IBOutlet var callBtn: UIButton!
     @IBOutlet var websiteBtn: UIButton!
-    
-    // manages current location services
-    let manager = CLLocationManager()
-    var currentLocation: CLLocation! // current location
     
     // all open pizza places
     var places = [GMSMarker]()
@@ -85,12 +81,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // set up location services
-        self.manager.delegate = self
-        self.manager.desiredAccuracy = kCLLocationAccuracyBest // get most accurate location
-        self.manager.requestWhenInUseAuthorization() // get permission
-        self.manager.startUpdatingLocation()  // update current location
-        
         // set up google map view
         self.map.delegate = self
         self.map.isMyLocationEnabled = true
@@ -108,19 +98,9 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         if let vc = segue.destination as? SearchViewController {
             vc.markers = self.places
         } else if let vc = segue.destination as? PlaceInfoViewController {
-            vc.currentLocation = self.currentLocation.coordinate
+            vc.currentLocation = self.map.myLocation!.coordinate
             vc.data = self.map.selectedMarker?.userData as! MarkerData
         }
-    }
-    
-    // called after current location is updated
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
-    {
-        // get current location
-        self.currentLocation = locations.last
-
-        self.manager.stopUpdatingLocation() // stop updating location
-        
     }
     
     // add info when marker is selected
@@ -181,7 +161,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     func distance(marker: GMSMarker) -> Double {
         let data = marker.userData as! MarkerData
         let location = data.place.geometry.location
-        return Double(self.currentLocation.distance(from: CLLocation(latitude: location.lat, longitude: location.lng)))
+        return Double(self.map.myLocation!.distance(from: CLLocation(latitude: location.lat, longitude: location.lng)))
     }
     
     // opens url

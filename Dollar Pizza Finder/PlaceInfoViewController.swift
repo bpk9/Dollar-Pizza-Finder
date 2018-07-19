@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CoreLocation
+import CoreLocation.CLLocation
 
 class PlaceInfoViewController: UITableViewController {
     
