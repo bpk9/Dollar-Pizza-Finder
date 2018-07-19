@@ -27,6 +27,9 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     // all open pizza places
     var places = [GMSMarker]()
     
+    // info launcher
+    var infoLauncher: InfoLauncher?
+    
     // load data from firebase / google places
     override func loadView() {
         super.loadView()
@@ -113,9 +116,14 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         
     }
     
-    // add info window to marker when selected
+    // add info when marker is selected
     func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
         
+        // load info launcher
+        self.infoLauncher = InfoLauncher(markerData: marker.userData as! MarkerData)
+        self.infoLauncher!.showInfo()
+        
+        // load info marker
         if let infoView = MapMarkerView.instanceFromNib() as? MapMarkerView {
             
             infoView.loadUI(data: marker.userData as! MarkerData)
@@ -128,10 +136,16 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         
     }
     
-    // show place info when info marker is tapped
+    // show more place info when info marker is tapped
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-        let infoLauncher = InfoLauncher()
-        infoLauncher.showInfo()
+        
+    }
+    
+    // hide info when map is tapped
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        if let launcher = self.infoLauncher {
+            launcher.hideInfo()
+        }
     }
     
     // call button action
