@@ -130,7 +130,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     
     // show place info when info marker is tapped
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-        performSegue(withIdentifier: "placeInfo", sender: nil)
+        let infoLauncher = InfoLauncher()
+        infoLauncher.showInfo()
     }
     
     // call button action
