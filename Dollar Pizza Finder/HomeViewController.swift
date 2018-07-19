@@ -28,7 +28,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     var places = [GMSMarker]()
     
     // info launcher
-    var infoLauncher: InfoLauncher?
+    var infoLauncher: InfoLauncher!
     
     // load data from firebase / google places
     override func loadView() {
@@ -75,6 +75,10 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
             // wait for signal
             lock.wait()
         }
+        
+        // extend map view to bottom of screen
+        let oldFrame = self.map.superview!.frame
+        self.map.superview!.frame = CGRect(x: oldFrame.origin.x, y: oldFrame.origin.y, width: oldFrame.width, height: UIApplication.shared.keyWindow!.frame.height - oldFrame.origin.y)
     }
     
     // set up view
@@ -91,6 +95,9 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         self.map.delegate = self
         self.map.isMyLocationEnabled = true
         self.map.camera = GMSCameraPosition.camera(withLatitude: 40.7831, longitude: -73.9712, zoom: 8)
+        
+        // set up info view
+        self.infoLauncher = InfoLauncher(map: self.map.superview!)
         
     }
     
@@ -119,9 +126,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     // add info when marker is selected
     func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
         
-        // load info launcher
-        self.infoLauncher = InfoLauncher(markerData: marker.userData as! MarkerData)
-        self.infoLauncher!.showInfo()
+        // show info launcher
+        self.infoLauncher.showInfo()
         
         // load info marker
         if let infoView = MapMarkerView.instanceFromNib() as? MapMarkerView {
@@ -143,9 +149,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     
     // hide info when map is tapped
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-        if let launcher = self.infoLauncher {
-            launcher.hideInfo()
-        }
+        self.infoLauncher.hideInfo()
     }
     
     // call button action

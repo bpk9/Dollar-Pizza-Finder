@@ -10,57 +10,61 @@ import UIKit
 
 class InfoLauncher {
     
-    // data from tapped marker
-    var data: MarkerData
-    
     // window for display
     var window: UIWindow
     
-    // view to contain info
-    let collectionView: UICollectionView = {
-        let layout = UICollectionViewLayout()
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = .white
-        return cv
-    }()
+    // map on home screen
+    var map: UIView!
     
-    init(markerData: MarkerData) {
+    // view to contain info
+    let infoView: UIView = InfoLauncherView.instanceFromNib()
+    
+    init(map: UIView) {
         
         // get window
         self.window = UIApplication.shared.keyWindow!
         
-        // init data for view
-        self.data = markerData
-        
+        // get map
+        self.map = map
     }
     
     // slide in info menu from bottom of screen
     func showInfo() {
         
         // add subview to window
-        window.addSubview(collectionView)
+        window.addSubview(self.infoView)
             
         // init frame for subview below visible window
-        collectionView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: 100)
+        self.infoView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: 100)
             
         // animate subview into view from below
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.collectionView.frame = CGRect(x: 0, y: self.window.frame.height - 100, width: self.window.frame.width, height: 100)
+            
+            // move map up
+            let oldFrame = self.map.frame
+            self.map.frame = CGRect(x: oldFrame.origin.x, y: oldFrame.origin.y, width: oldFrame.width, height: oldFrame.height - 70)
+            
+            // bring frame in
+            self.infoView.frame = CGRect(x: 0, y: self.window.frame.height - 70, width: self.window.frame.width, height: 70)
             
         }, completion: nil)
         
     }
     
-    // slide info out to bottomof screen
+    // slide info out to bottom of screen
     func hideInfo() {
         
         UIView.animate(withDuration: 0.5, animations: {
-            // animare out of screen
-            self.collectionView.frame = CGRect(x: 0, y: self.window.frame.height, width: self.window.frame.width, height: 100)
+            // animate info out of screen
+            self.infoView.frame = CGRect(x: 0, y: self.window.frame.height, width: self.window.frame.width, height: 70)
+            
+            // move map down
+            let oldFrame = self.map.frame
+            self.map.frame = CGRect(x: oldFrame.origin.x, y: oldFrame.origin.y, width: oldFrame.width, height: oldFrame.height + 70)
         
         }, completion: { (success) -> Void in
             // remove from view when completed
-            self.collectionView.removeFromSuperview()
+            self.infoView.removeFromSuperview()
         })
         
     }
