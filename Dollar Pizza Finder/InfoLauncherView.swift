@@ -34,5 +34,10 @@ class InfoLauncherView: UIView {
         delegate?.runSegue("directionsFromHome")
     }
     
+    // show more info view when button is tapped
+    @IBAction func moreInfoAction(_ sender: Any) {
+        delegate?.runSegue("placeInfo")
+    }
+    
 }
 

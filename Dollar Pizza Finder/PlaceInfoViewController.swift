@@ -13,6 +13,7 @@ class PlaceInfoViewController: UITableViewController {
     
     // ui elements
     @IBOutlet var directionsBtn: UIButton!
+    @IBOutlet var navItem: UINavigationItem!
     
     // last known location of user
     var currentLocation: CLLocationCoordinate2D!
@@ -23,18 +24,25 @@ class PlaceInfoViewController: UITableViewController {
     // load data for place when view appears
     override func viewWillAppear(_ animated: Bool) {
         
-        let directions = GoogleDirections(origin: self.currentLocation, destination: self.data.place.place_id, mode: "transit")
-        directions.getDirections() { (route) -> () in
-            
-            if let leg = route.legs.first {
-                self.data.route = route
-                self.directionsBtn.setTitle("Directions -- " + leg.duration.text, for: .normal)
-            } else {
-                print("Directions not Available")
-            }
-            
+        // set title to name of place
+        self.navItem.title = self.data.place.name
+        
+        // update button text if route exists
+        if let leg = self.data.route!.legs.first {
+            self.directionsBtn.setTitle("Directions -- " + leg.duration.text, for: .normal)
+        } else {
+            self.directionsBtn.isHidden = true
         }
         
+    }
+    
+    // prepare data for new storyboard
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
+        if let vc = segue.destination as? DirectionsViewController {
+            vc.data = self.data
+        }
+    
     }
     
 }

@@ -299,6 +299,7 @@
                     <navigationItem key="navigationItem" title="Closest Pizza Place" id="JKf-uq-kJy"/>
                     <connections>
                         <outlet property="directionsBtn" destination="2o6-WM-DPU" id="Dj5-sH-Hkm"/>
+                        <outlet property="navItem" destination="JKf-uq-kJy" id="66U-gr-xk9"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BWB-MC-0fo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -426,6 +427,6 @@
         <image name="settings" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Fu7-kn-vVt"/>
+        <segue reference="LHI-LT-XPC"/>
     </inferredMetricsTieBreakers>
 </document>
