@@ -27,11 +27,14 @@ class InfoLauncher: NSObject {
     func showInfo() {
         if let window = UIApplication.shared.keyWindow {
             
+            // add subview to window
             window.addSubview(collectionView)
             
-            let height: CGFloat = 100
-            let y = window.frame.height - height
-            collectionView.frame = CGRect(x: 0, y: y, width: window.frame.width, height: height)
+            // init frame for subview below visible window
+            collectionView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: 100)
+            
+            // animate subview into view from below
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: { self.collectionView.frame = CGRect(x: 0, y: window.frame.height - 100, width: window.frame.width, height: 100) }, completion: nil)
             
         }
     }
