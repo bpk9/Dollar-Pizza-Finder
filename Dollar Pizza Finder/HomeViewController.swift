@@ -87,7 +87,7 @@ class HomeViewController: UIViewController, GMSMapViewDelegate {
         self.map.camera = GMSCameraPosition.camera(withLatitude: 40.7831, longitude: -73.9712, zoom: 8)
         
         // set up info view
-        self.infoLauncher = InfoLauncher(map: self.map.superview!)
+        self.infoLauncher = InfoLauncher(map: self.map)
         
     }
     
@@ -107,7 +107,10 @@ class HomeViewController: UIViewController, GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
         
         // show info launcher
-        self.infoLauncher.showInfo()
+        if !self.infoLauncher.isVisible {
+            self.infoLauncher.showInfo()
+        }
+        self.infoLauncher.updateInfo()
         
         // load info marker
         if let infoView = MapMarkerView.instanceFromNib() as? MapMarkerView {
@@ -129,7 +132,10 @@ class HomeViewController: UIViewController, GMSMapViewDelegate {
     
     // hide info when map is tapped
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-        self.infoLauncher.hideInfo()
+        if self.infoLauncher.isVisible {
+            self.infoLauncher.hideInfo()
+        }
+        
     }
     
     // call button action

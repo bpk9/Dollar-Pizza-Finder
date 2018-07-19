@@ -11,7 +11,7 @@ import UIKit
 class InfoLauncherView: UIView {
     
     // UI elements
-
+    @IBOutlet var directionsBtn: UIButton!
     
     // init function
     class func instanceFromNib() -> UIView {
@@ -19,7 +19,7 @@ class InfoLauncherView: UIView {
     }
     
     func loadUI(data: MarkerData) {
-        
+        self.directionsBtn.setTitle("Directions -- " + data.route!.legs.first!.duration.text, for: .normal)
     }
     
 }
