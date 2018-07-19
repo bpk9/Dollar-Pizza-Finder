@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina5_5" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,24 +15,25 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch" translatesAutoresizingMaskIntoConstraints="NO" id="dnR-EE-d74">
-                                <rect key="frame" x="19.666666666666657" y="190.66666666666663" width="375" height="375"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Launch" translatesAutoresizingMaskIntoConstraints="NO" id="dnR-EE-d74">
+                                <rect key="frame" x="0.0" y="107" width="320" height="320"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="dnR-EE-d74" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="hbz-qA-Hzc"/>
-                            <constraint firstItem="dnR-EE-d74" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="xkF-RQ-eVE"/>
+                            <constraint firstItem="dnR-EE-d74" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="NAF-0W-emB"/>
+                            <constraint firstItem="dnR-EE-d74" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="ZzN-na-G5s"/>
+                            <constraint firstItem="dnR-EE-d74" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="hqu-d5-3Xb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="50.724637681159422" y="374.18478260869568"/>
+            <point key="canvasLocation" x="46.875" y="371.83098591549299"/>
         </scene>
     </scenes>
     <resources>

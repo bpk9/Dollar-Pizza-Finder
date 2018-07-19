@@ -60,7 +60,7 @@ class InfoLauncher {
     // slide info out to bottom of screen
     func hideInfo() {
         
-        UIView.animate(withDuration: 0.5, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
             // animate info out of screen
             self.infoView.frame = CGRect(x: 0, y: self.window.frame.height, width: self.window.frame.width, height: 70)
             
