@@ -27,10 +27,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     // all open pizza places
     var places = [GMSMarker]()
     
-    // last selected place
-    var lastData: MarkerData!
-
-    
     // load data from firebase / google places
     override func loadView() {
         super.loadView()
@@ -98,11 +94,12 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     // prepare data for new storyboard
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        // if directions button is pressed
-        if let vc = segue.destination as? DirectionsViewController {
-            vc.data = self.lastData
-        } else if let vc = segue.destination as? SearchViewController {
+        // send places array to search
+        if let vc = segue.destination as? SearchViewController {
             vc.markers = self.places
+        } else if let vc = segue.destination as? PlaceInfoViewController {
+            vc.currentLocation = self.currentLocation.coordinate
+            vc.data = self.map.selectedMarker?.userData as! MarkerData
         }
     }
     
@@ -119,14 +116,9 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     // add info window to marker when selected
     func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
         
-        let data = marker.userData as! MarkerData
-        self.lastData = data
-        
-        //self.updateButton(data: self.lastData)
-        
         if let infoView = MapMarkerView.instanceFromNib() as? MapMarkerView {
             
-            infoView.loadUI(data: data)
+            infoView.loadUI(data: marker.userData as! MarkerData)
             
             return infoView
             
@@ -136,8 +128,13 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         
     }
     
+    // show place info when info marker is tapped
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        performSegue(withIdentifier: "placeInfo", sender: nil)
+    }
+    
     // call button action
-    @IBAction func callPlace(_ sender: Any) {
+    /*@IBAction func callPlace(_ sender: Any) {
         if let phoneNumber = self.lastData.place.formatted_phone_number {
             let url = URL(string: "tel://\(self.getRawNum(input: phoneNumber))")!
             self.openURL(url: url)
@@ -149,7 +146,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         if let website = self.lastData.place.website {
             self.openURL(url: URL(string: website)!)
         }
-    }
+    }*/
     
     // gets data back from search result
     @IBAction func unwindHome(segue: UIStoryboardSegue) {
@@ -173,7 +170,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
-    // update button text
+    /* update button text
     func updateButton(data: MarkerData) {
         if let route = data.route {
             self.directionsBtn.setTitle("Directions -- " + route.legs.first!.duration.text, for: .normal)
@@ -188,7 +185,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
             }
         }
         
-    }
+    }*/
     
     // only retrive digits from phone number
     func getRawNum(input: String) -> String {
