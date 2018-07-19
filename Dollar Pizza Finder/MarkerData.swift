@@ -6,10 +6,16 @@
 //  Copyright © 2018 Brian P Kasper. All rights reserved.
 //
 
-import UIKit
+import UIKit.UIImage
+import GooglePlaces.GMSPlacePhotoMetadataList
 
 struct MarkerData {
     var place: Place
-    var photo: UIImage
+    var photo: Photo
     var route: Route?
+}
+
+struct Photo {
+    var image: UIImage
+    var data: GMSPlacePhotoMetadataList
 }

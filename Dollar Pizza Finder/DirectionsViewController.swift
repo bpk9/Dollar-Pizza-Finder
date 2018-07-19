@@ -129,7 +129,7 @@ class DirectionsViewController: UIViewController, CLLocationManagerDelegate {
         self.nextBtn.setTitle("Start", for: .normal)
         
         // set image to pizza place
-        self.directionsPic.image = self.data.photo
+        self.directionsPic.image = self.data.photo.image
         
         // add polyline to map
         self.addPolyline()

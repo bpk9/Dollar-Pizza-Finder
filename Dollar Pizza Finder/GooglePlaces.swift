@@ -7,14 +7,15 @@
 //
 
 import Alamofire
-import GooglePlaces
+import GooglePlaces.GMSPlacesClient
+import GooglePlaces.GMSPlacePhotoMetadataList
 
 class GooglePlaces {
     
-    class func getData(place_id: String, completion: @escaping (Place, UIImage) -> ()) {
+    class func getData(place_id: String, completion: @escaping (Place, UIImage, GMSPlacePhotoMetadataList) -> ()) {
         self.lookUpPlace(place_id: place_id) { (place) -> () in
-            self.lookUpPhoto(place_id: place_id) { (photo) -> () in
-                completion(place, photo)
+            self.lookUpPhoto(place_id: place_id) { (photo, photos) -> () in
+                completion(place, photo, photos)
             }
         }
     }
@@ -32,7 +33,7 @@ class GooglePlaces {
         }
     }
     
-    class func lookUpPhoto(place_id: String, completion: @escaping (UIImage) -> ()) {
+    class func lookUpPhoto(place_id: String, completion: @escaping (UIImage, GMSPlacePhotoMetadataList) -> ()) {
         GMSPlacesClient.shared().lookUpPhotos(forPlaceID: place_id) { (photos, error) -> Void in
             if let error = error {
                 // TODO: handle the error.
@@ -40,7 +41,7 @@ class GooglePlaces {
             } else {
                 if let firstPhoto = photos?.results.first {
                     self.loadImageForMetadata(photoMetadata: firstPhoto) { (photo) -> () in
-                        completion(photo)
+                        completion(photo, photos!)
                     }
                 }
             }

@@ -42,14 +42,14 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
             // get data
             FirebaseHelper.getData() { (place_ids) -> () in
                 for id in place_ids {
-                    GooglePlaces.getData(place_id: id) { (place, photo) -> () in
+                    GooglePlaces.getData(place_id: id) { (place, photo, photos) -> () in
                         
                         // if place is open
                         if place.opening_hours!.open_now {
                             // add marker to map
                             let location = place.geometry.location
                             let marker = GMSMarker(position: CLLocationCoordinate2DMake(location.lat, location.lng))
-                            marker.userData = MarkerData(place: place, photo: photo, route: nil)
+                            marker.userData = MarkerData(place: place, photo: Photo(image: photo, data: photos), route: nil)
                             marker.map = self.map
                             self.places.append(marker)
                         }

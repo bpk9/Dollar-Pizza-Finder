@@ -27,7 +27,7 @@ class MapMarkerView: UIView {
         self.address.text = String(data.place.formatted_address.split(separator: ",")[0])
         self.rating.text = self.starString(rating: data.place.rating)
         self.setTimeLabel(hours: data.place.opening_hours!)
-        self.image.image = data.photo
+        self.image.image = data.photo.image
     }
     
     // Converts rating value to string with stars
