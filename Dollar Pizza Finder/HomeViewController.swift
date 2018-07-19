@@ -122,21 +122,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         let data = marker.userData as! MarkerData
         self.lastData = data
         
-        // hide call button if phone number is not listed
-        if data.place.formatted_phone_number != nil {
-            self.callBtn.isHidden = false
-        } else {
-            self.callBtn.isHidden = true
-        }
-        
-        // hide website button if website is not listed
-        if data.place.website != nil {
-            self.websiteBtn.isHidden = false
-        } else {
-            self.websiteBtn.isHidden = true
-        }
-        
-        self.updateButton(data: self.lastData)
+        //self.updateButton(data: self.lastData)
         
         if let infoView = MapMarkerView.instanceFromNib() as? MapMarkerView {
             
