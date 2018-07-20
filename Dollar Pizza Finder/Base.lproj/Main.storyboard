@@ -69,7 +69,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="Q2X-Rv-E5d">
                             <connections>
-                                <segue destination="TVd-ID-izJ" kind="show" id="0Jl-wx-nxP"/>
+                                <action selector="showSearchBar:" destination="8FM-FN-4Eu" id="5YO-BJ-Tx2"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -202,6 +202,8 @@
         <!--Search-->
         <scene sceneID="aTw-Qx-bsF">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w2V-89-Ftp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="bRa-qN-tNd" userLabel="Exit" sceneMemberID="exit"/>
                 <tableViewController id="TVd-ID-izJ" customClass="SearchViewController" customModule="Dollar_Pizza_Finder" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hgd-AM-Fv7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -251,8 +253,6 @@
                         <segue destination="bRa-qN-tNd" kind="unwind" identifier="unwindHome" unwindAction="unwindHomeWithSegue:" id="6vB-ob-vlv"/>
                     </connections>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="w2V-89-Ftp" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="bRa-qN-tNd" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1761" y="619"/>
         </scene>
@@ -433,6 +433,6 @@
         <image name="settings" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="LHI-LT-XPC"/>
+        <segue reference="Fu7-kn-vVt"/>
     </inferredMetricsTieBreakers>
 </document>

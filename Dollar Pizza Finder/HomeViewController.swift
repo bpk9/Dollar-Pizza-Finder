@@ -26,6 +26,10 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate {
     // info launcher
     var infoLauncher: InfoLauncher!
     
+    // search bar
+    var searchBar: UISearchBar = UISearchBar()
+    var searchSuggestions: SearchSuggestions!
+    
     // load data from firebase / google places
     override func loadView() {
         super.loadView()
@@ -90,6 +94,12 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate {
         self.infoLauncher = InfoLauncher(map: self.map)
         self.infoLauncher.infoView.delegate = self
         
+        // set up search bar
+        self.searchBar.placeholder = "Search for a place"
+        self.searchBar.showsCancelButton = true
+        let height = UIApplication.shared.statusBarFrame.height + self.navigationController!.navigationBar.intrinsicContentSize.height
+        self.searchSuggestions = SearchSuggestions(y: height)
+        
     }
     
     // show info when view appears if marker is selected
@@ -118,10 +128,15 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate {
             self.infoLauncher.hideInfo()
         }
         
+        self.hideSearchBar()
+        
     }
     
     // add info when marker is selected
     func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
+        
+        // hide search if showing
+        self.hideSearchBar()
         
         // show info launcher
         if !self.infoLauncher.isVisible {
@@ -147,17 +162,34 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate {
         performSegue(withIdentifier: "placeInfo", sender: nil)
     }
     
-    // hide info when map is tapped
+    // hide info or search when map is tapped
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         if self.infoLauncher.isVisible {
             self.infoLauncher.hideInfo()
         }
+        self.hideSearchBar()
+        //self.searchSuggestions.hideSuggestions()
         
+    }
+    
+    // show search bar when button is tapped
+    @IBAction func showSearchBar(_ sender: Any) {
+        
+        self.navigationItem.titleView = self.searchBar
+        self.searchBar.becomeFirstResponder()
+        self.searchSuggestions.showSuggestions()
     }
     
     // go to directions view when directions button is tapped
     func runSegue(_ identifier: String) {
         performSegue(withIdentifier: identifier, sender: nil)
+    }
+    
+    // hide search bar and restore title
+    func hideSearchBar() {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.navigationItem.titleView = nil
+        })
     }
     
     // call button action
@@ -196,23 +228,6 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate {
     func openURL(url: URL) {
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
-    
-    /* update button text
-    func updateButton(data: MarkerData) {
-        if let route = data.route {
-            self.directionsBtn.setTitle("Directions -- " + route.legs.first!.duration.text, for: .normal)
-        } else {
-            let directions = GoogleDirections(origin: self.currentLocation.coordinate, destination: self.lastData.place.place_id, mode: "transit")
-            directions.getDirections() { (route) -> () in
-                var data = self.map.selectedMarker!.userData as! MarkerData
-                data.route = route
-                self.map.selectedMarker!.userData = data
-                self.lastData = data
-                self.directionsBtn.setTitle("Directions -- " + route.legs.first!.duration.text, for: .normal)
-            }
-        }
-        
-    }*/
     
     // only retrive digits from phone number
     func getRawNum(input: String) -> String {
