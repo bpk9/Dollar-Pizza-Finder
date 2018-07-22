@@ -12,7 +12,7 @@ import CoreLocation.CLLocation
 import Firebase
 import GoogleMaps
 
-class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate {
+class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, SearchDelegate {
     
     // UI elements
     @IBOutlet var map: GMSMapView!
@@ -27,7 +27,6 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate {
     var infoLauncher: InfoLauncher!
     
     // search bar
-    var searchBar: UISearchBar = UISearchBar()
     var searchSuggestions: SearchSuggestions!
     
     // load data from firebase / google places
@@ -74,16 +73,12 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate {
             
             // wait for signal
             lock.wait()
+            
         }
         
         // extend map view to bottom of screen
         let oldFrame = self.map.superview!.frame
         self.map.superview!.frame = CGRect(x: oldFrame.origin.x, y: oldFrame.origin.y, width: oldFrame.width, height: UIApplication.shared.keyWindow!.frame.height - oldFrame.origin.y)
-    }
-    
-    // set up view
-    override func viewDidLoad() {
-        super.viewDidLoad()
         
         // set up google map view
         self.map.delegate = self
@@ -95,11 +90,8 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate {
         self.infoLauncher.infoView.delegate = self
         
         // set up search bar
-        self.searchBar.placeholder = "Search for a place"
-        self.searchBar.showsCancelButton = true
-        let height = UIApplication.shared.statusBarFrame.height + self.navigationController!.navigationBar.intrinsicContentSize.height
-        self.searchSuggestions = SearchSuggestions(y: height)
-        
+        self.searchSuggestions = SearchSuggestions(navBarHeight: self.navigationController!.navigationBar.intrinsicContentSize.height)
+        self.searchSuggestions.delegate = self
     }
     
     // show info when view appears if marker is selected
@@ -128,15 +120,10 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate {
             self.infoLauncher.hideInfo()
         }
         
-        self.hideSearchBar()
-        
     }
     
     // add info when marker is selected
     func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
-        
-        // hide search if showing
-        self.hideSearchBar()
         
         // show info launcher
         if !self.infoLauncher.isVisible {
@@ -167,29 +154,29 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate {
         if self.infoLauncher.isVisible {
             self.infoLauncher.hideInfo()
         }
-        self.hideSearchBar()
-        //self.searchSuggestions.hideSuggestions()
         
     }
     
     // show search bar when button is tapped
     @IBAction func showSearchBar(_ sender: Any) {
-        
-        self.navigationItem.titleView = self.searchBar
-        self.searchBar.becomeFirstResponder()
-        self.searchSuggestions.showSuggestions()
+        if !self.searchSuggestions.isVisible {
+            self.searchSuggestions.showSearch()
+        }
+    }
+    
+    // add bar to title view
+    func showBar(_ searchBar: UISearchBar) {
+        self.navigationItem.titleView = searchBar
+    }
+    
+    // remove bar from title view
+    func hideBar() {
+        self.navigationItem.titleView = nil
     }
     
     // go to directions view when directions button is tapped
     func runSegue(_ identifier: String) {
         performSegue(withIdentifier: identifier, sender: nil)
-    }
-    
-    // hide search bar and restore title
-    func hideSearchBar() {
-        UIView.animate(withDuration: 0.5, animations: {
-            self.navigationItem.titleView = nil
-        })
     }
     
     // call button action
