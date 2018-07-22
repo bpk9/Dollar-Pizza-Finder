@@ -65,6 +65,10 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
                             self.map.moveCamera(GMSCameraUpdate.setTarget(self.map.selectedMarker!.position))
                             self.map.animate(toZoom: 14)
                             
+                            // set up search bar
+                            self.searchSuggestions = SearchSuggestions(map: self.map, markers: self.places, navBarHeight: self.navigationController!.navigationBar.intrinsicContentSize.height)
+                            self.searchSuggestions.delegate = self
+                            
                             lock.signal()
                         }
                     }
@@ -89,9 +93,6 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
         self.infoLauncher = InfoLauncher(map: self.map)
         self.infoLauncher.infoView.delegate = self
         
-        // set up search bar
-        self.searchSuggestions = SearchSuggestions(navBarHeight: self.navigationController!.navigationBar.intrinsicContentSize.height)
-        self.searchSuggestions.delegate = self
     }
     
     // show info when view appears if marker is selected

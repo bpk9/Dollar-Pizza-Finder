@@ -25,21 +25,10 @@ class MapMarkerView: UIView {
     func loadUI(data: MarkerData) {
         self.name.text = data.place.name
         self.address.text = String(data.place.formatted_address.split(separator: ",")[0])
-        self.rating.text = self.starString(rating: data.place.rating)
+        self.rating.text = GooglePlaces.starString(rating: data.place.rating)
         self.setTimeLabel(hours: data.place.opening_hours!)
         self.image.image = data.photo.image
     }
-    
-    // Converts rating value to string with stars
-    func starString(rating: Double) -> String {
-        var output = String()
-        for _ in 0 ..< Int(round(rating)) {
-            output += "★"
-        }
-        return output + String(format: " %.1f", rating)
-    }
-    
-
     
     func setTimeLabel(hours: Hours) {
         

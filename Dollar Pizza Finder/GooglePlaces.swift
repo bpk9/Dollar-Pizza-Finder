@@ -59,4 +59,13 @@ class GooglePlaces {
             }
         })
     }
+    
+    // Converts rating value to string with stars
+    class func starString(rating: Double) -> String {
+        var output = String()
+        for _ in 0 ..< Int(round(rating)) {
+            output += "★"
+        }
+        return output + String(format: " %.1f", rating)
+    }
 }

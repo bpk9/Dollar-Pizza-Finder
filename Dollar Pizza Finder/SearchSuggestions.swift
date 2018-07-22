@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GoogleMaps.GMSMarker
 
 protocol SearchDelegate {
     func showBar(_ searchBar: UISearchBar)
@@ -17,6 +18,7 @@ class SearchSuggestions: NSObject, UISearchBarDelegate {
     
     // application elements
     let window: UIWindow
+    var map: GMSMapView
     
     // ui elements
     var searchBar: UISearchBar = UISearchBar()
@@ -33,12 +35,14 @@ class SearchSuggestions: NSObject, UISearchBarDelegate {
     var rows: Int = 3
     
     // marker data
+    var markers: [SuggestionCell] = [SuggestionCell]()
+    var filtered: [SuggestionCell]!
     
-    
-    init(navBarHeight: CGFloat) {
+    init(map: GMSMapView, markers: [GMSMarker], navBarHeight: CGFloat) {
         // init variables
         self.window = UIApplication.shared.keyWindow!
         self.isVisible = false
+        self.map = map
         super.init()
         
         // set up search bar
@@ -52,13 +56,8 @@ class SearchSuggestions: NSObject, UISearchBarDelegate {
         // set up suggestions view
         self.stack = UIStackView(frame: CGRect(x: 0, y: y, width: self.window.frame.width, height: 0))
         self.stack.axis = .vertical
-        self.stack.distribution = .equalSpacing
-        let cell = SuggestionCell.instanceFromNib()
-        let cell2 = SuggestionCell.instanceFromNib()
-        let cell3 = SuggestionCell.instanceFromNib()
-        self.stack.addArrangedSubview(cell)
-        self.stack.addArrangedSubview(cell2)
-        self.stack.addArrangedSubview(cell3)
+        self.stack.distribution = .fillEqually
+        self.addStackData(markers: markers)
         
         // set up background tint
         self.tint = UIView(frame: CGRect(x: 0, y: y, width: self.window.frame.width, height: self.window.frame.height - y))
@@ -76,14 +75,15 @@ class SearchSuggestions: NSObject, UISearchBarDelegate {
         // add search bar
         self.delegate!.showBar(self.searchBar)
         self.searchBar.becomeFirstResponder()
+        self.searchBar.text = ""
         
         // add suggestions
         self.window.addSubview(self.stack)
+        self.filtered = self.markers
+        self.refreshStackData()
         
-        // animate suggestions and tint in
+        // animate  tint in
         UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            let oldFrame = self.stack.frame
-            self.stack.frame = CGRect(x: oldFrame.origin.x, y: oldFrame.origin.y, width: oldFrame.width, height: 160)
             
             self.tint.alpha = 1
  
@@ -94,11 +94,17 @@ class SearchSuggestions: NSObject, UISearchBarDelegate {
         
     }
     
+    // hides search bar elements
     @objc func hideSearch() {
+        
+        let oldFrame = self.stack.frame
         
         UIView.animate(withDuration: 0.5, animations: {
             // remove search bar
             self.delegate!.hideBar()
+            
+            // remove suggestions
+            self.stack.frame = CGRect(x: oldFrame.origin.x, y: oldFrame.origin.y, width: oldFrame.width, height: 0)
             
             // remove tint
             self.tint.alpha = 0
@@ -111,18 +117,61 @@ class SearchSuggestions: NSObject, UISearchBarDelegate {
         
     }
     
+    // initializes stack data
+    func addStackData(markers: [GMSMarker]) {
+        for marker in markers {
+            let cell = SuggestionCell.instanceFromNib() as! SuggestionCell
+            cell.marker = marker
+            cell.loadUI(currentLocation: self.map.myLocation!)
+            self.stack.addArrangedSubview(cell)
+            self.markers.append(cell)
+        }
+    }
+    
+    // updates stack view for filtered data
+    func refreshStackData() {
+        
+        // clear all markers from stack
+        for view in self.stack.subviews {
+            view.removeFromSuperview()
+        }
+        
+        // add views from filter
+        for cell in self.filtered {
+            self.stack.addArrangedSubview(cell)
+        }
+        
+        // update stack frame based on num of elements
+        self.updateStackFrame()
+        
+    }
+    
+    // TODO updates stack view frame based on visible elemtnts
+    func updateStackFrame() {
+        let oldFrame = self.stack.frame
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.stack.frame = CGRect(x: oldFrame.origin.x, y: oldFrame.origin.y, width: oldFrame.width, height: CGFloat(50 * self.filtered.count))
+            }, completion: nil)
+    }
+    
     // called when search bar cancel button is tapped
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.hideSearch()
     }
     
-    /*func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.rows
+    // called when text in search bar changes
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text! == "" {
+            self.filtered = self.markers
+        } else {
+            self.filtered.removeAll(keepingCapacity: false)
+            let predicate = searchBar.text!.lowercased()
+            self.filtered = self.markers.filter({ ($0.marker.userData as! MarkerData).place.name.lowercased().range(of: predicate) != nil })
+            self.filtered.sort{ ($0.marker.userData as! MarkerData).place.name > ($1.marker.userData as! MarkerData).place.name }
+        }
+        
+        self.refreshStackData()
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        UITableViewCell(
-        return UITableViewCell(frame: CGRect(x: 0, y: 0, width: self.table.frame.width, height: 50))
-    }*/
     
 }
