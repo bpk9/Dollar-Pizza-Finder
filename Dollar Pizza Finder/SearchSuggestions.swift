@@ -162,11 +162,11 @@ class SearchSuggestions: NSObject, UISearchBarDelegate {
     
     // called when text in search bar changes
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchBar.text! == "" {
+        if searchText == "" {
             self.filtered = self.markers
         } else {
             self.filtered.removeAll(keepingCapacity: false)
-            let predicate = searchBar.text!.lowercased()
+            let predicate = searchText.lowercased()
             self.filtered = self.markers.filter({ ($0.marker.userData as! MarkerData).place.name.lowercased().range(of: predicate) != nil })
             self.filtered.sort{ ($0.marker.userData as! MarkerData).place.name > ($1.marker.userData as! MarkerData).place.name }
         }
