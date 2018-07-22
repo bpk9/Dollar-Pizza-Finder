@@ -34,7 +34,7 @@ class SuggestionCell: UIView {
         self.rating.text = GooglePlaces.starString(rating: data.place.rating)
         
         let coordinate = data.place.geometry.location
-        self.distance.text = String(format: ".2f mi", (currentLocation.distance(from: CLLocation(latitude: coordinate.lat, longitude: coordinate.lng))))
+        self.distance.text = String(format: "%.2f mi", (currentLocation.distance(from: CLLocation(latitude: coordinate.lat, longitude: coordinate.lng))) * 0.000621371)
     }
     
 }

@@ -33,51 +33,45 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
     override func loadView() {
         super.loadView()
         
-        // lock method until data is finished loading
-        DispatchQueue.global().async {
-            let lock = DispatchSemaphore(value: 0)
-            
-            // get data
-            FirebaseHelper.getData() { (place_ids) -> () in
-                for id in place_ids {
-                    GooglePlaces.getData(place_id: id) { (place, photo, photos) -> () in
+        // lock to sync data loading
+        var count: Int = 0
+        
+        // get data
+        FirebaseHelper.getData() { (place_ids) -> () in
+            for id in place_ids {
+                GooglePlaces.getData(place_id: id) { (place, photo, photos) -> () in
+                    
+                    // if place is open
+                    if place.opening_hours!.open_now {
+                        // add marker to map
+                        let location = place.geometry.location
+                        let marker = GMSMarker(position: CLLocationCoordinate2DMake(location.lat, location.lng))
+                        marker.userData = MarkerData(place: place, photo: Photo(image: photo, data: photos), route: nil)
+                        marker.map = self.map
+                        self.places.append(marker)
+                    }
+                    
+                    // increment counter
+                    count += 1
+                    
+                    // if place is last signal lock
+                    if count == place_ids.count {
+                        // sort places by distance
+                        self.places.sort(by: { self.distance(marker: $0) < self.distance(marker: $1) })
                         
-                        // if place is open
-                        if place.opening_hours!.open_now {
-                            // add marker to map
-                            let location = place.geometry.location
-                            let marker = GMSMarker(position: CLLocationCoordinate2DMake(location.lat, location.lng))
-                            marker.userData = MarkerData(place: place, photo: Photo(image: photo, data: photos), route: nil)
-                            marker.map = self.map
-                            self.places.append(marker)
-                        }
+                        // select closest pizza place
+                        self.map.selectedMarker = self.places.first
                         
-                        // if place is last signal lock
-                        if id == place_ids.last {
-                            
-                            // sort places by distance
-                            self.places.sort(by: { self.distance(marker: $0) < self.distance(marker: $1) })
-                            
-                            // select closest pizza place
-                            self.map.selectedMarker = self.places.first
-                            
-                            // zoom camera to closest place
-                            self.map.moveCamera(GMSCameraUpdate.setTarget(self.map.selectedMarker!.position))
-                            self.map.animate(toZoom: 14)
-                            
-                            // set up search bar
-                            self.searchSuggestions = SearchSuggestions(map: self.map, markers: self.places, navBarHeight: self.navigationController!.navigationBar.intrinsicContentSize.height)
-                            self.searchSuggestions.delegate = self
-                            
-                            lock.signal()
-                        }
+                        // zoom camera to closest place
+                        self.map.moveCamera(GMSCameraUpdate.setTarget(self.map.selectedMarker!.position))
+                        self.map.animate(toZoom: 14)
+                        
+                        // set up search bar
+                        self.searchSuggestions = SearchSuggestions(map: self.map, markers: self.places, navBarHeight: self.navigationController!.navigationBar.intrinsicContentSize.height)
+                        self.searchSuggestions.delegate = self
                     }
                 }
             }
-            
-            // wait for signal
-            lock.wait()
-            
         }
         
         // extend map view to bottom of screen
