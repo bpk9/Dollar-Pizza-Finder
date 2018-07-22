@@ -20,7 +20,7 @@ class SearchSuggestions: NSObject, UISearchBarDelegate {
     
     // ui elements
     var searchBar: UISearchBar = UISearchBar()
-    var collection: UICollectionView!
+    var stack: UIStackView!
     var tint: UIView!
     
     // search delegate
@@ -46,8 +46,21 @@ class SearchSuggestions: NSObject, UISearchBarDelegate {
         self.searchBar.showsCancelButton = true
         self.searchBar.delegate = self
         
-        // set up background tint
+        // height of app header
         let y = UIApplication.shared.statusBarFrame.height + navBarHeight
+        
+        // set up suggestions view
+        self.stack = UIStackView(frame: CGRect(x: 0, y: y, width: self.window.frame.width, height: 0))
+        self.stack.axis = .vertical
+        self.stack.distribution = .equalSpacing
+        let cell = SuggestionCell.instanceFromNib()
+        let cell2 = SuggestionCell.instanceFromNib()
+        let cell3 = SuggestionCell.instanceFromNib()
+        self.stack.addArrangedSubview(cell)
+        self.stack.addArrangedSubview(cell2)
+        self.stack.addArrangedSubview(cell3)
+        
+        // set up background tint
         self.tint = UIView(frame: CGRect(x: 0, y: y, width: self.window.frame.width, height: self.window.frame.height - y))
         self.tint.backgroundColor = UIColor(white: 0, alpha: 0.5)
         self.tint.alpha = 0
@@ -64,11 +77,13 @@ class SearchSuggestions: NSObject, UISearchBarDelegate {
         self.delegate!.showBar(self.searchBar)
         self.searchBar.becomeFirstResponder()
         
-        // animate tint in
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            /*let oldFrame = self.collection.frame
-            self.collection.frame = CGRect(x: oldFrame.origin.x, y: oldFrame.origin.y, width: oldFrame.width, height: 150)
-            */
+        // add suggestions
+        self.window.addSubview(self.stack)
+        
+        // animate suggestions and tint in
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            let oldFrame = self.stack.frame
+            self.stack.frame = CGRect(x: oldFrame.origin.x, y: oldFrame.origin.y, width: oldFrame.width, height: 160)
             
             self.tint.alpha = 1
  
@@ -90,6 +105,7 @@ class SearchSuggestions: NSObject, UISearchBarDelegate {
             
         }, completion: { (success) -> Void in
             self.tint.removeFromSuperview()
+            self.stack.removeFromSuperview()
             self.isVisible = false
         })
         

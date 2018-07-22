@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="boldyear.otf">
+            <string>boldyear</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="L0a-8o-hW3" customClass="SuggestionCell" customModule="Dollar_Pizza_Finder" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pizza Place" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c2p-LG-ndl">
+                    <rect key="frame" x="16" y="6" width="260" height="24"/>
+                    <fontDescription key="fontDescription" name="boldyear" family="boldyear" pointSize="20"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="★★★★★ 4.7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="at4-7w-yIL">
+                    <rect key="frame" x="16" y="26" width="260" height="24"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                    <color key="textColor" red="0.59999999999999998" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.00 mi" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2iW-Tk-heD">
+                    <rect key="frame" x="284" y="6" width="75" height="41"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="75" id="ksf-YA-DYF"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="3zw-jr-MHQ" firstAttribute="bottom" secondItem="2iW-Tk-heD" secondAttribute="bottom" constant="3" id="07q-EN-OTp"/>
+                <constraint firstItem="c2p-LG-ndl" firstAttribute="top" secondItem="2iW-Tk-heD" secondAttribute="top" id="14P-bB-EMd"/>
+                <constraint firstItem="at4-7w-yIL" firstAttribute="top" secondItem="3zw-jr-MHQ" secondAttribute="top" constant="26" id="A2P-a1-jqd"/>
+                <constraint firstItem="c2p-LG-ndl" firstAttribute="top" secondItem="3zw-jr-MHQ" secondAttribute="top" constant="6" id="MGR-PB-VqJ"/>
+                <constraint firstItem="2iW-Tk-heD" firstAttribute="trailing" secondItem="L0a-8o-hW3" secondAttribute="trailingMargin" id="bMr-Sw-sXk"/>
+                <constraint firstItem="c2p-LG-ndl" firstAttribute="leading" secondItem="at4-7w-yIL" secondAttribute="leading" id="e3n-Iz-sbJ"/>
+                <constraint firstItem="at4-7w-yIL" firstAttribute="bottom" secondItem="3zw-jr-MHQ" secondAttribute="bottom" id="h3S-Vs-6Y9"/>
+                <constraint firstItem="c2p-LG-ndl" firstAttribute="leading" secondItem="L0a-8o-hW3" secondAttribute="leadingMargin" id="nJ8-rd-aY9"/>
+                <constraint firstAttribute="bottom" secondItem="c2p-LG-ndl" secondAttribute="bottom" constant="20" symbolic="YES" id="ou9-1F-z5E"/>
+                <constraint firstItem="2iW-Tk-heD" firstAttribute="leading" secondItem="at4-7w-yIL" secondAttribute="trailing" constant="8" symbolic="YES" id="tND-70-qBh"/>
+                <constraint firstItem="2iW-Tk-heD" firstAttribute="leading" secondItem="c2p-LG-ndl" secondAttribute="trailing" constant="8" symbolic="YES" id="ubK-Hm-Mhj"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="3zw-jr-MHQ"/>
+            <connections>
+                <outlet property="distance" destination="2iW-Tk-heD" id="2R1-lp-z54"/>
+                <outlet property="name" destination="c2p-LG-ndl" id="jdU-Br-Td1"/>
+                <outlet property="rating" destination="at4-7w-yIL" id="dfO-LX-cmu"/>
+            </connections>
+            <point key="canvasLocation" x="373" y="-325"/>
+        </view>
+    </objects>
+</document>

@@ -13,13 +13,12 @@
 		D31F552C20E33A3600096383 /* DirectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31F552B20E33A3600096383 /* DirectionsViewController.swift */; };
 		D31F552E20E5AE8D00096383 /* DirectionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31F552D20E5AE8D00096383 /* DirectionsResponse.swift */; };
 		D353768320FEA24E0089CB1B /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D353768220FEA24E0089CB1B /* SearchViewController.swift */; };
-		D353768520FEA8030089CB1B /* TableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D353768420FEA8030089CB1B /* TableCell.swift */; };
 		D353768721002F750089CB1B /* PlaceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D353768621002F750089CB1B /* PlaceInfoViewController.swift */; };
 		D353768921010B720089CB1B /* InfoLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D353768821010B720089CB1B /* InfoLauncher.swift */; };
 		D35376AA21012D840089CB1B /* InfoLauncherView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35376A921012D840089CB1B /* InfoLauncherView.xib */; };
 		D35376AC21012E5D0089CB1B /* InfoLauncherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35376AB21012E5D0089CB1B /* InfoLauncherView.swift */; };
 		D35376AE21017C7B0089CB1B /* SearchSuggestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35376AD21017C7B0089CB1B /* SearchSuggestions.swift */; };
-		D35376B221017D290089CB1B /* SearchSuggestions.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35376B121017D290089CB1B /* SearchSuggestions.xib */; };
+		D35376B221017D290089CB1B /* SuggestionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35376B121017D290089CB1B /* SuggestionCell.xib */; };
 		D35376B4210190B90089CB1B /* SuggstionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35376B3210190B90089CB1B /* SuggstionCell.swift */; };
 		D36CE8DD20E9B012006C7EC8 /* MapMarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D36CE8DC20E9B012006C7EC8 /* MapMarkerView.xib */; };
 		D36CE8DF20E9B51D006C7EC8 /* MapMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36CE8DE20E9B51D006C7EC8 /* MapMarkerView.swift */; };
@@ -45,13 +44,12 @@
 		D31F552B20E33A3600096383 /* DirectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsViewController.swift; sourceTree = "<group>"; };
 		D31F552D20E5AE8D00096383 /* DirectionsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsResponse.swift; sourceTree = "<group>"; };
 		D353768220FEA24E0089CB1B /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		D353768420FEA8030089CB1B /* TableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCell.swift; sourceTree = "<group>"; };
 		D353768621002F750089CB1B /* PlaceInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoViewController.swift; sourceTree = "<group>"; };
 		D353768821010B720089CB1B /* InfoLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLauncher.swift; sourceTree = "<group>"; };
 		D35376A921012D840089CB1B /* InfoLauncherView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoLauncherView.xib; sourceTree = "<group>"; };
 		D35376AB21012E5D0089CB1B /* InfoLauncherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLauncherView.swift; sourceTree = "<group>"; };
 		D35376AD21017C7B0089CB1B /* SearchSuggestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSuggestions.swift; sourceTree = "<group>"; };
-		D35376B121017D290089CB1B /* SearchSuggestions.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchSuggestions.xib; sourceTree = "<group>"; };
+		D35376B121017D290089CB1B /* SuggestionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuggestionCell.xib; sourceTree = "<group>"; };
 		D35376B3210190B90089CB1B /* SuggstionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggstionCell.swift; sourceTree = "<group>"; };
 		D36CE8DC20E9B012006C7EC8 /* MapMarkerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapMarkerView.xib; sourceTree = "<group>"; };
 		D36CE8DE20E9B51D006C7EC8 /* MapMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarkerView.swift; sourceTree = "<group>"; };
@@ -128,7 +126,6 @@
 				D353768220FEA24E0089CB1B /* SearchViewController.swift */,
 				D353768621002F750089CB1B /* PlaceInfoViewController.swift */,
 				D31F552B20E33A3600096383 /* DirectionsViewController.swift */,
-				D353768420FEA8030089CB1B /* TableCell.swift */,
 				D36CE8E820EC1C5F006C7EC8 /* FirebaseHelper.swift */,
 				D36CE8E220EAEE67006C7EC8 /* GooglePlaces.swift */,
 				D36CE8E020EAEE40006C7EC8 /* PlacesResponse.swift */,
@@ -139,7 +136,7 @@
 				D35376AB21012E5D0089CB1B /* InfoLauncherView.swift */,
 				D36CE8DC20E9B012006C7EC8 /* MapMarkerView.xib */,
 				D35376A921012D840089CB1B /* InfoLauncherView.xib */,
-				D35376B121017D290089CB1B /* SearchSuggestions.xib */,
+				D35376B121017D290089CB1B /* SuggestionCell.xib */,
 				D3F5D81120B1481600073B45 /* Main.storyboard */,
 				D3F5D80020AE896600073B45 /* LaunchScreen.storyboard */,
 				D3F5D7FE20AE896600073B45 /* Assets.xcassets */,
@@ -240,7 +237,7 @@
 				D36CE8DD20E9B012006C7EC8 /* MapMarkerView.xib in Resources */,
 				D3F5D7FF20AE896600073B45 /* Assets.xcassets in Resources */,
 				D3F5D81320B1481600073B45 /* Main.storyboard in Resources */,
-				D35376B221017D290089CB1B /* SearchSuggestions.xib in Resources */,
+				D35376B221017D290089CB1B /* SuggestionCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,7 +334,6 @@
 				D3F5D7FA20AE896400073B45 /* HomeViewController.swift in Sources */,
 				D36CE8E320EAEE67006C7EC8 /* GooglePlaces.swift in Sources */,
 				D31F552A20E2FAE400096383 /* GoogleDirections.swift in Sources */,
-				D353768520FEA8030089CB1B /* TableCell.swift in Sources */,
 				D303635A20F00DA8005BDB76 /* MarkerData.swift in Sources */,
 				D31F552E20E5AE8D00096383 /* DirectionsResponse.swift in Sources */,
 				D353768921010B720089CB1B /* InfoLauncher.swift in Sources */,

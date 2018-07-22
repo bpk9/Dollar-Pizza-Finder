@@ -43,14 +43,14 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     }
     
     // returns cell for table view at given index
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    /*override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // create cell and fill with data
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableCell") as! TableCell
         cell.loadUI(data: filtered[indexPath.row].userData as! MarkerData)
         
         return cell
-    }
+    }*/
     
     // when cell is tapped by user
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
