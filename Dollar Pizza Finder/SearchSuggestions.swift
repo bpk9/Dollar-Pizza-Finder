@@ -98,6 +98,8 @@ class SearchSuggestions: NSObject, UISearchBarDelegate, SuggestionDelegate {
     // hides search bar elements
     @objc func hideSearch() {
         
+        self.removeAllViews()
+        
         let oldFrame = self.stack.frame
         
         UIView.animate(withDuration: 0.5, animations: {
@@ -133,10 +135,7 @@ class SearchSuggestions: NSObject, UISearchBarDelegate, SuggestionDelegate {
     // updates stack view for filtered data
     func refreshStackData() {
         
-        // clear all markers from stack
-        for view in self.stack.subviews {
-            view.removeFromSuperview()
-        }
+        self.removeAllViews()
         
         // add views from filter
         for cell in self.filtered {
@@ -146,6 +145,13 @@ class SearchSuggestions: NSObject, UISearchBarDelegate, SuggestionDelegate {
         // update stack frame based on num of elements
         self.updateStackFrame()
         
+    }
+    
+    // clear all markers from stack
+    func removeAllViews() {
+        for view in self.stack.subviews {
+            view.removeFromSuperview()
+        }
     }
     
     // TODO updates stack view frame based on visible elemtnts
