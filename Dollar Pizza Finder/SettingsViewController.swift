@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol SettingsDelegate {
+    func didChangeDirectionsMode()
+}
+
 class SettingsViewController: UITableViewController {
     
     // ui elements
@@ -15,18 +19,21 @@ class SettingsViewController: UITableViewController {
     @IBOutlet var onlyOpen: UISwitch!
     @IBOutlet var sortBy: UISegmentedControl!
     
+    // view delegate
+    var delegate: SettingsDelegate?
+    
     // load ui elements from settings values
     override func loadView() {
         super.loadView()
         
         // load directions mode
-        directionsMode.selectedSegmentIndex = UserDefaults.standard.value(forKey: "directionsMode") as! Int
-        
+        self.directionsMode.selectedSegmentIndex = UserDefaults.standard.value(forKey: "directionsMode") as! Int
     }
     
     // called when directions mode is changed
     @IBAction func directionsModeChanged(_ sender: Any) {
         UserDefaults.standard.set(self.directionsMode.selectedSegmentIndex, forKey: "directionsMode")
+        delegate?.didChangeDirectionsMode()
     }
     
     // called when only open is changed

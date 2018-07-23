@@ -13,6 +13,7 @@ struct DirectionsResponse: Codable {
 struct Route: Codable {
     let bounds: Bounds
     let legs: [Leg]
+    var type: String?
 }
 
 struct Bounds: Codable {

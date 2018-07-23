@@ -12,7 +12,7 @@ import CoreLocation.CLLocation
 import Firebase
 import GoogleMaps
 
-class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, SearchDelegate {
+class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, SearchDelegate, SettingsDelegate {
     
     // UI elements
     @IBOutlet var map: GMSMapView!
@@ -107,6 +107,10 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
             vc.data = self.map.selectedMarker?.userData as! MarkerData
         } else if let vc = segue.destination as? DirectionsViewController {
             vc.data = self.map.selectedMarker?.userData as! MarkerData
+       } else if let vc = segue.destination as? SettingsViewController {
+            if vc.delegate == nil {
+                vc.delegate = self
+            }
         }
         
         if self.infoLauncher.isVisible {
@@ -154,6 +158,13 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
     @IBAction func showSearchBar(_ sender: Any) {
         if !self.searchSuggestions.isVisible {
             self.searchSuggestions.showSearch()
+        }
+    }
+    
+    // refresh route if directions mode setting is changed
+    func didChangeDirectionsMode() {
+        if self.map.selectedMarker != nil {
+            self.infoLauncher.updateInfo()
         }
     }
     

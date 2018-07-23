@@ -41,7 +41,7 @@ class DirectionsViewController: UIViewController {
         
         // set up ui
         self.setOverview()
-        
+        self.map.isMyLocationEnabled = true
         
     }
     

@@ -208,6 +208,7 @@
                         <outlet property="directionsMode" destination="9o6-YM-uEZ" id="XTu-uf-5SC"/>
                         <outlet property="onlyOpen" destination="mOg-Av-7Ot" id="2j7-38-6HZ"/>
                         <outlet property="sortBy" destination="rnI-73-yMU" id="hta-n9-gia"/>
+                        <segue destination="rzk-ll-Gea" kind="unwind" unwindAction="unwindHomeWithSegue:" id="GgO-Eb-CVk"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lh4-vQ-m62" userLabel="First Responder" sceneMemberID="firstResponder"/>
