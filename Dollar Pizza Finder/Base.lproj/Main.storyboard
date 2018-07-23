@@ -95,7 +95,7 @@
         <!--Settings-->
         <scene sceneID="3up-R0-qqp">
             <objects>
-                <tableViewController id="Mqq-dk-pqD" sceneMemberID="viewController">
+                <tableViewController id="Mqq-dk-pqD" customClass="SettingsViewController" customModule="Dollar_Pizza_Finder" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="gp6-xr-6DE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -119,6 +119,10 @@
                                                         <segment title="Walking"/>
                                                         <segment title="Biking"/>
                                                     </segments>
+                                                    <connections>
+                                                        <action selector="directionsModeChanged:" destination="Mqq-dk-pqD" eventType="valueChanged" id="UM5-IN-Xk6"/>
+                                                        <action selector="mode:" destination="rzk-ll-Gea" eventType="valueChanged" id="jbf-75-xtq"/>
+                                                    </connections>
                                                 </segmentedControl>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gvA-1O-4Ym">
                                                     <rect key="frame" x="16" y="12" width="44" height="21"/>
@@ -151,6 +155,9 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mOg-Av-7Ot">
                                                     <rect key="frame" x="312" y="6" width="49" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="onlyOpenChanged:" destination="Mqq-dk-pqD" eventType="valueChanged" id="QVa-E9-nDU"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -181,6 +188,9 @@
                                                         <segment title="Rating"/>
                                                         <segment title="Name"/>
                                                     </segments>
+                                                    <connections>
+                                                        <action selector="sortByChanged:" destination="Mqq-dk-pqD" eventType="valueChanged" id="EE2-87-bVV"/>
+                                                    </connections>
                                                 </segmentedControl>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -194,67 +204,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Settings" id="dn9-cH-pPH"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lh4-vQ-m62" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1760.8" y="-72.413793103448285"/>
-        </scene>
-        <!--Search-->
-        <scene sceneID="aTw-Qx-bsF">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="w2V-89-Ftp" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="bRa-qN-tNd" userLabel="Exit" sceneMemberID="exit"/>
-                <tableViewController id="TVd-ID-izJ" customClass="SearchViewController" customModule="Dollar_Pizza_Finder" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hgd-AM-Fv7">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="separatorColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="Rbd-R9-lcq">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </searchBar>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableCell" rowHeight="75" id="iSM-kt-2gm" customClass="TableCell" customModule="Dollar_Pizza_Finder" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="375" height="75"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iSM-kt-2gm" id="fTR-Ne-ucE">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="74.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gx1-Xl-5kA">
-                                            <rect key="frame" x="16" y="27" width="343" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="Gx1-Xl-5kA" firstAttribute="leading" secondItem="fTR-Ne-ucE" secondAttribute="leadingMargin" id="3aK-pO-ldQ"/>
-                                        <constraint firstItem="Gx1-Xl-5kA" firstAttribute="centerY" secondItem="fTR-Ne-ucE" secondAttribute="centerY" id="TV5-Pa-Vm4"/>
-                                        <constraint firstItem="Gx1-Xl-5kA" firstAttribute="trailing" secondItem="fTR-Ne-ucE" secondAttribute="trailingMargin" id="aPE-dQ-GPj"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="name" destination="Gx1-Xl-5kA" id="iCK-dg-bX5"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <sections/>
-                        <connections>
-                            <outlet property="dataSource" destination="TVd-ID-izJ" id="utc-ZK-PLJ"/>
-                            <outlet property="delegate" destination="TVd-ID-izJ" id="ryH-gn-3Jb"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Search" id="7TD-GI-cmr"/>
                     <connections>
-                        <outlet property="search" destination="Rbd-R9-lcq" id="sqL-V7-zdH"/>
-                        <segue destination="bRa-qN-tNd" kind="unwind" identifier="unwindHome" unwindAction="unwindHomeWithSegue:" id="6vB-ob-vlv"/>
+                        <outlet property="directionsMode" destination="9o6-YM-uEZ" id="XTu-uf-5SC"/>
+                        <outlet property="onlyOpen" destination="mOg-Av-7Ot" id="2j7-38-6HZ"/>
+                        <outlet property="sortBy" destination="rnI-73-yMU" id="hta-n9-gia"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lh4-vQ-m62" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="rzk-ll-Gea" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1761" y="619"/>
+            <point key="canvasLocation" x="1799" y="-95"/>
         </scene>
         <!--Closest Pizza Place-->
         <scene sceneID="MA3-sb-ha0">

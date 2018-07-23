@@ -23,6 +23,9 @@ class InfoLauncher {
     // view to contain info
     let infoView: InfoLauncherView = InfoLauncherView.instanceFromNib() as! InfoLauncherView
     
+    // directions mode
+    var directionsMode: String = "transit"
+    
     init(map: GMSMapView) {
         
         // get window
@@ -51,9 +54,9 @@ class InfoLauncher {
             // bring frame in
             self.infoView.frame = CGRect(x: 0, y: self.window.frame.height - 70, width: self.window.frame.width, height: 70)
             
-        }, completion: nil)
-        
-        self.isVisible = true
+        }, completion: { (success) -> Void in
+            self.isVisible = true
+        })
         
     }
     
@@ -78,17 +81,45 @@ class InfoLauncher {
     
     // update info on info marker
     func updateInfo() {
+        
+        // load settings
+        self.loadSettings()
+        
+        // get data from marker
         var data = self.map.selectedMarker!.userData as! MarkerData
         
         if data.route != nil {
             self.infoView.loadUI(data: data)
         } else {
-            let directions = GoogleDirections(origin: self.map.myLocation!.coordinate, destination: data.place.place_id, mode: "transit")
+            let directions = GoogleDirections(origin: self.map.myLocation!.coordinate, destination: data.place.place_id, mode: self.directionsMode)
             directions.getDirections() { (route) -> () in
                 data.route = route
                 self.map.selectedMarker!.userData = data
                 self.infoView.loadUI(data: data)
             }
+        }
+    }
+    
+    // load app settings
+    func loadSettings() {
+        if let value = UserDefaults.standard.value(forKey: "directionsMode") as? Int {
+            print("Found value: " + String(value))
+            self.directionsMode = self.getDirectionsMode(index: value)
+        } else {
+            UserDefaults.standard.set(1, forKey: "directionsMode")
+            self.directionsMode = "transit"
+        }
+        
+    }
+    
+    // return directions mode from settings index
+    func getDirectionsMode(index: Int) -> String {
+        switch index {
+        case 0: return "driving"
+        case 1: return "transit"
+        case 2: return "walking"
+        case 3: return "biking"
+        default: return "transit"
         }
     }
     

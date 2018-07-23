@@ -26,6 +26,9 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
     // search bar
     var searchSuggestions: SearchSuggestions!
     
+    // directions mode
+    var directionsMode: String = "transit"
+    
     // load data from firebase / google places
     override func loadView() {
         super.loadView()
