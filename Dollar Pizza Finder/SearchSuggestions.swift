@@ -14,7 +14,7 @@ protocol SearchDelegate {
     func hideBar()
 }
 
-class SearchSuggestions: NSObject, UISearchBarDelegate {
+class SearchSuggestions: NSObject, UISearchBarDelegate, SuggestionDelegate {
     
     // application elements
     let window: UIWindow
@@ -56,7 +56,7 @@ class SearchSuggestions: NSObject, UISearchBarDelegate {
         // set up suggestions view
         self.stack = UIStackView(frame: CGRect(x: 0, y: y, width: self.window.frame.width, height: 0))
         self.stack.axis = .vertical
-        self.stack.distribution = .fillEqually
+        self.stack.isUserInteractionEnabled = true
         self.addStackData(markers: markers)
         
         // set up background tint
@@ -122,6 +122,7 @@ class SearchSuggestions: NSObject, UISearchBarDelegate {
         for marker in markers {
             let cell = SuggestionCell.instanceFromNib() as! SuggestionCell
             cell.marker = marker
+            cell.delegate = self
             cell.loadUI(currentLocation: self.map.myLocation!)
             self.stack.addArrangedSubview(cell)
             self.markers.append(cell)
@@ -162,16 +163,23 @@ class SearchSuggestions: NSObject, UISearchBarDelegate {
     
     // called when text in search bar changes
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText == "" {
+        if searchBar.text == nil || searchBar.text == "" {
             self.filtered = self.markers
         } else {
             self.filtered.removeAll(keepingCapacity: false)
-            let predicate = searchText.lowercased()
+            let predicate = searchBar.text!.lowercased()
             self.filtered = self.markers.filter({ ($0.marker.userData as! MarkerData).place.name.lowercased().range(of: predicate) != nil })
             self.filtered.sort{ ($0.marker.userData as! MarkerData).place.name > ($1.marker.userData as! MarkerData).place.name }
         }
         
         self.refreshStackData()
+    }
+    
+    // called when cell is tapped
+    func suggestionCell(didTap marker: GMSMarker) {
+        self.map.selectedMarker = marker
+        self.hideSearch()
+        self.map.moveCamera(GMSCameraUpdate.setTarget(self.map.selectedMarker!.position))
     }
     
 }

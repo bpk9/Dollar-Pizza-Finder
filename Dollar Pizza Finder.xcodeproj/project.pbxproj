@@ -12,7 +12,6 @@
 		D31F552A20E2FAE400096383 /* GoogleDirections.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31F552920E2FAE400096383 /* GoogleDirections.swift */; };
 		D31F552C20E33A3600096383 /* DirectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31F552B20E33A3600096383 /* DirectionsViewController.swift */; };
 		D31F552E20E5AE8D00096383 /* DirectionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31F552D20E5AE8D00096383 /* DirectionsResponse.swift */; };
-		D353768320FEA24E0089CB1B /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D353768220FEA24E0089CB1B /* SearchViewController.swift */; };
 		D353768721002F750089CB1B /* PlaceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D353768621002F750089CB1B /* PlaceInfoViewController.swift */; };
 		D353768921010B720089CB1B /* InfoLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D353768821010B720089CB1B /* InfoLauncher.swift */; };
 		D35376AA21012D840089CB1B /* InfoLauncherView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35376A921012D840089CB1B /* InfoLauncherView.xib */; };
@@ -43,7 +42,6 @@
 		D31F552920E2FAE400096383 /* GoogleDirections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDirections.swift; sourceTree = "<group>"; };
 		D31F552B20E33A3600096383 /* DirectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsViewController.swift; sourceTree = "<group>"; };
 		D31F552D20E5AE8D00096383 /* DirectionsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsResponse.swift; sourceTree = "<group>"; };
-		D353768220FEA24E0089CB1B /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		D353768621002F750089CB1B /* PlaceInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoViewController.swift; sourceTree = "<group>"; };
 		D353768821010B720089CB1B /* InfoLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLauncher.swift; sourceTree = "<group>"; };
 		D35376A921012D840089CB1B /* InfoLauncherView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoLauncherView.xib; sourceTree = "<group>"; };
@@ -123,7 +121,6 @@
 				D35376AD21017C7B0089CB1B /* SearchSuggestions.swift */,
 				D35376B3210190B90089CB1B /* SuggstionCell.swift */,
 				D353768821010B720089CB1B /* InfoLauncher.swift */,
-				D353768220FEA24E0089CB1B /* SearchViewController.swift */,
 				D353768621002F750089CB1B /* PlaceInfoViewController.swift */,
 				D31F552B20E33A3600096383 /* DirectionsViewController.swift */,
 				D36CE8E820EC1C5F006C7EC8 /* FirebaseHelper.swift */,
@@ -327,7 +324,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D36CE8E920EC1C5F006C7EC8 /* FirebaseHelper.swift in Sources */,
-				D353768320FEA24E0089CB1B /* SearchViewController.swift in Sources */,
 				D35376AC21012E5D0089CB1B /* InfoLauncherView.swift in Sources */,
 				D35376AE21017C7B0089CB1B /* SearchSuggestions.swift in Sources */,
 				D31F552C20E33A3600096383 /* DirectionsViewController.swift in Sources */,

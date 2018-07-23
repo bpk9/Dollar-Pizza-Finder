@@ -9,6 +9,10 @@
 import UIKit
 import GoogleMaps.GMSMarker
 
+protocol SuggestionDelegate {
+    func suggestionCell(didTap marker: GMSMarker)
+}
+
 class SuggestionCell: UIView {
     
     // ui elements
@@ -19,6 +23,9 @@ class SuggestionCell: UIView {
     // marker for place
     var marker: GMSMarker!
     
+    // instance delegate
+    var delegate: SuggestionDelegate?
+    
     // init function
     class func instanceFromNib() -> UIView {
         return UINib(nibName: "SuggestionCell", bundle: nil).instantiate(withOwner: self, options: nil)[0] as! UIView
@@ -27,14 +34,23 @@ class SuggestionCell: UIView {
     // load ui elements from data
     func loadUI(currentLocation: CLLocation) {
         
+        // data from marker
         let data = self.marker.userData as! MarkerData
         
+        // name
         self.name.text = data.place.name
         
+        // rating
         self.rating.text = GooglePlaces.starString(rating: data.place.rating)
         
+        // distance
         let coordinate = data.place.geometry.location
         self.distance.text = String(format: "%.2f mi", (currentLocation.distance(from: CLLocation(latitude: coordinate.lat, longitude: coordinate.lng))) * 0.000621371)
+    }
+    
+    // view was tapped
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        delegate?.suggestionCell(didTap: self.marker)
     }
     
 }

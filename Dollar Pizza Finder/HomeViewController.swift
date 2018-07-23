@@ -102,9 +102,7 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         // send places array to search
-        if let vc = segue.destination as? SearchViewController {
-            vc.markers = self.places
-        } else if let vc = segue.destination as? PlaceInfoViewController {
+       if let vc = segue.destination as? PlaceInfoViewController {
             vc.currentLocation = self.map.myLocation!.coordinate
             vc.data = self.map.selectedMarker?.userData as! MarkerData
         } else if let vc = segue.destination as? DirectionsViewController {
@@ -188,16 +186,6 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
             self.openURL(url: URL(string: website)!)
         }
     }*/
-    
-    // gets data back from search result
-    @IBAction func unwindHome(segue: UIStoryboardSegue) {
-        if let vc = segue.source as? SearchViewController {
-            if let marker = vc.selectedMarker {
-                self.map.selectedMarker = marker
-                self.map.animate(toLocation: marker.position)
-            }
-        }
-    }
     
     // Get Distance in Miles
     func distance(marker: GMSMarker) -> Double {
