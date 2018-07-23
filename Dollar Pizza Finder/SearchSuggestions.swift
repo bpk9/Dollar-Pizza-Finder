@@ -56,6 +56,7 @@ class SearchSuggestions: NSObject, UISearchBarDelegate, SuggestionDelegate {
         // set up suggestions view
         self.stack = UIStackView(frame: CGRect(x: 0, y: y, width: self.window.frame.width, height: 0))
         self.stack.axis = .vertical
+        self.stack.distribution = .fillEqually
         self.stack.isUserInteractionEnabled = true
         self.addStackData(markers: markers)
         

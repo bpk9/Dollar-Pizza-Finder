@@ -16,9 +16,6 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
     
     // UI elements
     @IBOutlet var map: GMSMapView!
-    @IBOutlet var directionsBtn: UIButton!
-    @IBOutlet var callBtn: UIButton!
-    @IBOutlet var websiteBtn: UIButton!
     
     // all open pizza places
     var places = [GMSMarker]()
