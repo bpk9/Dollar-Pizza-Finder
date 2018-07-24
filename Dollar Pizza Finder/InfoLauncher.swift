@@ -23,9 +23,6 @@ class InfoLauncher {
     // view to contain info
     let infoView: InfoLauncherView = InfoLauncherView.instanceFromNib() as! InfoLauncherView
     
-    // directions mode
-    var directionsMode: String = "transit"
-    
     init(map: GMSMapView) {
         
         // get window
@@ -82,34 +79,24 @@ class InfoLauncher {
     // update info on info marker
     func updateInfo() {
         
-        // load settings
-        self.loadSettings()
+        // load directions mode
+        let mode = UserDefaults.standard.value(forKey: "directionsMode") as? Int ?? 0
+        let directionsMode = self.getDirectionsMode(index: mode)
         
         // get data from marker
         var data = self.map.selectedMarker!.userData as! MarkerData
         
-        if data.route != nil && data.route?.type == self.directionsMode {
+        if data.route != nil && data.route?.type == directionsMode {
             self.infoView.loadUI(data: data)
         } else {
-            let directions = GoogleDirections(origin: self.map.myLocation!.coordinate, destination: data.place.place_id, mode: self.directionsMode)
+            let directions = GoogleDirections(origin: self.map.myLocation!.coordinate, destination: data.place.place_id, mode: directionsMode)
             directions.getDirections() { (route) -> () in
                 data.route = route
-                data.route!.type = self.directionsMode
+                data.route!.type = directionsMode
                 self.map.selectedMarker!.userData = data
                 self.infoView.loadUI(data: data)
             }
         }
-    }
-    
-    // load app settings
-    func loadSettings() {
-        if let value = UserDefaults.standard.value(forKey: "directionsMode") as? Int {
-            self.directionsMode = self.getDirectionsMode(index: value)
-        } else {
-            UserDefaults.standard.set(1, forKey: "directionsMode")
-            self.directionsMode = "transit"
-        }
-        
     }
     
     // return directions mode from settings index
@@ -119,7 +106,7 @@ class InfoLauncher {
         case 1: return "transit"
         case 2: return "walking"
         case 3: return "biking"
-        default: return "transit"
+        default: return "driving"
         }
     }
     

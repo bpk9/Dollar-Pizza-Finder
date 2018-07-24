@@ -56,7 +56,7 @@ class SearchSuggestions: NSObject, UISearchBarDelegate, SuggestionDelegate {
         // set up suggestions view
         self.stack = UIStackView(frame: CGRect(x: 0, y: y, width: self.window.frame.width, height: 0))
         self.stack.axis = .vertical
-        self.stack.distribution = .fillEqually
+        self.stack.distribution = .fillProportionally
         self.stack.isUserInteractionEnabled = true
         self.addStackData(markers: markers)
         
@@ -135,11 +135,20 @@ class SearchSuggestions: NSObject, UISearchBarDelegate, SuggestionDelegate {
     // updates stack view for filtered data
     func refreshStackData() {
         
+        let onlyOpen = UserDefaults.standard.value(forKey: "onlyOpen") as? Bool ?? true
+        
         self.removeAllViews()
         
         // add views from filter
         for cell in self.filtered {
-            self.stack.addArrangedSubview(cell)
+            let data = cell.marker.userData as! MarkerData
+            let openNow = data.place.opening_hours?.open_now ?? false
+            if !onlyOpen || openNow {
+                self.stack.addArrangedSubview(cell)
+            }
+            if self.stack.arrangedSubviews.count >= 10 {
+                break
+            }
         }
         
         // update stack frame based on num of elements
@@ -159,7 +168,7 @@ class SearchSuggestions: NSObject, UISearchBarDelegate, SuggestionDelegate {
         let oldFrame = self.stack.frame
         
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.stack.frame = CGRect(x: oldFrame.origin.x, y: oldFrame.origin.y, width: oldFrame.width, height: CGFloat(50 * self.filtered.count))
+            self.stack.frame = CGRect(x: oldFrame.origin.x, y: oldFrame.origin.y, width: oldFrame.width, height: CGFloat(50 * self.stack.arrangedSubviews.count))
             }, completion: nil)
     }
     

@@ -20,6 +20,9 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
     // all open pizza places
     var places = [GMSMarker]()
     
+    // all closed pizza places
+    var closedPlaces = [GMSMarker]()
+    
     // info launcher
     var infoLauncher: InfoLauncher!
     
@@ -41,14 +44,21 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
             for id in place_ids {
                 GooglePlaces.getData(place_id: id) { (place, photo, photos) -> () in
                     
+                    // load marker
+                    let location = place.geometry.location
+                    let marker = GMSMarker(position: CLLocationCoordinate2DMake(location.lat, location.lng))
+                    marker.userData = MarkerData(place: place, photo: Photo(image: photo, data: photos), route: nil)
+                    
                     // if place is open
                     if place.opening_hours!.open_now {
-                        // add marker to map
-                        let location = place.geometry.location
-                        let marker = GMSMarker(position: CLLocationCoordinate2DMake(location.lat, location.lng))
-                        marker.userData = MarkerData(place: place, photo: Photo(image: photo, data: photos), route: nil)
                         marker.map = self.map
                         self.places.append(marker)
+                    } else {
+                        let onlyOpen = UserDefaults.standard.value(forKey: "onlyOpen") as? Bool ?? true
+                        if onlyOpen == false {
+                            marker.map = self.map
+                        }
+                        self.closedPlaces.append(marker)
                     }
                     
                     // increment counter
@@ -67,7 +77,7 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
                         self.map.animate(toZoom: 14)
                         
                         // set up search bar
-                        self.searchSuggestions = SearchSuggestions(map: self.map, markers: self.places, navBarHeight: self.navigationController!.navigationBar.intrinsicContentSize.height)
+                        self.searchSuggestions = SearchSuggestions(map: self.map, markers: self.places + self.closedPlaces, navBarHeight: self.navigationController!.navigationBar.intrinsicContentSize.height)
                         self.searchSuggestions.delegate = self
                     }
                 }
@@ -93,7 +103,10 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if self.map.selectedMarker != nil {
+        if let selectedMarker = self.map.selectedMarker {
+            if self.closedPlaces.contains(selectedMarker) {
+                self.map.selectedMarker = self.places.first
+            }
             self.infoLauncher.showInfo()
         }
     }
@@ -165,6 +178,19 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
     func didChangeDirectionsMode() {
         if self.map.selectedMarker != nil {
             self.infoLauncher.updateInfo()
+        }
+    }
+    
+    // add or remove closed markers from map and search when setting is changes
+    func didChangeOnlyOpen(onlyOpen: Bool) {
+        if onlyOpen == true {
+            for marker in self.closedPlaces {
+                marker.map = nil
+            }
+        } else {
+            for marker in self.closedPlaces {
+                marker.map = self.map
+            }
         }
     }
     
