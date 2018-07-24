@@ -11,6 +11,7 @@ import UIKit
 protocol SettingsDelegate {
     func didChangeDirectionsMode()
     func didChangeOnlyOpen(onlyOpen: Bool)
+    func didChangePlacesSorting()
 }
 
 class SettingsViewController: UITableViewController {
@@ -32,6 +33,9 @@ class SettingsViewController: UITableViewController {
         
         // load only open places switch
         self.onlyOpen.isOn = UserDefaults.standard.value(forKey: "onlyOpen") as? Bool ?? true
+        
+        // load sorting places
+        self.sortBy.selectedSegmentIndex = UserDefaults.standard.value(forKey: "sorting") as? Int ?? 0
     }
     
     // called when directions mode is changed
@@ -48,6 +52,8 @@ class SettingsViewController: UITableViewController {
     
     // called when sort by is changed
     @IBAction func sortByChanged(_ sender: Any) {
+        UserDefaults.standard.set(self.sortBy.selectedSegmentIndex, forKey: "sorting")
+        delegate?.didChangePlacesSorting()
     }
     
 }

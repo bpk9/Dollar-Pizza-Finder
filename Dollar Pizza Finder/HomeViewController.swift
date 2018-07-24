@@ -17,11 +17,17 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
     // UI elements
     @IBOutlet var map: GMSMapView!
     
-    // all open pizza places
-    var places = [GMSMarker]()
+    // all pizza places in database
+    var allPlaces = [GMSMarker]()
+    var openPlaces: [GMSMarker]!
+    var closedPlaces: [GMSMarker]!
     
-    // all closed pizza places
-    var closedPlaces = [GMSMarker]()
+    // setting for only open places
+    var onlyOpen: Bool = UserDefaults.standard.value(forKey: "onlyOpen") as? Bool ?? true
+    
+    // setting changed
+    var didChangeOpenOnly: Bool = false
+    var didChangeSorting: Bool = false
     
     // info launcher
     var infoLauncher: InfoLauncher!
@@ -50,34 +56,35 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
                     marker.userData = MarkerData(place: place, photo: Photo(image: photo, data: photos), route: nil)
                     
                     // if place is open
-                    if place.opening_hours!.open_now {
+                    let openNow = place.opening_hours?.open_now ?? false
+                    if  openNow || self.onlyOpen == false {
                         marker.map = self.map
-                        self.places.append(marker)
-                    } else {
-                        let onlyOpen = UserDefaults.standard.value(forKey: "onlyOpen") as? Bool ?? true
-                        if onlyOpen == false {
-                            marker.map = self.map
-                        }
-                        self.closedPlaces.append(marker)
                     }
+                    
+                    // add to array
+                    self.allPlaces.append(marker)
                     
                     // increment counter
                     count += 1
                     
                     // if place is last signal lock
                     if count == place_ids.count {
-                        // sort places by distance
-                        self.places.sort(by: { self.distance(marker: $0) < self.distance(marker: $1) })
+                        // sort places by settings selection
+                        self.sortMarkers()
                         
-                        // select closest pizza place
-                        self.map.selectedMarker = self.places.first
+                        // select first pizza place
+                        if self.onlyOpen {
+                            self.map.selectedMarker = self.openPlaces.first
+                        } else {
+                            self.map.selectedMarker = self.allPlaces.first
+                        }
                         
-                        // zoom camera to closest place
+                        // zoom camera to first place
                         self.map.moveCamera(GMSCameraUpdate.setTarget(self.map.selectedMarker!.position))
                         self.map.animate(toZoom: 14)
                         
                         // set up search bar
-                        self.searchSuggestions = SearchSuggestions(map: self.map, markers: self.places + self.closedPlaces, navBarHeight: self.navigationController!.navigationBar.intrinsicContentSize.height)
+                        self.searchSuggestions = SearchSuggestions(map: self.map, markers: self.allPlaces, navBarHeight: self.navigationController!.navigationBar.intrinsicContentSize.height)
                         self.searchSuggestions.delegate = self
                     }
                 }
@@ -100,15 +107,21 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
     }
     
     // show info when view appears if marker is selected
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
-        if let selectedMarker = self.map.selectedMarker {
-            if self.closedPlaces.contains(selectedMarker) {
-                self.map.selectedMarker = self.places.first
+        // reselect marker and show info ciew
+        if self.didChangeOpenOnly || self.didChangeSorting || self.map.selectedMarker != nil {
+            if self.onlyOpen {
+                self.map.selectedMarker = self.openPlaces.first
+            } else {
+                self.map.selectedMarker = self.allPlaces.first
             }
-            self.infoLauncher.showInfo()
+            self.map.moveCamera(GMSCameraUpdate.setTarget(self.map.selectedMarker!.position))
+            self.didChangeSorting = false
+            self.didChangeOpenOnly = false
         }
+        
     }
     
     // prepare data for new storyboard
@@ -192,6 +205,15 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
                 marker.map = self.map
             }
         }
+        
+        self.onlyOpen = onlyOpen
+        self.didChangeOpenOnly = true
+    }
+    
+    // update markers when sorting is changed in settings
+    func didChangePlacesSorting() {
+        self.sortMarkers()
+        self.didChangeSorting = true
     }
     
     // add bar to title view
@@ -246,6 +268,36 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
             }
         }
         return output
+    }
+    
+    // sort markers by settings selection
+    func sortMarkers() {
+        // sort all markers
+        let sorting = UserDefaults.standard.value(forKey: "sorting") as? Int ?? 0
+        switch sorting {
+        case 0:
+            // sort by distance
+            self.allPlaces.sort(by: { self.distance(marker: $0) < self.distance(marker: $1) })
+        case 1:
+            // sort by rating
+            self.allPlaces.sort(by: { ($0.userData as! MarkerData).place.rating > ($1.userData as! MarkerData).place.rating })
+        default:
+            // sort by name
+            self.allPlaces.sort(by: { ($0.userData as! MarkerData).place.name > ($1.userData as! MarkerData).place.name })
+        }
+        
+        // seperate markers into open and closed
+        self.openPlaces = []
+        self.closedPlaces = []
+        for marker in self.allPlaces {
+            let data = marker.userData as! MarkerData
+            let openNow = data.place.opening_hours?.open_now ?? false
+            if openNow {
+                self.openPlaces.append(marker)
+            } else {
+                self.closedPlaces.append(marker)
+            }
+        }
     }
 
 }
