@@ -135,7 +135,9 @@ class DirectionsViewController: UIViewController {
         self.map.moveCamera(GMSCameraUpdate.fit(GMSCoordinateBounds(coordinate: start, coordinate: end), withPadding: 100))
         
         // select destination marker
-        self.map.selectedMarker = self.destinations[num]
+        if num < self.destinations.count {
+            self.map.selectedMarker = self.destinations[num]
+        }
                 
         // update duration
         self.durationLabel.text = step.duration.text
