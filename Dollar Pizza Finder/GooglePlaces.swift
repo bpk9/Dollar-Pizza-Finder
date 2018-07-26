@@ -26,9 +26,11 @@ class GooglePlaces {
         Alamofire.request("https://maps.googleapis.com/maps/api/place/details/json?placeid=\(place_id)&key=AIzaSyBVsu4GKsTC7X0l7CpCur1WpVAcxgP5wro").responseJSON { response in
             
             let decoder = JSONDecoder()
-            let data = try! decoder.decode(PlacesResponse.self, from: response.data!)
+            let data = try? decoder.decode(PlacesResponse.self, from: response.data!)
             
-            completion(data.result)
+            if let result = data?.result {
+                completion(result)
+            }
             
         }
     }

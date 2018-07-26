@@ -28,7 +28,9 @@ class GoogleDirections {
             let decoder = JSONDecoder()
             let directions = try! decoder.decode(DirectionsResponse.self, from: response.data!)
             
-            completion(directions.routes.first!)
+            if let firstRoute = directions.routes.first {
+                completion(firstRoute)
+            }
             
         }
     }
