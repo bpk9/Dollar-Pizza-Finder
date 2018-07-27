@@ -6,6 +6,9 @@
 //  Copyright © 2018 Brian P Kasper. All rights reserved.
 //
 
+import UIKit.UIImage
+import GooglePlaces.GMSPlacePhotoMetadataList
+
 struct PlacesResponse: Codable {
     let result: Place
 }

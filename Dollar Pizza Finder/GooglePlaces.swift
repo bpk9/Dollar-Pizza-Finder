@@ -12,15 +12,20 @@ import GooglePlaces.GMSPlacePhotoMetadataList
 
 class GooglePlaces {
     
-    class func getData(place_id: String, completion: @escaping (Place, UIImage, GMSPlacePhotoMetadataList) -> ()) {
+    class func getData(place_id: String, completion: @escaping (Place?, UIImage?, GMSPlacePhotoMetadataList?) -> ()) {
         self.lookUpPlace(place_id: place_id) { (place) -> () in
-            self.lookUpPhoto(place_id: place_id) { (photo, photos) -> () in
-                completion(place, photo, photos)
+            if place != nil {
+                self.lookUpPhoto(place_id: place_id) { (photo, photos) -> () in
+                    completion(place!, photo, photos)
+                }
+            } else {
+                completion(nil, nil, nil)
             }
+            
         }
     }
         
-    class func lookUpPlace(place_id: String, completion: @escaping (Place) -> ()) {
+    class func lookUpPlace(place_id: String, completion: @escaping (Place?) -> ()) {
         
         // get response from google places
         Alamofire.request("https://maps.googleapis.com/maps/api/place/details/json?placeid=\(place_id)&key=AIzaSyBVsu4GKsTC7X0l7CpCur1WpVAcxgP5wro").responseJSON { response in
@@ -30,6 +35,8 @@ class GooglePlaces {
             
             if let result = data?.result {
                 completion(result)
+            } else {
+                completion(nil)
             }
             
         }

@@ -10,6 +10,7 @@
 		06E0D482C723F0E368C0EC82 /* Pods_Dollar_Pizza_Finder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 124CF4C6250C1A2B0611BDBA /* Pods_Dollar_Pizza_Finder.framework */; };
 		D303635A20F00DA8005BDB76 /* MarkerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D303635920F00DA8005BDB76 /* MarkerData.swift */; };
 		D308B24B2105A4C100269DA1 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D308B24A2105A4C100269DA1 /* SettingsViewController.swift */; };
+		D308B24F210B941B00269DA1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D308B24E210B941B00269DA1 /* GoogleService-Info.plist */; };
 		D31F552A20E2FAE400096383 /* GoogleDirections.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31F552920E2FAE400096383 /* GoogleDirections.swift */; };
 		D31F552C20E33A3600096383 /* DirectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31F552B20E33A3600096383 /* DirectionsViewController.swift */; };
 		D31F552E20E5AE8D00096383 /* DirectionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31F552D20E5AE8D00096383 /* DirectionsResponse.swift */; };
@@ -31,7 +32,6 @@
 		D3F5D7FA20AE896400073B45 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5D7F920AE896400073B45 /* HomeViewController.swift */; };
 		D3F5D7FF20AE896600073B45 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3F5D7FE20AE896600073B45 /* Assets.xcassets */; };
 		D3F5D80220AE896600073B45 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3F5D80020AE896600073B45 /* LaunchScreen.storyboard */; };
-		D3F5D80A20AE8A3400073B45 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D3F5D80920AE8A3400073B45 /* GoogleService-Info.plist */; };
 		D3F5D81320B1481600073B45 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3F5D81120B1481600073B45 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +41,7 @@
 		C9658B80F0A8C802D4C50849 /* Pods-Dollar Pizza Finder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dollar Pizza Finder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dollar Pizza Finder/Pods-Dollar Pizza Finder.debug.xcconfig"; sourceTree = "<group>"; };
 		D303635920F00DA8005BDB76 /* MarkerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerData.swift; sourceTree = "<group>"; };
 		D308B24A2105A4C100269DA1 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		D308B24E210B941B00269DA1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D31F552920E2FAE400096383 /* GoogleDirections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDirections.swift; sourceTree = "<group>"; };
 		D31F552B20E33A3600096383 /* DirectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsViewController.swift; sourceTree = "<group>"; };
 		D31F552D20E5AE8D00096383 /* DirectionsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsResponse.swift; sourceTree = "<group>"; };
@@ -71,7 +72,6 @@
 		D3F5D7FE20AE896600073B45 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D3F5D80120AE896600073B45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D3F5D80320AE896600073B45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D3F5D80920AE8A3400073B45 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D3F5D81220B1481600073B45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -141,7 +141,7 @@
 				D3F5D80020AE896600073B45 /* LaunchScreen.storyboard */,
 				D3F5D7FE20AE896600073B45 /* Assets.xcassets */,
 				D3B5DC8C20C3B99B0032B14F /* boldyear.otf */,
-				D3F5D80920AE8A3400073B45 /* GoogleService-Info.plist */,
+				D308B24E210B941B00269DA1 /* GoogleService-Info.plist */,
 				D3F5D80320AE896600073B45 /* Info.plist */,
 			);
 			path = "Dollar Pizza Finder";
@@ -231,8 +231,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D35376AA21012D840089CB1B /* InfoLauncherView.xib in Resources */,
+				D308B24F210B941B00269DA1 /* GoogleService-Info.plist in Resources */,
 				D3F5D80220AE896600073B45 /* LaunchScreen.storyboard in Resources */,
-				D3F5D80A20AE8A3400073B45 /* GoogleService-Info.plist in Resources */,
 				D3B5DC8D20C3B99C0032B14F /* boldyear.otf in Resources */,
 				D36CE8DD20E9B012006C7EC8 /* MapMarkerView.xib in Resources */,
 				D3F5D7FF20AE896600073B45 /* Assets.xcassets in Resources */,
