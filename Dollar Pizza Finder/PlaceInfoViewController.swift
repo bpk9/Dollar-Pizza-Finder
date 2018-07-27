@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation.CLLocation
 
-class PlaceInfoViewController: UITableViewController {
+class PlaceInfoViewController: UIViewController {
     
     // ui elements
     @IBOutlet var directionsBtn: UIButton!
