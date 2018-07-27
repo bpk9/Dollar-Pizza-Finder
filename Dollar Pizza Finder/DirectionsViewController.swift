@@ -52,8 +52,9 @@ class DirectionsViewController: UIViewController {
         self.step = self.step + 1
         
         // if overview is showing then set up buttons for directions
-        if self.backBtn.isHidden {
-            self.backBtn.isHidden = false
+        if self.backBtn.titleLabel?.text == "More Routes" {
+            self.backBtn.setTitle("Back", for: .normal)
+            self.backBtn.backgroundColor = .red
         }
         
         if self.nextBtn.currentTitle == "Start" {
@@ -69,24 +70,27 @@ class DirectionsViewController: UIViewController {
     // when back button is tapped
     @IBAction func backAction(_ sender: Any) {
         
-        // decrement step
-        self.step = self.step - 1
-        
-        // if next button is hidden then show it again
-        if self.nextBtn.isHidden || self.nextBtn.currentTitle == "Start" {
-            self.nextBtn.isHidden = false
-            self.nextBtn.setTitle("Next", for: .normal)
-            self.nextBtn.backgroundColor = .green
-        }
-        
-        // if on initial step, revert to overview
-        if self.step >= 0 {
-            self.setDirections(num: self.step)
+        if self.backBtn.titleLabel?.text == "More Routes" {
+            performSegue(withIdentifier: "moreRoutes", sender: nil)
         } else {
-            self.step = -1
-            self.setOverview()
+            // decrement step
+            self.step = self.step - 1
+            
+            // if next button is hidden then show it again
+            if self.nextBtn.isHidden || self.nextBtn.currentTitle == "Start" {
+                self.nextBtn.isHidden = false
+                self.nextBtn.setTitle("Next", for: .normal)
+                self.nextBtn.backgroundColor = .green
+            }
+            
+            // if on initial step, revert to overview
+            if self.step >= 0 {
+                self.setDirections(num: self.step)
+            } else {
+                self.step = -1
+                self.setOverview()
+            }
         }
-        
         
     }
     
@@ -102,9 +106,12 @@ class DirectionsViewController: UIViewController {
     func setOverview() {
         
         // set up start button
-        self.backBtn.isHidden = true
         self.nextBtn.backgroundColor = .blue
         self.nextBtn.setTitle("Start", for: .normal)
+        
+        // set up more routes
+        self.backBtn.setTitle("More Routes", for: .normal)
+        self.backBtn.backgroundColor = .gray
         
         // set image to pizza place
         self.directionsPic.image = self.data.photo.image

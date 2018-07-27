@@ -88,8 +88,6 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
                         // set up search bar
                         self.searchSuggestions = SearchSuggestions(map: self.map, markers: self.allPlaces, navBarHeight: self.navigationController!.navigationBar.intrinsicContentSize.height)
                         self.searchSuggestions.delegate = self
-                        
-                        print(self.allPlaces)
                     }
                     
                 }
