@@ -28,7 +28,7 @@ class PlaceInfoViewController: UIViewController {
         self.navItem.title = self.data.place.name
         
         // update button text if route exists
-        if let leg = self.data.route!.legs.first {
+        if let leg = self.data.routes!.first!.legs.first {
             self.directionsBtn.setTitle("Directions -- " + leg.duration.text, for: .normal)
         } else {
             self.directionsBtn.isHidden = true

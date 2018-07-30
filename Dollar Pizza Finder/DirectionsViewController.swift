@@ -45,6 +45,15 @@ class DirectionsViewController: UIViewController {
         
     }
     
+    // prepare data for new storyboard
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let vc = segue.destination as? MoreRoutesViewController {
+            vc.routes = self.data.routes
+        }
+        
+    }
+    
     // when start/next button is tapped
     @IBAction func nextAction(_ sender: Any) {
         
@@ -121,8 +130,8 @@ class DirectionsViewController: UIViewController {
         
         // show route info
         self.directionsLabel.text = "Route to " + self.data.place.name
-        self.distanceLabel.text = self.data.route!.legs.first?.distance.text
-        self.durationLabel.text = self.data.route!.legs.first?.duration.text
+        self.distanceLabel.text = self.data.routes!.first!.legs.first?.distance.text
+        self.durationLabel.text = self.data.routes!.first!.legs.first?.duration.text
 
         // select destination marker
         self.map.selectedMarker = self.destinations.last
@@ -133,7 +142,7 @@ class DirectionsViewController: UIViewController {
     func setDirections(num: Int) {
                 
         // get current step
-        let steps = self.data.route!.legs.first!.steps
+        let steps = self.data.routes!.first!.legs.first!.steps
         let step = steps[num]
                 
         // zoom map to step
@@ -179,7 +188,7 @@ class DirectionsViewController: UIViewController {
     
     func addPolyline() {
         // for each step in journey
-        for step in self.data.route!.legs.first!.steps {
+        for step in self.data.routes!.first!.legs.first!.steps {
             
             // get polyline
             let path = GMSPath(fromEncodedPath: step.polyline.points)
@@ -236,7 +245,7 @@ class DirectionsViewController: UIViewController {
     
     // update map camera to bounds
     func updateCamera() {
-        let bounds = self.data.route!.bounds
+        let bounds = self.data.routes!.first!.bounds
         let update = GMSCameraUpdate.fit(GMSCoordinateBounds(coordinate: CLLocationCoordinate2DMake(bounds.northeast.lat, bounds.northeast.lng), coordinate: CLLocationCoordinate2DMake(bounds.southwest.lat, bounds.southwest.lng)), withPadding: 50)
         self.map.moveCamera(update)
     }

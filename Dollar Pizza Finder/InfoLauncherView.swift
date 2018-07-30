@@ -26,7 +26,7 @@ class InfoLauncherView: UIView {
     }
     
     func loadUI(data: MarkerData) {
-        self.directionsBtn.setTitle("Directions -- " + data.route!.legs.first!.duration.text, for: .normal)
+        self.directionsBtn.setTitle("Directions -- " + data.routes!.first!.legs.first!.duration.text, for: .normal)
     }
     
     // show directions view when button is tapped

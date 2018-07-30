@@ -86,13 +86,13 @@ class InfoLauncher {
         // get data from marker
         var data = self.map.selectedMarker!.userData as! MarkerData
         
-        if data.route != nil && data.route?.type == directionsMode {
+        if data.routes != nil && data.directionsType == directionsMode {
             self.infoView.loadUI(data: data)
         } else {
             let directions = GoogleDirections(origin: self.map.myLocation!.coordinate, destination: data.place.place_id, mode: directionsMode)
-            directions.getDirections() { (route) -> () in
-                data.route = route
-                data.route!.type = directionsMode
+            directions.getDirections() { (routes) -> () in
+                data.routes = routes
+                data.directionsType = directionsMode
                 self.map.selectedMarker!.userData = data
                 self.infoView.loadUI(data: data)
             }

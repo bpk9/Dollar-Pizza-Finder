@@ -54,7 +54,7 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
                         // load marker
                         let location = place!.geometry.location
                         let marker = GMSMarker(position: CLLocationCoordinate2DMake(location.lat, location.lng))
-                        marker.userData = MarkerData(place: place!, photo: Photo(image: photo!, data: photos!), route: nil)
+                        marker.userData = MarkerData(place: place!, photo: Photo(image: photo!, data: photos!), routes: nil, directionsType: nil)
                         
                         // if place is open
                         let openNow = place!.opening_hours?.open_now ?? false

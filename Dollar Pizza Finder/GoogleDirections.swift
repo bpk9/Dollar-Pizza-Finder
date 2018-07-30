@@ -22,17 +22,35 @@ class GoogleDirections {
         
     }
     
-    func getDirections(completion: @escaping (Route) -> ()) {
+    func getDirections(completion: @escaping ([Route]) -> ()) {
         Alamofire.request(self.url).responseJSON { response in
             
             let decoder = JSONDecoder()
             let directions = try! decoder.decode(DirectionsResponse.self, from: response.data!)
             
-            if let firstRoute = directions.routes.first {
-                completion(firstRoute)
-            }
+            completion(directions.routes)
             
         }
+    }
+    
+    class func getRouteText(route: Route) -> String {
+        
+        // step with longest distance
+        let steps = route.legs.first!.steps
+        var maxStep = steps.first!
+            
+        for step in route.legs.first!.steps.dropFirst() {
+            if let maxDist = maxStep.distance.value {
+                if let dist = step.distance.value {
+                    if dist > maxDist {
+                        maxStep = step
+                    }
+                }
+            }
+        }
+            
+        return maxStep.duration.text + " via " + maxStep.html_instructions
+        
     }
     
 }

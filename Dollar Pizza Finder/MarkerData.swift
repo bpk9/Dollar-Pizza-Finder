@@ -12,7 +12,8 @@ import GooglePlaces.GMSPlacePhotoMetadataList
 struct MarkerData {
     var place: Place
     var photo: Photo
-    var route: Route?
+    var routes: [Route]?
+    var directionsType: String?
 }
 
 struct Photo {

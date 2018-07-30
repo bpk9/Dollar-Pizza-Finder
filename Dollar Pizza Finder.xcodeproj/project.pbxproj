@@ -14,6 +14,8 @@
 		D31F552A20E2FAE400096383 /* GoogleDirections.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31F552920E2FAE400096383 /* GoogleDirections.swift */; };
 		D31F552C20E33A3600096383 /* DirectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31F552B20E33A3600096383 /* DirectionsViewController.swift */; };
 		D31F552E20E5AE8D00096383 /* DirectionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31F552D20E5AE8D00096383 /* DirectionsResponse.swift */; };
+		D340B7DA210FBF5600E4EC61 /* MoreRoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D340B7D9210FBF5600E4EC61 /* MoreRoutesViewController.swift */; };
+		D340B7DC210FC18200E4EC61 /* RouteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D340B7DB210FC18200E4EC61 /* RouteCell.swift */; };
 		D353768721002F750089CB1B /* PlaceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D353768621002F750089CB1B /* PlaceInfoViewController.swift */; };
 		D353768921010B720089CB1B /* InfoLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D353768821010B720089CB1B /* InfoLauncher.swift */; };
 		D35376AA21012D840089CB1B /* InfoLauncherView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35376A921012D840089CB1B /* InfoLauncherView.xib */; };
@@ -45,6 +47,8 @@
 		D31F552920E2FAE400096383 /* GoogleDirections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDirections.swift; sourceTree = "<group>"; };
 		D31F552B20E33A3600096383 /* DirectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsViewController.swift; sourceTree = "<group>"; };
 		D31F552D20E5AE8D00096383 /* DirectionsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsResponse.swift; sourceTree = "<group>"; };
+		D340B7D9210FBF5600E4EC61 /* MoreRoutesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreRoutesViewController.swift; sourceTree = "<group>"; };
+		D340B7DB210FC18200E4EC61 /* RouteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCell.swift; sourceTree = "<group>"; };
 		D353768621002F750089CB1B /* PlaceInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoViewController.swift; sourceTree = "<group>"; };
 		D353768821010B720089CB1B /* InfoLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLauncher.swift; sourceTree = "<group>"; };
 		D35376A921012D840089CB1B /* InfoLauncherView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoLauncherView.xib; sourceTree = "<group>"; };
@@ -126,6 +130,8 @@
 				D353768621002F750089CB1B /* PlaceInfoViewController.swift */,
 				D31F552B20E33A3600096383 /* DirectionsViewController.swift */,
 				D308B24A2105A4C100269DA1 /* SettingsViewController.swift */,
+				D340B7D9210FBF5600E4EC61 /* MoreRoutesViewController.swift */,
+				D340B7DB210FC18200E4EC61 /* RouteCell.swift */,
 				D36CE8E820EC1C5F006C7EC8 /* FirebaseHelper.swift */,
 				D36CE8E220EAEE67006C7EC8 /* GooglePlaces.swift */,
 				D36CE8E020EAEE40006C7EC8 /* PlacesResponse.swift */,
@@ -331,6 +337,7 @@
 				D35376AE21017C7B0089CB1B /* SearchSuggestions.swift in Sources */,
 				D31F552C20E33A3600096383 /* DirectionsViewController.swift in Sources */,
 				D3F5D7FA20AE896400073B45 /* HomeViewController.swift in Sources */,
+				D340B7DC210FC18200E4EC61 /* RouteCell.swift in Sources */,
 				D36CE8E320EAEE67006C7EC8 /* GooglePlaces.swift in Sources */,
 				D31F552A20E2FAE400096383 /* GoogleDirections.swift in Sources */,
 				D308B24B2105A4C100269DA1 /* SettingsViewController.swift in Sources */,
@@ -339,6 +346,7 @@
 				D353768921010B720089CB1B /* InfoLauncher.swift in Sources */,
 				D35376B4210190B90089CB1B /* SuggstionCell.swift in Sources */,
 				D3F5D7F820AE896400073B45 /* AppDelegate.swift in Sources */,
+				D340B7DA210FBF5600E4EC61 /* MoreRoutesViewController.swift in Sources */,
 				D353768721002F750089CB1B /* PlaceInfoViewController.swift in Sources */,
 				D36CE8DF20E9B51D006C7EC8 /* MapMarkerView.swift in Sources */,
 				D36CE8E120EAEE40006C7EC8 /* PlacesResponse.swift in Sources */,
