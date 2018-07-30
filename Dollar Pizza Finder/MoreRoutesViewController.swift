@@ -17,6 +17,11 @@ class MoreRoutesViewController: UITableViewController {
         return routes.count
     }
     
+    // height of each cell
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 75
+    }
+    
     // create cell for each route
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "routeCell") as! RouteCell
