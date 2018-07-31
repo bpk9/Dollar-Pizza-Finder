@@ -16,6 +16,7 @@
 		D31F552E20E5AE8D00096383 /* DirectionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31F552D20E5AE8D00096383 /* DirectionsResponse.swift */; };
 		D340B7DA210FBF5600E4EC61 /* MoreRoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D340B7D9210FBF5600E4EC61 /* MoreRoutesViewController.swift */; };
 		D340B7DC210FC18200E4EC61 /* RouteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D340B7DB210FC18200E4EC61 /* RouteCell.swift */; };
+		D347914C2110E7FF00D31087 /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D347914B2110E7FF00D31087 /* ReviewCell.swift */; };
 		D353768721002F750089CB1B /* PlaceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D353768621002F750089CB1B /* PlaceInfoViewController.swift */; };
 		D353768921010B720089CB1B /* InfoLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D353768821010B720089CB1B /* InfoLauncher.swift */; };
 		D35376AA21012D840089CB1B /* InfoLauncherView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D35376A921012D840089CB1B /* InfoLauncherView.xib */; };
@@ -49,6 +50,7 @@
 		D31F552D20E5AE8D00096383 /* DirectionsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsResponse.swift; sourceTree = "<group>"; };
 		D340B7D9210FBF5600E4EC61 /* MoreRoutesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreRoutesViewController.swift; sourceTree = "<group>"; };
 		D340B7DB210FC18200E4EC61 /* RouteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCell.swift; sourceTree = "<group>"; };
+		D347914B2110E7FF00D31087 /* ReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
 		D353768621002F750089CB1B /* PlaceInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoViewController.swift; sourceTree = "<group>"; };
 		D353768821010B720089CB1B /* InfoLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoLauncher.swift; sourceTree = "<group>"; };
 		D35376A921012D840089CB1B /* InfoLauncherView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoLauncherView.xib; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				D35376B3210190B90089CB1B /* SuggstionCell.swift */,
 				D353768821010B720089CB1B /* InfoLauncher.swift */,
 				D353768621002F750089CB1B /* PlaceInfoViewController.swift */,
+				D347914B2110E7FF00D31087 /* ReviewCell.swift */,
 				D31F552B20E33A3600096383 /* DirectionsViewController.swift */,
 				D308B24A2105A4C100269DA1 /* SettingsViewController.swift */,
 				D340B7D9210FBF5600E4EC61 /* MoreRoutesViewController.swift */,
@@ -337,6 +340,7 @@
 				D35376AE21017C7B0089CB1B /* SearchSuggestions.swift in Sources */,
 				D31F552C20E33A3600096383 /* DirectionsViewController.swift in Sources */,
 				D3F5D7FA20AE896400073B45 /* HomeViewController.swift in Sources */,
+				D347914C2110E7FF00D31087 /* ReviewCell.swift in Sources */,
 				D340B7DC210FC18200E4EC61 /* RouteCell.swift in Sources */,
 				D36CE8E320EAEE67006C7EC8 /* GooglePlaces.swift in Sources */,
 				D31F552A20E2FAE400096383 /* GoogleDirections.swift in Sources */,

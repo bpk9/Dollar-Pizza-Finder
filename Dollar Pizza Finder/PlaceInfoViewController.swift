@@ -10,12 +10,13 @@ import UIKit
 import CoreLocation.CLLocation
 import GooglePlaces.GMSPlacePhotoMetadataList
 
-class PlaceInfoViewController: UIViewController {
+class PlaceInfoViewController: UIViewController, UITableViewDataSource {
     
     // ui elements
     @IBOutlet var directionsBtn: UIButton!
     @IBOutlet var navItem: UINavigationItem!
     @IBOutlet var photosView: UIScrollView!
+    @IBOutlet var reviewsTable: UITableView!
     
     // last known location of user
     var currentLocation: CLLocationCoordinate2D!
@@ -34,6 +35,10 @@ class PlaceInfoViewController: UIViewController {
         self.addPhotos(metadata: photodata)
         self.photosView.contentSize = CGSize(width: photodata.results.count * 150, height: 150)
         
+        // set up reviews table
+        self.reviewsTable.dataSource = self
+        self.reviewsTable.reloadData()
+        
         // update button text if route exists
         if let leg = self.data.routes?.first?.legs.first {
             self.directionsBtn.setTitle("Directions -- " + leg.duration.text, for: .normal)
@@ -50,6 +55,26 @@ class PlaceInfoViewController: UIViewController {
             vc.data = self.data
         }
     
+    }
+    
+    // number of rows in table
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(self.data.place.reviews.count)
+        return self.data.place.reviews.count
+    }
+    
+    // height of each cell
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 125
+    }
+    
+    // create cell for each review
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reviewCell") as! ReviewCell
+        let review = self.data.place.reviews[indexPath.row]
+        cell.review.text = review.text
+        print(review.text)
+        return cell
     }
     
     // add photos to scroll view

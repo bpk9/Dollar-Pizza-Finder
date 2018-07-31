@@ -224,9 +224,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zh7-iu-hMT">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zh7-iu-hMT">
                                 <rect key="frame" x="16" y="617" width="343" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.20000000000000001" green="0.40000000000000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Directions -- 00 mins">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -235,12 +234,58 @@
                                     <segue destination="Rea-h0-4Ke" kind="show" id="EhT-HB-Gln"/>
                                 </connections>
                             </button>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" directionalLockEnabled="YES" alwaysBounceHorizontal="YES" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bho-Bi-79k">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceHorizontal="YES" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bho-Bi-79k">
                                 <rect key="frame" x="0.0" y="64" width="375" height="150"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </scrollView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="MJo-nn-fHU">
+                                <rect key="frame" x="0.0" y="222" width="375" height="300"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="xfj-vd-END"/>
+                                </constraints>
+                                <color key="separatorColor" red="0.59999999999999998" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="reviewCell" rowHeight="125" id="LDj-ON-sJL" customClass="ReviewCell" customModule="Dollar_Pizza_Finder" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="125"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LDj-ON-sJL" id="M8C-5X-oOX">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="124.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Review" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p8Z-nB-XBW">
+                                                    <rect key="frame" x="15" y="11" width="345" height="103"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="p8Z-nB-XBW" firstAttribute="centerX" secondItem="M8C-5X-oOX" secondAttribute="centerX" id="1zr-k2-g4d"/>
+                                                <constraint firstItem="p8Z-nB-XBW" firstAttribute="top" secondItem="M8C-5X-oOX" secondAttribute="topMargin" id="2mm-TK-BvN"/>
+                                                <constraint firstItem="p8Z-nB-XBW" firstAttribute="leading" secondItem="M8C-5X-oOX" secondAttribute="leadingMargin" constant="-1" id="FES-Om-P3S"/>
+                                                <constraint firstItem="p8Z-nB-XBW" firstAttribute="bottom" secondItem="M8C-5X-oOX" secondAttribute="bottomMargin" id="IIo-B7-phl"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="review" destination="p8Z-nB-XBW" id="GMN-We-d9o"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="zh7-iu-hMT" firstAttribute="top" secondItem="MJo-nn-fHU" secondAttribute="bottom" constant="95" id="2c5-8l-Rjy"/>
+                            <constraint firstAttribute="trailing" secondItem="Bho-Bi-79k" secondAttribute="trailing" id="B7F-e8-Bm3"/>
+                            <constraint firstItem="Bho-Bi-79k" firstAttribute="trailing" secondItem="MJo-nn-fHU" secondAttribute="trailing" id="OA3-0V-0Mv"/>
+                            <constraint firstItem="zh7-iu-hMT" firstAttribute="leading" secondItem="FMy-9i-MHF" secondAttribute="leadingMargin" id="Oca-u9-CL2"/>
+                            <constraint firstItem="Bho-Bi-79k" firstAttribute="leading" secondItem="FMy-9i-MHF" secondAttribute="leading" id="Qnj-Us-LPI"/>
+                            <constraint firstItem="MJo-nn-fHU" firstAttribute="centerX" secondItem="zh7-iu-hMT" secondAttribute="centerX" id="WoO-kK-gzM"/>
+                            <constraint firstItem="MJo-nn-fHU" firstAttribute="top" secondItem="Bho-Bi-79k" secondAttribute="bottom" constant="8" symbolic="YES" id="cVA-jF-8RE"/>
+                            <constraint firstItem="Bho-Bi-79k" firstAttribute="top" secondItem="ZUw-t9-moE" secondAttribute="top" id="isT-k6-PJt"/>
+                            <constraint firstAttribute="bottom" secondItem="zh7-iu-hMT" secondAttribute="bottom" constant="20" symbolic="YES" id="uPi-8O-Ict"/>
+                            <constraint firstItem="Bho-Bi-79k" firstAttribute="leading" secondItem="MJo-nn-fHU" secondAttribute="leading" id="yMT-ny-SNA"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="ZUw-t9-moE"/>
                     </view>
                     <navigationItem key="navigationItem" title="Pizza Place" id="hhu-0e-8IO"/>
@@ -248,6 +293,7 @@
                         <outlet property="directionsBtn" destination="zh7-iu-hMT" id="sUz-hA-ubx"/>
                         <outlet property="navItem" destination="hhu-0e-8IO" id="0xE-1r-Nzr"/>
                         <outlet property="photosView" destination="Bho-Bi-79k" id="Ccd-lZ-0SZ"/>
+                        <outlet property="reviewsTable" destination="MJo-nn-fHU" id="8Gn-ov-EJZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jvl-zf-i16" userLabel="First Responder" sceneMemberID="firstResponder"/>
