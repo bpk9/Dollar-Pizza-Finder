@@ -11,6 +11,12 @@ import UIKit.UITableViewController
 class MoreRoutesViewController: UITableViewController {
     
     var routes: [Route]!
+    var selectedRoute: Route?
+    
+    // reset selected route when view appears
+    override func viewDidAppear(_ animated: Bool) {
+        self.selectedRoute = nil
+    }
     
     // number of rows in table
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -27,6 +33,12 @@ class MoreRoutesViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "routeCell") as! RouteCell
         cell.routeLabel.text = GoogleDirections.getRouteText(route: routes[indexPath.row])
         return cell
+    }
+    
+    // cell was tapped
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.selectedRoute = self.routes[indexPath.row]
+        performSegue(withIdentifier: "unwindToDirections", sender: self)
     }
     
 }

@@ -24,24 +24,41 @@ class DirectionsViewController: UIViewController {
     // destination information
     var data: MarkerData!
     
+    // current route showing
+    var route: Route!
+    
+    // polyline on map
+    var polylines: [GMSPolyline] = [GMSPolyline]()
+    
     // step counter
     var step: Int!
     
     // step destination markers
     var destinations = [GMSMarker]()
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    // init route to first on list
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         // add title to view controller
         self.title = "Directions to " + self.data.place.name
+        
+        // init route as first in list
+        self.route = self.data.routes!.first!
+        
+        // set up map
+        self.map.isMyLocationEnabled = true
+    }
+    
+    // set overview when view appears
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         // initialize counter
         self.step = -1
         
         // set up ui
         self.setOverview()
-        self.map.isMyLocationEnabled = true
         
     }
     
@@ -50,6 +67,18 @@ class DirectionsViewController: UIViewController {
         
         if let vc = segue.destination as? MoreRoutesViewController {
             vc.routes = self.data.routes
+        }
+        
+    }
+    
+    // refresh route from rewind segue
+    @IBAction func unwindToDirections(_ sender: UIStoryboardSegue) {
+        
+        if let vc = sender.source as? MoreRoutesViewController {
+            self.route = vc.selectedRoute
+            self.removePolyline()
+            self.step = -1
+            self.setOverview()
         }
         
     }
@@ -128,10 +157,19 @@ class DirectionsViewController: UIViewController {
         // add polyline to map
         self.addPolyline()
         
+        // add pizza place marker to map
+        let location = self.data.place.geometry.location
+        let marker = GMSMarker(position: CLLocationCoordinate2DMake(location.lat, location.lng))
+        marker.title = self.data.place.name
+        marker.map = self.map
+        self.destinations.append(marker)
+        
+        self.updateCamera()
+        
         // show route info
         self.directionsLabel.text = "Route to " + self.data.place.name
-        self.distanceLabel.text = self.data.routes!.first!.legs.first?.distance.text
-        self.durationLabel.text = self.data.routes!.first!.legs.first?.duration.text
+        self.distanceLabel.text = self.route.legs.first?.distance.text
+        self.durationLabel.text = self.route.legs.first?.duration.text
 
         // select destination marker
         self.map.selectedMarker = self.destinations.last
@@ -142,7 +180,7 @@ class DirectionsViewController: UIViewController {
     func setDirections(num: Int) {
                 
         // get current step
-        let steps = self.data.routes!.first!.legs.first!.steps
+        let steps = self.route.legs.first!.steps
         let step = steps[num]
                 
         // zoom map to step
@@ -187,8 +225,9 @@ class DirectionsViewController: UIViewController {
     }
     
     func addPolyline() {
+        
         // for each step in journey
-        for step in self.data.routes!.first!.legs.first!.steps {
+        for step in self.route.legs.first!.steps {
             
             // get polyline
             let path = GMSPath(fromEncodedPath: step.polyline.points)
@@ -224,17 +263,17 @@ class DirectionsViewController: UIViewController {
                 polyline.strokeWidth = 5.0
             }
             polyline.map = self.map
+            self.polylines.append(polyline)
             
         }
-        
-        // add pizza place marker to map
-        let location = self.data.place.geometry.location
-        let marker = GMSMarker(position: CLLocationCoordinate2DMake(location.lat, location.lng))
-        marker.title = self.data.place.name
-        marker.map = self.map
-        self.destinations.append(marker)
-        
-        self.updateCamera()
+    }
+    
+    // remove polyline from map
+    func removePolyline() {
+        for line in self.polylines {
+            line.map = nil
+        }
+        self.polylines.removeAll()
     }
     
     func setDirectionsPic(path: String) {
@@ -245,7 +284,7 @@ class DirectionsViewController: UIViewController {
     
     // update map camera to bounds
     func updateCamera() {
-        let bounds = self.data.routes!.first!.bounds
+        let bounds = self.route.bounds
         let update = GMSCameraUpdate.fit(GMSCoordinateBounds(coordinate: CLLocationCoordinate2DMake(bounds.northeast.lat, bounds.northeast.lng), coordinate: CLLocationCoordinate2DMake(bounds.southwest.lat, bounds.southwest.lng)), withPadding: 50)
         self.map.moveCamera(update)
     }

@@ -403,8 +403,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="More Routes" id="Ey6-mG-XoF"/>
+                    <connections>
+                        <segue destination="Xhh-Bq-Jxz" kind="unwind" identifier="unwindToDirections" unwindAction="unwindToDirections:" id="JY8-hj-KKI"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zcU-Li-1RM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Xhh-Bq-Jxz" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3320.8000000000002" y="1415.4422788605698"/>
         </scene>
