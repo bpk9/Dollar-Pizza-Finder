@@ -35,21 +35,30 @@ class GoogleDirections {
     
     class func getRouteText(route: Route) -> String {
         
-        // step with longest distance
-        let steps = route.legs.first!.steps
-        var maxStep = steps.first!
+        var route = route
+        
+        // if summary does not exist
+        if route.summary == "" {
             
-        for step in route.legs.first!.steps.dropFirst() {
-            if let maxDist = maxStep.distance.value {
-                if let dist = step.distance.value {
-                    if dist > maxDist {
-                        maxStep = step
+            // step with longest distance
+            let steps = route.legs.first!.steps
+            var maxStep = steps.first!
+            
+            for step in route.legs.first!.steps.dropFirst() {
+                if let maxDist = maxStep.distance.value {
+                    if let dist = step.distance.value {
+                        if dist > maxDist {
+                            maxStep = step
+                        }
                     }
                 }
             }
-        }
             
-        return maxStep.duration.text + " via " + maxStep.html_instructions
+            route.summary = maxStep.transit_details!.headsign
+            
+        }
+        
+        return route.legs.first!.duration.text + " via " + route.summary
         
     }
     
