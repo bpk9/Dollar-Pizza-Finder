@@ -57,9 +57,13 @@ class PlaceInfoViewController: UIViewController, UITableViewDataSource {
     
     }
     
+    // title for section
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Reviews"
+    }
+    
     // number of rows in table
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(self.data.place.reviews.count)
         return self.data.place.reviews.count
     }
     
@@ -72,8 +76,7 @@ class PlaceInfoViewController: UIViewController, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reviewCell") as! ReviewCell
         let review = self.data.place.reviews[indexPath.row]
-        cell.review.text = review.text
-        print(review.text)
+        cell.loadUI(review: review)
         return cell
     }
     
