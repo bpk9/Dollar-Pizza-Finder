@@ -50,21 +50,19 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
             for id in place_ids {
                 GooglePlaces.getData(place_id: id) { (place, photo, photos) -> () in
                     
-                    if place != nil {
-                        // load marker
-                        let location = place!.geometry.location
-                        let marker = GMSMarker(position: CLLocationCoordinate2DMake(location.lat, location.lng))
-                        marker.userData = MarkerData(place: place!, photo: Photo(image: photo!, data: photos!), routes: nil, directionsType: nil)
+                    // load marker
+                    let location = place!.geometry.location
+                    let marker = GMSMarker(position: CLLocationCoordinate2DMake(location.lat, location.lng))
+                    marker.userData = MarkerData(place: place!, photo: Photo(image: photo!, data: photos!), routes: nil, directionsType: nil)
                         
-                        // if place is open
-                        let openNow = place!.opening_hours?.open_now ?? false
-                        if  openNow || self.onlyOpen == false {
-                            marker.map = self.map
-                        }
-                        
-                        // add to array
-                        self.allPlaces.append(marker)
+                    // if place is open
+                    let openNow = place!.opening_hours?.open_now ?? false
+                    if  openNow || self.onlyOpen == false {
+                        marker.map = self.map
                     }
+                        
+                    // add to array
+                    self.allPlaces.append(marker)
                     
                     // increment counter
                     count += 1

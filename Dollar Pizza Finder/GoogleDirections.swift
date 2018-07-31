@@ -58,7 +58,7 @@ class GoogleDirections {
             
         }
         
-        return route.legs.first!.duration.text + " via " + route.summary
+        return route.legs.first!.duration.text + " Via " + route.summary
         
     }
     

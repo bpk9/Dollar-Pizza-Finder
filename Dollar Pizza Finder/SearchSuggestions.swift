@@ -146,7 +146,7 @@ class SearchSuggestions: NSObject, UISearchBarDelegate, SuggestionDelegate {
             if !onlyOpen || openNow {
                 self.stack.addArrangedSubview(cell)
             }
-            if self.stack.arrangedSubviews.count >= 10 {
+            if self.stack.arrangedSubviews.count >= 5 {
                 break
             }
         }
