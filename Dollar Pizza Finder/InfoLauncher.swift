@@ -105,7 +105,7 @@ class InfoLauncher {
         case 0: return "driving"
         case 1: return "transit"
         case 2: return "walking"
-        case 3: return "biking"
+        case 3: return "bicycling"
         default: return "driving"
         }
     }
