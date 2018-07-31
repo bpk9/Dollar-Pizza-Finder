@@ -28,38 +28,38 @@ class GoogleDirections {
             let decoder = JSONDecoder()
             let directions = try! decoder.decode(DirectionsResponse.self, from: response.data!)
             
-            completion(directions.routes)
+            var routes = directions.routes
+            
+            for i in 0..<routes.count {
+                // if summary does not exist
+                if routes[i].summary == "" {
+                    
+                    // step with longest distance
+                    let steps = routes[i].legs.first!.steps
+                    var maxStep = steps.first!
+                    
+                    for step in steps.dropFirst() {
+                        if let maxDist = maxStep.distance.value {
+                            if let dist = step.distance.value {
+                                if dist > maxDist {
+                                    maxStep = step
+                                }
+                            }
+                        }
+                    }
+                    
+                    routes[i].summary = maxStep.transit_details!.headsign
+                    
+                }
+            }
+            
+            completion(routes)
             
         }
     }
     
     class func getRouteText(route: Route) -> String {
-        
-        var route = route
-        
-        // if summary does not exist
-        if route.summary == "" {
-            
-            // step with longest distance
-            let steps = route.legs.first!.steps
-            var maxStep = steps.first!
-            
-            for step in route.legs.first!.steps.dropFirst() {
-                if let maxDist = maxStep.distance.value {
-                    if let dist = step.distance.value {
-                        if dist > maxDist {
-                            maxStep = step
-                        }
-                    }
-                }
-            }
-            
-            route.summary = maxStep.transit_details!.headsign
-            
-        }
-        
         return route.legs.first!.duration.text + " Via " + route.summary
-        
     }
     
 }
