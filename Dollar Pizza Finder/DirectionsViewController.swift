@@ -167,7 +167,7 @@ class DirectionsViewController: UIViewController {
         self.updateCamera()
         
         // show route info
-        self.directionsLabel.text = GoogleDirections.getRouteText(route: self.route)
+        self.directionsLabel.text = "Route to " + self.data.place.name + " Via " + self.route.summary
         self.distanceLabel.text = self.route.legs.first?.distance.text
         self.durationLabel.text = self.route.legs.first?.duration.text
 

@@ -235,6 +235,10 @@
                                     <segue destination="Rea-h0-4Ke" kind="show" id="EhT-HB-Gln"/>
                                 </connections>
                             </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" directionalLockEnabled="YES" alwaysBounceHorizontal="YES" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bho-Bi-79k">
+                                <rect key="frame" x="0.0" y="64" width="375" height="150"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="ZUw-t9-moE"/>
@@ -243,6 +247,7 @@
                     <connections>
                         <outlet property="directionsBtn" destination="zh7-iu-hMT" id="sUz-hA-ubx"/>
                         <outlet property="navItem" destination="hhu-0e-8IO" id="0xE-1r-Nzr"/>
+                        <outlet property="photosView" destination="Bho-Bi-79k" id="Ccd-lZ-0SZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jvl-zf-i16" userLabel="First Responder" sceneMemberID="firstResponder"/>
