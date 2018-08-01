@@ -18,7 +18,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nQx-XF-ice">
-                    <rect key="frame" x="234" y="17.5" width="125" height="30"/>
+                    <rect key="frame" x="234" y="19" width="125" height="30"/>
                     <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="125" id="7wx-eC-tnh"/>
@@ -31,7 +31,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hP4-Dq-uZu">
-                    <rect key="frame" x="16" y="20" width="200" height="27"/>
+                    <rect key="frame" x="16" y="20" width="200" height="30"/>
                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <state key="normal" title="Directions -- 00 mins">
@@ -45,6 +45,7 @@
             <color key="backgroundColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="hP4-Dq-uZu" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="7ad-wa-1j2"/>
+                <constraint firstItem="hP4-Dq-uZu" firstAttribute="height" secondItem="nQx-XF-ice" secondAttribute="height" id="CFu-90-8sg"/>
                 <constraint firstItem="hP4-Dq-uZu" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" symbolic="YES" id="HGe-dX-PCz"/>
                 <constraint firstItem="hP4-Dq-uZu" firstAttribute="baseline" secondItem="nQx-XF-ice" secondAttribute="baseline" id="msp-6g-mtk"/>
                 <constraint firstItem="nQx-XF-ice" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailingMargin" id="nTa-c5-z78"/>

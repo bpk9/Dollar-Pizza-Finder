@@ -146,9 +146,6 @@ class SearchSuggestions: NSObject, UISearchBarDelegate, SuggestionDelegate {
             if !onlyOpen || openNow {
                 self.stack.addArrangedSubview(cell)
             }
-            if self.stack.arrangedSubviews.count >= 5 {
-                break
-            }
         }
         
         // update stack frame based on num of elements
@@ -196,6 +193,12 @@ class SearchSuggestions: NSObject, UISearchBarDelegate, SuggestionDelegate {
         self.map.selectedMarker = marker
         self.hideSearch()
         self.map.moveCamera(GMSCameraUpdate.setTarget(self.map.selectedMarker!.position))
+    }
+    
+    // updates cells when sorting changes
+    func updateCells(markers: [GMSMarker]) {
+        self.markers.removeAll()
+        self.addStackData(markers: markers)
     }
     
 }

@@ -236,6 +236,7 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
     // update markers when sorting is changed in settings
     func didChangePlacesSorting() {
         self.sortMarkers()
+        self.searchSuggestions.updateCells(markers: self.allPlaces)
         self.didChangeSorting = true
     }
     
@@ -274,7 +275,7 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
             self.allPlaces.sort(by: { ($0.userData as! MarkerData).place.rating > ($1.userData as! MarkerData).place.rating })
         default:
             // sort by name
-            self.allPlaces.sort(by: { ($0.userData as! MarkerData).place.name > ($1.userData as! MarkerData).place.name })
+            self.allPlaces.sort(by: { ($0.userData as! MarkerData).place.name < ($1.userData as! MarkerData).place.name })
         }
         
         // seperate markers into open and closed
