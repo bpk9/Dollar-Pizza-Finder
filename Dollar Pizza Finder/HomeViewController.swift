@@ -49,12 +49,6 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
         let oldFrame = self.map.superview!.frame
         self.map.superview!.frame = CGRect(x: oldFrame.origin.x, y: oldFrame.origin.y, width: oldFrame.width, height: UIApplication.shared.keyWindow!.frame.height - oldFrame.origin.y)
         
-        // get location permission if needed
-        if !CLLocationManager.locationServicesEnabled() {
-            self.locationManager = CLLocationManager()
-            self.locationManager!.requestLocation()
-        }
-        
         // lock to sync data loading
         var count: Int = 0
         
@@ -95,7 +89,7 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
                         // zoom camera to first place
                         self.map.moveCamera(GMSCameraUpdate.setTarget(self.map.selectedMarker!.position))
                         self.map.animate(toZoom: 18)
-                        self.map.animate(toViewingAngle: 45)
+                        self.map.animate(toViewingAngle: 20)
                         
                         // set up search bar
                         self.searchSuggestions = SearchSuggestions(map: self.map, markers: self.allPlaces, navBarHeight: self.navigationController!.navigationBar.intrinsicContentSize.height)
@@ -260,6 +254,13 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
     func distance(marker: GMSMarker) -> Double {
         let data = marker.userData as! MarkerData
         let location = data.place.geometry.location
+        
+        // get location permission if needed
+        if !CLLocationManager.locationServicesEnabled() {
+            self.locationManager = CLLocationManager()
+            self.locationManager!.requestLocation()
+        }
+        
         return Double(self.map.myLocation!.distance(from: CLLocation(latitude: location.lat, longitude: location.lng)))
     }
     
