@@ -37,7 +37,7 @@ class PlaceInfoViewController: UIViewController, UITableViewDataSource {
         // add photos to scroll view
         let photodata = self.data.photo.data
         self.addPhotos(metadata: photodata)
-        self.photosView.contentSize = CGSize(width: photodata.results.count * 150, height: 150)
+        self.photosView.contentSize = CGSize(width: photodata.results.count * 125, height: 125)
         
         // set up reviews table
         self.reviewsTable.dataSource = self
@@ -132,10 +132,11 @@ class PlaceInfoViewController: UIViewController, UITableViewDataSource {
     func addPhotos(metadata: GMSPlacePhotoMetadataList) {
         let results = metadata.results
         for i in 0..<results.count {
-            let imageView = UIImageView(frame: CGRect(x: CGFloat(i * 150), y: 10, width: 150, height: 150))
+            let imageView = UIImageView(frame: CGRect(x: CGFloat(i * 125), y: 0, width: 125, height: 125))
             GooglePlaces.loadImageForMetadata(photoMetadata: results[i]) { (photo) -> () in
                 imageView.image = photo
             }
+            
             self.photosView.addSubview(imageView)
         }
     }
