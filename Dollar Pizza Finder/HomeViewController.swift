@@ -126,7 +126,7 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
         super.viewDidAppear(animated)
         
         // reselect marker and show info view
-        if self.didChangeOpenOnly || self.didChangeSorting || self.map.selectedMarker != nil {
+        if self.didChangeOpenOnly || self.didChangeSorting {
             if self.onlyOpen {
                 self.map.selectedMarker = self.openPlaces.first
             } else {

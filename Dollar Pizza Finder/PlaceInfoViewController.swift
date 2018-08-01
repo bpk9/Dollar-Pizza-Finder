@@ -71,6 +71,13 @@ class PlaceInfoViewController: UIViewController, UITableViewDataSource {
         
     }
     
+    // hide photos when leaving view
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.photosView.isHidden = true
+    }
+    
     // prepare data for new storyboard
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
