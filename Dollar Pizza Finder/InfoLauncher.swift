@@ -51,9 +51,9 @@ class InfoLauncher {
             // bring frame in
             self.infoView.frame = CGRect(x: 0, y: self.window.frame.height - 70, width: self.window.frame.width, height: 70)
             
-        }, completion: { (success) -> Void in
-            self.isVisible = true
         })
+        
+        self.isVisible = true
         
     }
     
@@ -71,8 +71,9 @@ class InfoLauncher {
         }, completion: { (success) -> Void in
             // remove from view when completed
             self.infoView.removeFromSuperview()
-            self.isVisible = false
         })
+        
+        self.isVisible = false
         
     }
     

@@ -137,6 +137,10 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
             self.didChangeOpenOnly = false
         }
         
+        if self.map.selectedMarker != nil && !self.infoLauncher.isVisible {
+            self.infoLauncher.showInfo()
+        }
+        
     }
     
     // prepare data for new storyboard
