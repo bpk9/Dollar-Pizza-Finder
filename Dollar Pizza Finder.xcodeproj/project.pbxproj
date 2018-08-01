@@ -209,6 +209,9 @@
 					D3F5D7F320AE896400073B45 = {
 						CreatedOnToolsVersion = 9.3.1;
 						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
 							com.apple.Maps.iOS = {
 								enabled = 1;
 							};
@@ -515,7 +518,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.brianpkasper.dollarpizzafinderios;
+				PRODUCT_BUNDLE_IDENTIFIER = "CY-DD12314A-8BA6-11E8-8762-77940B132A81.com.brianpkasper.dollarpizzafinderios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -545,7 +548,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.brianpkasper.dollarpizzafinderios;
+				PRODUCT_BUNDLE_IDENTIFIER = "CY-DD12314A-8BA6-11E8-8762-77940B132A81.com.brianpkasper.dollarpizzafinderios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
