@@ -17,6 +17,10 @@ class PlaceInfoViewController: UIViewController, UITableViewDataSource {
     @IBOutlet var navItem: UINavigationItem!
     @IBOutlet var photosView: UIScrollView!
     @IBOutlet var reviewsTable: UITableView!
+    @IBOutlet var distance: UILabel!
+    @IBOutlet var rating: UILabel!
+    @IBOutlet var call: UIButton!
+    @IBOutlet var website: UIButton!
     
     // last known location of user
     var currentLocation: CLLocationCoordinate2D!
@@ -38,6 +42,22 @@ class PlaceInfoViewController: UIViewController, UITableViewDataSource {
         // set up reviews table
         self.reviewsTable.dataSource = self
         self.reviewsTable.reloadData()
+        
+        // set up distance label
+        self.distance.text = self.data.routes?.first?.legs.first?.distance.text
+        
+        // set up overall rating
+        self.rating.text = GooglePlaces.starString(rating: self.data.place.rating)
+        
+        // hide call button if phone number is not listed
+        if self.data.place.formatted_phone_number == nil {
+            self.call.isHidden = true
+        }
+        
+        // hide website button if website is not listed
+        if self.data.place.website == nil {
+            self.website.isHidden = true
+        }
         
         // update button text if route exists
         if let leg = self.data.routes?.first?.legs.first {
