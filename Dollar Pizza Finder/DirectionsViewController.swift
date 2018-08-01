@@ -77,6 +77,7 @@ class DirectionsViewController: UIViewController {
         if let vc = sender.source as? MoreRoutesViewController {
             self.route = vc.selectedRoute
             self.removePolyline()
+            self.removeMarkers()
             self.step = -1
             self.setOverview()
         }
@@ -274,6 +275,14 @@ class DirectionsViewController: UIViewController {
             line.map = nil
         }
         self.polylines.removeAll()
+    }
+    
+    // remove all markers from map
+    func removeMarkers() {
+        for marker in self.destinations {
+            marker.map = nil
+        }
+        self.destinations.removeAll()
     }
     
     func setDirectionsPic(path: String) {
