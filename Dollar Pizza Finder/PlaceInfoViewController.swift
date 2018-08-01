@@ -61,9 +61,11 @@ class PlaceInfoViewController: UIViewController, UITableViewDataSource {
         
         // update button text if route exists
         if let leg = self.data.routes?.first?.legs.first {
+            self.directionsBtn.alpha = 1
             self.directionsBtn.setTitle("Directions -- " + leg.duration.text, for: .normal)
         } else {
-            self.directionsBtn.isHidden = true
+            self.directionsBtn.alpha = 0.5
+            self.directionsBtn.setTitle("Directions not available", for: .normal)
         }
         
     }
@@ -115,6 +117,13 @@ class PlaceInfoViewController: UIViewController, UITableViewDataSource {
             if let url = URL(string: website) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
+        }
+    }
+    
+    // show directions if available
+    @IBAction func directionsAction(_ sender: Any) {
+        if self.data.routes?.first != nil {
+            performSegue(withIdentifier: "moreInfoDirections", sender: nil)
         }
     }
     

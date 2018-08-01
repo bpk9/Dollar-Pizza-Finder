@@ -232,7 +232,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Rea-h0-4Ke" kind="show" id="EhT-HB-Gln"/>
+                                    <action selector="directionsAction:" destination="AsN-xR-0tR" eventType="touchUpInside" id="3fj-Qo-Z1M"/>
                                 </connections>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceHorizontal="YES" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bho-Bi-79k">
@@ -332,6 +332,9 @@
                                 <state key="normal" title="Call">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="callPlace:" destination="AsN-xR-0tR" eventType="touchUpInside" id="i6G-nS-HB5"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4j3-v1-z3Y">
                                 <rect key="frame" x="194" y="579" width="165" height="30"/>
@@ -339,6 +342,9 @@
                                 <state key="normal" title="Website">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="visitWebsite:" destination="AsN-xR-0tR" eventType="touchUpInside" id="9B1-y8-jsK"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="★★★★★ 4.7" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lTP-CJ-Iya">
                                 <rect key="frame" x="194" y="547" width="165" height="24"/>
@@ -394,6 +400,7 @@
                         <outlet property="rating" destination="lTP-CJ-Iya" id="Tvi-Hv-4S5"/>
                         <outlet property="reviewsTable" destination="MJo-nn-fHU" id="8Gn-ov-EJZ"/>
                         <outlet property="website" destination="4j3-v1-z3Y" id="B4i-AH-yOX"/>
+                        <segue destination="Rea-h0-4Ke" kind="show" identifier="moreInfoDirections" id="Vhy-18-var"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jvl-zf-i16" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -569,6 +576,6 @@
         <image name="settings" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="EhT-HB-Gln"/>
+        <segue reference="Vhy-18-var"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -26,12 +26,20 @@ class InfoLauncherView: UIView {
     }
     
     func loadUI(data: MarkerData) {
-        self.directionsBtn.setTitle("Directions -- " + data.routes!.first!.legs.first!.duration.text, for: .normal)
+        if let leg = data.routes?.first?.legs.first {
+            self.directionsBtn.alpha = 1
+            self.directionsBtn.setTitle("Directions -- " + data.routes!.first!.legs.first!.duration.text, for: .normal)
+        } else {
+            self.directionsBtn.alpha = 0.5
+            self.directionsBtn.setTitle("Directions not available", for: .normal)
+        }
     }
     
     // show directions view when button is tapped
     @IBAction func directionsAction(_ sender: Any) {
-        delegate?.runSegue("directionsFromHome")
+        if self.directionsBtn.alpha == 1 {
+            delegate?.runSegue("directionsFromHome")
+        }
     }
     
     // show more info view when button is tapped
