@@ -17,6 +17,9 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
     // UI elements
     @IBOutlet var map: GMSMapView!
     
+    // location manager
+    var locationManager: CLLocationManager?
+    
     // all pizza places in database
     var allPlaces = [GMSMarker]()
     var openPlaces: [GMSMarker]!
@@ -45,11 +48,6 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
         // extend map view to bottom of screen
         let oldFrame = self.map.superview!.frame
         self.map.superview!.frame = CGRect(x: oldFrame.origin.x, y: oldFrame.origin.y, width: oldFrame.width, height: UIApplication.shared.keyWindow!.frame.height - oldFrame.origin.y)
-        
-        // set up google map view
-        self.map.delegate = self
-        self.map.isMyLocationEnabled = true
-        self.map.camera = GMSCameraPosition.camera(withLatitude: 40.7831, longitude: -73.9712, zoom: 8)
         
         // lock to sync data loading
         var count: Int = 0
@@ -107,11 +105,27 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
         
     }
     
+    // set up ui when view loads
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // get location permission if needed
+        if !CLLocationManager.locationServicesEnabled() {
+            self.locationManager = CLLocationManager()
+            self.locationManager!.requestLocation()
+        }
+        
+        // set up google map view
+        self.map.delegate = self
+        self.map.isMyLocationEnabled = true
+        self.map.camera = GMSCameraPosition.camera(withLatitude: 40.7831, longitude: -73.9712, zoom: 8)
+    }
+    
     // show info when view appears if marker is selected
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        // reselect marker and show info ciew
+        // reselect marker and show info view
         if self.didChangeOpenOnly || self.didChangeSorting || self.map.selectedMarker != nil {
             if self.onlyOpen {
                 self.map.selectedMarker = self.openPlaces.first
@@ -142,6 +156,10 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
         
         if self.infoLauncher.isVisible {
             self.infoLauncher.hideInfo()
+        }
+        
+        if self.searchSuggestions.isVisible {
+            self.searchSuggestions.hideSearch()
         }
         
     }

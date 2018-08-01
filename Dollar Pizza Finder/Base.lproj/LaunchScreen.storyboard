@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina4_0" orientation="portrait">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,18 +15,19 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Launch" translatesAutoresizingMaskIntoConstraints="NO" id="dnR-EE-d74">
-                                <rect key="frame" x="0.0" y="107" width="320" height="320"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch" translatesAutoresizingMaskIntoConstraints="NO" id="dnR-EE-d74">
+                                <rect key="frame" x="0.0" y="124" width="375" height="419"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="dnR-EE-d74" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="NAF-0W-emB"/>
-                            <constraint firstItem="dnR-EE-d74" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="ZzN-na-G5s"/>
-                            <constraint firstItem="dnR-EE-d74" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="hqu-d5-3Xb"/>
+                            <constraint firstItem="dnR-EE-d74" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="RaD-CN-CqO"/>
+                            <constraint firstItem="dnR-EE-d74" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="104" id="hNT-3t-a6j"/>
+                            <constraint firstAttribute="trailing" secondItem="dnR-EE-d74" secondAttribute="trailing" id="nTz-Uc-nYP"/>
+                            <constraint firstItem="dnR-EE-d74" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="v92-qr-EDc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
