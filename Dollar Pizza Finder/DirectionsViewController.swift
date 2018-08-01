@@ -37,8 +37,8 @@ class DirectionsViewController: UIViewController {
     var destinations = [GMSMarker]()
     
     // init route to first on list
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func loadView() {
+        super.loadView()
         
         // add title to view controller
         self.title = "Directions to " + self.data.place.name
@@ -48,18 +48,12 @@ class DirectionsViewController: UIViewController {
         
         // set up map
         self.map.isMyLocationEnabled = true
-    }
-    
-    // set overview when view appears
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
         // initialize counter
         self.step = -1
         
         // set up ui
         self.setOverview()
-        
     }
     
     // prepare data for new storyboard
@@ -144,9 +138,16 @@ class DirectionsViewController: UIViewController {
     // set info for overview
     func setOverview() {
         
-        // set up start button
-        self.nextBtn.backgroundColor = .blue
-        self.nextBtn.setTitle("Start", for: .normal)
+        if self.data.directionsType == "transit" {
+            // set up start button
+            self.nextBtn.backgroundColor = .blue
+            self.nextBtn.setTitle("Start", for: .normal)
+            
+            
+        } else {
+            self.nextBtn.isHidden = true
+            
+        }
         
         // set up more routes
         self.backBtn.setTitle("More Routes", for: .normal)
@@ -155,25 +156,26 @@ class DirectionsViewController: UIViewController {
         // set image to pizza place
         self.directionsPic.image = self.data.photo.image
         
+        // show route info
+        self.directionsLabel.text = "Route to " + self.data.place.name + " Via " + self.route.summary
+        self.distanceLabel.text = self.route.legs.first?.distance.text
+        self.durationLabel.text = self.route.legs.first?.duration.text
+        
         // add polyline to map
         self.addPolyline()
         
         // add pizza place marker to map
         let location = self.data.place.geometry.location
+        
         let marker = GMSMarker(position: CLLocationCoordinate2DMake(location.lat, location.lng))
         marker.title = self.data.place.name
         marker.map = self.map
+        
+        self.map.selectedMarker = self.destinations.last
         self.destinations.append(marker)
         
         self.updateCamera()
         
-        // show route info
-        self.directionsLabel.text = "Route to " + self.data.place.name + " Via " + self.route.summary
-        self.distanceLabel.text = self.route.legs.first?.distance.text
-        self.durationLabel.text = self.route.legs.first?.duration.text
-
-        // select destination marker
-        self.map.selectedMarker = self.destinations.last
     
     }
     
