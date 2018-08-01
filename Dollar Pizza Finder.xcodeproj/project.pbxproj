@@ -505,8 +505,8 @@
 			baseConfigurationReference = C9658B80F0A8C802D4C50849 /* Pods-Dollar Pizza Finder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Brian Kasper (J7QWTMLU2E)";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = J7QWTMLU2E;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -524,8 +524,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "CY-DD12314A-8BA6-11E8-8762-77940B132A81.com.brianpkasper.dollarpizzafinderios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "843a4d04-c82a-4cac-9f35-65714d10bf57";
+				PROVISIONING_PROFILE_SPECIFIER = Profile;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -536,8 +536,8 @@
 			baseConfigurationReference = 8CD24006B7798DAC09DA5B9E /* Pods-Dollar Pizza Finder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Brian Kasper (J7QWTMLU2E)";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = J7QWTMLU2E;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -555,8 +555,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "CY-DD12314A-8BA6-11E8-8762-77940B132A81.com.brianpkasper.dollarpizzafinderios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "843a4d04-c82a-4cac-9f35-65714d10bf57";
+				PROVISIONING_PROFILE_SPECIFIER = Profile;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
