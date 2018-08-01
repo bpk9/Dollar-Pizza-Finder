@@ -42,6 +42,15 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
     override func loadView() {
         super.loadView()
         
+        // extend map view to bottom of screen
+        let oldFrame = self.map.superview!.frame
+        self.map.superview!.frame = CGRect(x: oldFrame.origin.x, y: oldFrame.origin.y, width: oldFrame.width, height: UIApplication.shared.keyWindow!.frame.height - oldFrame.origin.y)
+        
+        // set up google map view
+        self.map.delegate = self
+        self.map.isMyLocationEnabled = true
+        self.map.camera = GMSCameraPosition.camera(withLatitude: 40.7831, longitude: -73.9712, zoom: 8)
+        
         // lock to sync data loading
         var count: Int = 0
         
@@ -91,15 +100,6 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
                 }
             }
         }
-        
-        // extend map view to bottom of screen
-        let oldFrame = self.map.superview!.frame
-        self.map.superview!.frame = CGRect(x: oldFrame.origin.x, y: oldFrame.origin.y, width: oldFrame.width, height: UIApplication.shared.keyWindow!.frame.height - oldFrame.origin.y)
-        
-        // set up google map view
-        self.map.delegate = self
-        self.map.isMyLocationEnabled = true
-        self.map.camera = GMSCameraPosition.camera(withLatitude: 40.7831, longitude: -73.9712, zoom: 8)
         
         // set up info view
         self.infoLauncher = InfoLauncher(map: self.map)
