@@ -220,7 +220,7 @@ class DirectionsViewController: UIViewController {
             self.directionsLabel.text = "Walk to " + self.data.place.name
             self.nextBtn.isHidden = true
         } else {
-            self.directionsLabel.text = step.html_instructions
+            self.directionsLabel.text = self.removeTags(string: step.html_instructions)
         }
 
     }
@@ -319,6 +319,25 @@ class DirectionsViewController: UIViewController {
             blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
             alpha: CGFloat(1.0)
         )
+    }
+    
+    // removes html tags from string
+    func removeTags(string: String) -> String {
+        
+        var output: String = ""
+        var tag: Bool = false
+        
+        for char in string {
+            if char == "<" {
+                tag = true
+            } else if char == ">" {
+                tag = false
+            } else if !tag {
+                output += String(char)
+            }
+        }
+        
+        return output
     }
     
 }
