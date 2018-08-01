@@ -130,7 +130,7 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
     {
         // send places array to search
        if let vc = segue.destination as? PlaceInfoViewController {
-            vc.currentLocation = self.map.myLocation!.coordinate
+            vc.currentLocation = self.map.myLocation!
             vc.data = self.map.selectedMarker?.userData as! MarkerData
         } else if let vc = segue.destination as? DirectionsViewController {
             vc.data = self.map.selectedMarker?.userData as! MarkerData

@@ -23,7 +23,7 @@ class PlaceInfoViewController: UIViewController, UITableViewDataSource {
     @IBOutlet var website: UIButton!
     
     // last known location of user
-    var currentLocation: CLLocationCoordinate2D!
+    var currentLocation: CLLocation!
     
     // marker data
     var data: MarkerData!
@@ -44,7 +44,8 @@ class PlaceInfoViewController: UIViewController, UITableViewDataSource {
         self.reviewsTable.reloadData()
         
         // set up distance label
-        self.distance.text = self.data.routes?.first?.legs.first?.distance.text
+        let coordinate = data.place.geometry.location
+        self.distance.text = String(format: "%.2f mi", (self.currentLocation.distance(from: CLLocation(latitude: coordinate.lat, longitude: coordinate.lng))) * 0.000621371)
         
         // set up overall rating
         self.rating.text = GooglePlaces.starString(rating: self.data.place.rating)
