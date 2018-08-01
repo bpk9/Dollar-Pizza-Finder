@@ -232,43 +232,11 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
         performSegue(withIdentifier: identifier, sender: nil)
     }
     
-    // call button action
-    /*@IBAction func callPlace(_ sender: Any) {
-        if let phoneNumber = self.lastData.place.formatted_phone_number {
-            let url = URL(string: "tel://\(self.getRawNum(input: phoneNumber))")!
-            self.openURL(url: url)
-        }
-    }
-    
-    // website button action
-    @IBAction func visitWebsite(_ sender: Any) {
-        if let website = self.lastData.place.website {
-            self.openURL(url: URL(string: website)!)
-        }
-    }*/
-    
     // Get Distance in Miles
     func distance(marker: GMSMarker) -> Double {
         let data = marker.userData as! MarkerData
         let location = data.place.geometry.location
         return Double(self.map.myLocation!.distance(from: CLLocation(latitude: location.lat, longitude: location.lng)))
-    }
-    
-    // opens url
-    func openURL(url: URL) {
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-    }
-    
-    // only retrive digits from phone number
-    func getRawNum(input: String) -> String {
-        var output = ""
-        for character in input {
-            let char = String(character)
-            if Int(char) != nil {
-                output += char
-            }
-        }
-        return output
     }
     
     // sort markers by settings selection

@@ -100,6 +100,24 @@ class PlaceInfoViewController: UIViewController, UITableViewDataSource {
         return cell
     }
     
+    // call place
+    @IBAction func callPlace(_ sender: Any) {
+        if let phoneNumber = self.data.place.formatted_phone_number {
+            if let url = URL(string: "tel://\(self.getRawNum(input: phoneNumber))") {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+    }
+    
+    // open website
+    @IBAction func visitWebsite(_ sender: Any) {
+        if let website = self.data.place.website {
+            if let url = URL(string: website) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+    }
+    
     // add photos to scroll view
     func addPhotos(metadata: GMSPlacePhotoMetadataList) {
         let results = metadata.results
@@ -110,6 +128,18 @@ class PlaceInfoViewController: UIViewController, UITableViewDataSource {
             }
             self.photosView.addSubview(imageView)
         }
+    }
+    
+    // only retrive digits from phone number
+    func getRawNum(input: String) -> String {
+        var output = ""
+        for character in input {
+            let char = String(character)
+            if Int(char) != nil {
+                output += char
+            }
+        }
+        return output
     }
     
 }
