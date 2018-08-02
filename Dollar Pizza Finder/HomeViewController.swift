@@ -12,13 +12,13 @@ import CoreLocation.CLLocation
 import Firebase
 import GoogleMaps
 
-class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, SearchDelegate, SettingsDelegate {
+class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate, InfoDelegate, SearchDelegate, SettingsDelegate {
     
     // UI elements
     @IBOutlet var map: GMSMapView!
     
     // location manager
-    var locationManager: CLLocationManager?
+    var locationManager: CLLocationManager!
     
     // all pizza places in database
     var allPlaces = [GMSMarker]()
@@ -38,9 +38,6 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
     // search bar
     var searchSuggestions: SearchSuggestions!
     
-    // directions mode
-    var directionsMode: String = "transit"
-    
     // load data from firebase / google places
     override func loadView() {
         super.loadView()
@@ -49,56 +46,15 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
         let oldFrame = self.map.superview!.frame
         self.map.superview!.frame = CGRect(x: oldFrame.origin.x, y: oldFrame.origin.y, width: oldFrame.width, height: UIApplication.shared.keyWindow!.frame.height - oldFrame.origin.y)
         
-        // lock to sync data loading
-        var count: Int = 0
+        // set up location manager
+        self.locationManager = CLLocationManager()
+        self.locationManager.delegate = self
         
-        // get data
-        FirebaseHelper.getData() { (place_ids) -> () in
-            for id in place_ids {
-                GooglePlaces.getData(place_id: id) { (place, photo, photos) -> () in
-                    
-                    // load marker
-                    let location = place!.geometry.location
-                    let marker = GMSMarker(position: CLLocationCoordinate2DMake(location.lat, location.lng))
-                    marker.userData = MarkerData(place: place!, photo: Photo(image: photo!, data: photos!), routes: nil, directionsType: nil)
-                        
-                    // if place is open
-                    let openNow = place!.opening_hours?.open_now ?? false
-                    if  openNow || self.onlyOpen == false {
-                        marker.map = self.map
-                    }
-                        
-                    // add to array
-                    self.allPlaces.append(marker)
-                    
-                    // increment counter
-                    count += 1
-                    
-                    // if place is last signal lock
-                    if count == place_ids.count {
-                        // sort places by settings selection
-                        self.sortMarkers()
-                        
-                        // select first pizza place
-                        if self.onlyOpen {
-                            self.map.selectedMarker = self.openPlaces.first
-                        } else {
-                            self.map.selectedMarker = self.allPlaces.first
-                        }
-                        
-                        // zoom camera to first place
-                        self.map.moveCamera(GMSCameraUpdate.setTarget(self.map.selectedMarker!.position))
-                        self.map.animate(toZoom: 18)
-                        self.map.animate(toViewingAngle: 20)
-                        
-                        // set up search bar
-                        self.searchSuggestions = SearchSuggestions(map: self.map, markers: self.allPlaces, navBarHeight: self.navigationController!.navigationBar.intrinsicContentSize.height)
-                        self.searchSuggestions.delegate = self
-                    }
-                    
-                }
-            }
+        // get location permission if needed
+        if !CLLocationManager.locationServicesEnabled() {
+            self.locationManager!.requestLocation()
         }
+        self.locationManager.startUpdatingLocation()
         
         // set up info view
         self.infoLauncher = InfoLauncher(map: self.map)
@@ -161,6 +117,56 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
             self.searchSuggestions.hideSearch()
         }
         
+    }
+    
+    // load data when location is updates
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        manager.stopUpdatingLocation()
+        
+        // get data
+        FirebaseHelper.getData() { (place_ids) -> () in
+            for id in place_ids {
+                GooglePlaces.getData(place_id: id) { (place, photo, photos) -> () in
+                    
+                    // load marker
+                    let location = place!.geometry.location
+                    let marker = GMSMarker(position: CLLocationCoordinate2DMake(location.lat, location.lng))
+                    marker.userData = MarkerData(place: place!, photo: Photo(image: photo!, data: photos!), routes: nil, directionsType: nil)
+                    
+                    // if place is open
+                    let openNow = place!.opening_hours?.open_now ?? false
+                    if  openNow || self.onlyOpen == false {
+                        marker.map = self.map
+                    }
+                    
+                    // add to array
+                    self.allPlaces.append(marker)
+                    
+                    // if place is last signal lock
+                    if place!.place_id == place_ids.last {
+                        // sort places by settings selection
+                        self.sortMarkers()
+                        
+                        // select first pizza place
+                        if self.onlyOpen {
+                            self.map.selectedMarker = self.openPlaces.first
+                        } else {
+                            self.map.selectedMarker = self.allPlaces.first
+                        }
+                        
+                        // zoom camera to first place
+                        self.map.moveCamera(GMSCameraUpdate.setTarget(self.map.selectedMarker!.position))
+                        self.map.animate(toZoom: 18)
+                        self.map.animate(toViewingAngle: 30)
+                        
+                        // set up search bar
+                        self.searchSuggestions = SearchSuggestions(map: self.map, markers: self.allPlaces, navBarHeight: self.navigationController!.navigationBar.intrinsicContentSize.height)
+                        self.searchSuggestions.delegate = self
+                    }
+                    
+                }
+            }
+        }
     }
     
     // add info when marker is selected
@@ -254,12 +260,6 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
     func distance(marker: GMSMarker) -> Double {
         let data = marker.userData as! MarkerData
         let location = data.place.geometry.location
-        
-        // get location permission if needed
-        if !CLLocationManager.locationServicesEnabled() {
-            self.locationManager = CLLocationManager()
-            self.locationManager!.requestLocation()
-        }
         
         return Double(self.map.myLocation!.distance(from: CLLocation(latitude: location.lat, longitude: location.lng)))
     }
