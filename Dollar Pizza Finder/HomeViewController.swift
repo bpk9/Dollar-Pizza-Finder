@@ -55,6 +55,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
             self.locationManager!.requestLocation()
         }
         self.locationManager.startUpdatingLocation()
+        self.locationManager.stopUpdatingLocation()
         
         // set up info view
         self.infoLauncher = InfoLauncher(map: self.map)
@@ -121,7 +122,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
     
     // load data when location is updates
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        manager.stopUpdatingLocation()
         
         // get data
         FirebaseHelper.getData() { (place_ids) -> () in
@@ -140,6 +140,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
                     }
                     
                     // add to array
+                    print(place!.name)
                     self.allPlaces.append(marker)
                     
                     // if place is last signal lock
