@@ -16,7 +16,7 @@ class LoadingScreenViewController: UIViewController {
     @IBOutlet var progressBar: UIProgressView!
     
     // location manager
-    let manager = CLLocationManager()
+    var manager: CLLocationManager!
     
     // loaded places
     var allPlaces: [GMSMarker]!
@@ -32,6 +32,7 @@ class LoadingScreenViewController: UIViewController {
             case .notDetermined, .restricted, .denied:
                 performSegue(withIdentifier: "loadingToLocation", sender: nil)
             case .authorizedAlways, .authorizedWhenInUse:
+                self.manager = CLLocationManager()
                 self.manager.startUpdatingLocation()
                 self.loadPlaces()
             }
@@ -46,9 +47,6 @@ class LoadingScreenViewController: UIViewController {
                 vc.allPlaces = self.allPlaces
                 vc.userLocation = self.manager.location!
             }
-        } else if let vc = segue.destination as? LocationDisabledViewController {
-            self.manager.delegate = vc
-            vc.manager = self.manager
         }
     }
     

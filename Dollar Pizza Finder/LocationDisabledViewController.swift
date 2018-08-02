@@ -13,12 +13,22 @@ class LocationDisabledViewController: UIViewController, CLLocationManagerDelegat
     
     var locationEnabled: Bool = false
     
-    var manager: CLLocationManager!
+    var manager = CLLocationManager()
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? LoadingScreenViewController {
+            vc.manager = self.manager
+        }
+    }
+    
+    override func viewDidLoad() {
+        self.manager.delegate = self
+        self.manager.startUpdatingLocation()
+    }
     
     // button to enable location services
     @IBAction func enableLocation(_ sender: Any) {
-        self.manager.requestLocation()
-        self.manager.startUpdatingLocation()
+        self.manager.requestWhenInUseAuthorization()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -26,6 +36,10 @@ class LocationDisabledViewController: UIViewController, CLLocationManagerDelegat
             self.locationEnabled = true
             performSegue(withIdentifier: "locationToLoading", sender: nil)
         }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("error:: \(error.localizedDescription)")
     }
     
 }
