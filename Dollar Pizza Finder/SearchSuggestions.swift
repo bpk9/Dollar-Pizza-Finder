@@ -19,6 +19,7 @@ class SearchSuggestions: NSObject, UISearchBarDelegate, SuggestionDelegate {
     // application elements
     let window: UIWindow
     var map: GMSMapView
+    var userLocation: CLLocation
     
     // ui elements
     var searchBar: UISearchBar = UISearchBar()
@@ -38,11 +39,12 @@ class SearchSuggestions: NSObject, UISearchBarDelegate, SuggestionDelegate {
     var markers: [SuggestionCell] = [SuggestionCell]()
     var filtered: [SuggestionCell]!
     
-    init(map: GMSMapView, markers: [GMSMarker], navBarHeight: CGFloat) {
+    init(map: GMSMapView, userLocation: CLLocation, markers: [GMSMarker], navBarHeight: CGFloat) {
         // init variables
         self.window = UIApplication.shared.keyWindow!
         self.isVisible = false
         self.map = map
+        self.userLocation = userLocation
         super.init()
         
         // set up search bar
@@ -126,7 +128,7 @@ class SearchSuggestions: NSObject, UISearchBarDelegate, SuggestionDelegate {
             let cell = SuggestionCell.instanceFromNib() as! SuggestionCell
             cell.marker = marker
             cell.delegate = self
-            cell.loadUI(currentLocation: self.map.myLocation!)
+            cell.loadUI(currentLocation: self.userLocation)
             self.stack.addArrangedSubview(cell)
             self.markers.append(cell)
         }

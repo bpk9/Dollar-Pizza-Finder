@@ -15,7 +15,10 @@ class InfoLauncher {
     var window: UIWindow
     
     // map on home screen
-    var map: GMSMapView!
+    var map: GMSMapView
+    
+    // location of user
+    var userLocation: CLLocation
     
     // check if launcher is visible
     var isVisible: Bool = false
@@ -23,13 +26,16 @@ class InfoLauncher {
     // view to contain info
     let infoView: InfoLauncherView = InfoLauncherView.instanceFromNib() as! InfoLauncherView
     
-    init(map: GMSMapView) {
+    init(map: GMSMapView, userLocation: CLLocation) {
         
         // get window
         self.window = UIApplication.shared.keyWindow!
         
         // get map
         self.map = map
+        
+        // get user location
+        self.userLocation = userLocation
     }
     
     // slide in info menu from bottom of screen
@@ -90,7 +96,7 @@ class InfoLauncher {
         if data.routes != nil && data.directionsType == directionsMode {
             self.infoView.loadUI(data: data)
         } else {
-            let directions = GoogleDirections(origin: self.map.myLocation!.coordinate, destination: data.place.place_id, mode: directionsMode)
+            let directions = GoogleDirections(origin: self.userLocation.coordinate, destination: data.place.place_id, mode: directionsMode)
             directions.getDirections() { (routes) -> () in
                 data.routes = routes
                 data.directionsType = directionsMode
