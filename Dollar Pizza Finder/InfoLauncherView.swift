@@ -16,6 +16,7 @@ class InfoLauncherView: UIView {
     
     // UI elements
     @IBOutlet var directionsBtn: UIButton!
+    @IBOutlet var moreInfoBtn: UIButton!
     
     // instance delegate
     var delegate: InfoDelegate?
@@ -26,9 +27,10 @@ class InfoLauncherView: UIView {
     }
     
     func loadUI(data: MarkerData) {
+        
         if let leg = data.routes?.first?.legs.first {
             self.directionsBtn.alpha = 1
-            self.directionsBtn.setTitle("Directions -- " + data.routes!.first!.legs.first!.duration.text, for: .normal)
+            self.directionsBtn.setTitle("Directions - " + data.routes!.first!.legs.first!.duration.text, for: .normal)
         } else {
             self.directionsBtn.alpha = 0.5
             self.directionsBtn.setTitle("Directions not available", for: .normal)

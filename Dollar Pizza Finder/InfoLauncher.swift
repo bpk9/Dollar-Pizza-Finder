@@ -36,6 +36,10 @@ class InfoLauncher {
         
         // get user location
         self.userLocation = userLocation
+        
+        // round buttons on info view
+        self.infoView.directionsBtn.layer.cornerRadius = 4
+        self.infoView.moreInfoBtn.layer.cornerRadius = 4
     }
     
     // slide in info menu from bottom of screen

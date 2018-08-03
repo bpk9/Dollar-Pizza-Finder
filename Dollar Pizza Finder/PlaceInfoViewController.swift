@@ -27,9 +27,21 @@ class PlaceInfoViewController: UIViewController, UITableViewDataSource {
     
     // marker data
     var data: MarkerData!
+
+    // init ui
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // round buttons
+        self.call.layer.cornerRadius = 4
+        self.website.layer.cornerRadius = 4
+        self.directionsBtn.layer.cornerRadius = 4
+        
+    }
     
     // load data for place when view appears
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         // set title to name of place
         self.navItem.title = self.data.place.name

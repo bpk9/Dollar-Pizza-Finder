@@ -54,6 +54,10 @@ class DirectionsViewController: UIViewController {
         
         // set up ui
         self.setOverview()
+        
+        // round buttons
+        self.backBtn.layer.cornerRadius = 4
+        self.nextBtn.layer.cornerRadius = 4
     }
     
     // prepare data for new storyboard
