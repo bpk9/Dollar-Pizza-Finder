@@ -186,7 +186,7 @@ class SearchSuggestions: NSObject, UISearchBarDelegate, SuggestionDelegate {
     // called when text in search bar changes
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text == nil || searchBar.text == "" {
-            self.filtered = []
+            self.filtered = self.markers
         } else {
             self.filtered.removeAll(keepingCapacity: false)
             let predicate = searchBar.text!.lowercased()
