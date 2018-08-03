@@ -669,6 +669,7 @@
                         <viewLayoutGuide key="safeArea" id="l6B-z2-oB7"/>
                     </view>
                     <connections>
+                        <outlet property="enableBtn" destination="esq-JQ-aQy" id="vjt-cM-Fel"/>
                         <segue destination="zBL-t7-8fy" kind="show" identifier="locationToLoading" id="9eh-Ap-21z"/>
                     </connections>
                 </viewController>

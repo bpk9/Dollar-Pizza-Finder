@@ -11,6 +11,9 @@ import CoreLocation
 
 class LocationDisabledViewController: UIViewController, CLLocationManagerDelegate {
     
+    // ui elements
+    @IBOutlet var enableBtn: UIButton!
+    
     var locationEnabled: Bool = false
     
     var manager = CLLocationManager()
@@ -23,6 +26,8 @@ class LocationDisabledViewController: UIViewController, CLLocationManagerDelegat
     }
     
     override func viewDidLoad() {
+        self.enableBtn.layer.cornerRadius = 4
+        
         self.manager.delegate = self
         self.manager.startUpdatingLocation()
     }
