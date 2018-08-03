@@ -122,6 +122,7 @@ class SearchSuggestions: NSObject, UISearchBarDelegate, SuggestionDelegate {
         }, completion: { (success) -> Void in
             self.tint.removeFromSuperview()
             self.stack.removeFromSuperview()
+            self.scroll.removeFromSuperview()
             self.isVisible = false
         })
         
