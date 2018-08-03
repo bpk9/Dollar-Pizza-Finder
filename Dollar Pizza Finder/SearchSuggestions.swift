@@ -23,6 +23,7 @@ class SearchSuggestions: NSObject, UISearchBarDelegate, SuggestionDelegate {
     
     // ui elements
     var searchBar: UISearchBar = UISearchBar()
+    var scroll: UIScrollView!
     var stack: UIStackView!
     var tint: UIView!
     
@@ -55,8 +56,11 @@ class SearchSuggestions: NSObject, UISearchBarDelegate, SuggestionDelegate {
         // height of app header
         let y = UIApplication.shared.statusBarFrame.height + navBarHeight
         
+        // set up scroll view
+        self.scroll = UIScrollView(frame: CGRect(x: 0, y: y, width: self.window.frame.width, height: 250))
+        
         // set up suggestions view
-        self.stack = UIStackView(frame: CGRect(x: 0, y: y, width: self.window.frame.width, height: 0))
+        self.stack = UIStackView(frame: CGRect(x: 0, y: 0, width: self.window.frame.width, height: 0))
         self.stack.axis = .vertical
         self.stack.distribution = .fillProportionally
         self.stack.isUserInteractionEnabled = true
@@ -81,7 +85,8 @@ class SearchSuggestions: NSObject, UISearchBarDelegate, SuggestionDelegate {
         self.searchBar.text = ""
         
         // add suggestions
-        self.window.addSubview(self.stack)
+        self.window.addSubview(self.scroll)
+        self.scroll.addSubview(self.stack)
         self.filtered = self.markers
         self.refreshStackData()
         
@@ -166,6 +171,8 @@ class SearchSuggestions: NSObject, UISearchBarDelegate, SuggestionDelegate {
     func updateStackFrame() {
         let oldFrame = self.stack.frame
         
+        self.scroll.contentSize = CGSize(width: self.window.frame.width, height: CGFloat(self.stack.arrangedSubviews.count * 50))
+        
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.stack.frame = CGRect(x: oldFrame.origin.x, y: oldFrame.origin.y, width: oldFrame.width, height: CGFloat(50 * self.stack.arrangedSubviews.count))
             }, completion: nil)
@@ -179,7 +186,7 @@ class SearchSuggestions: NSObject, UISearchBarDelegate, SuggestionDelegate {
     // called when text in search bar changes
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text == nil || searchBar.text == "" {
-            self.filtered = self.markers
+            self.filtered = []
         } else {
             self.filtered.removeAll(keepingCapacity: false)
             let predicate = searchBar.text!.lowercased()
