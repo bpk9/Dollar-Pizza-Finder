@@ -21,6 +21,9 @@ class LoadingScreenViewController: UIViewController {
     // loaded places
     var allPlaces: [GMSMarker]!
     
+    // initial launch
+    var isInitialLaunch: Bool?
+    
     override func viewDidAppear(_ animated: Bool) {
         
         // reset progress to 0
@@ -46,6 +49,7 @@ class LoadingScreenViewController: UIViewController {
             if let vc = nc.topViewController as? HomeViewController {
                 vc.allPlaces = self.allPlaces
                 vc.userLocation = self.manager.location!
+                vc.isInitialLaunch = self.isInitialLaunch ?? false
             }
         }
     }

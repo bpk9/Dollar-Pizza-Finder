@@ -14,6 +14,9 @@ import GoogleMaps
 
 class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, SearchDelegate, SettingsDelegate {
     
+    // first time view appears
+    var isInitialLaunch: Bool!
+    
     // UI elements
     @IBOutlet var map: GMSMapView!
     
@@ -61,7 +64,6 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
         self.infoLauncher = InfoLauncher(map: self.map, userLocation: self.userLocation)
         self.infoLauncher.infoView.delegate = self
         
-        
         // load markers
         self.loadPlaces()
     }
@@ -82,8 +84,9 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
             self.didChangeOpenOnly = false
         }
         
-        if self.map.selectedMarker != nil {
+        if (self.map.selectedMarker != nil && !self.infoLauncher.isVisible) || self.isInitialLaunch {
             self.infoLauncher.showInfo()
+            self.isInitialLaunch = false
         }
         
     }

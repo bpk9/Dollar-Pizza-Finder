@@ -18,6 +18,7 @@ class LocationDisabledViewController: UIViewController, CLLocationManagerDelegat
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? LoadingScreenViewController {
             vc.manager = self.manager
+            vc.isInitialLaunch = true
         }
     }
     
