@@ -601,7 +601,7 @@
                                     <constraint firstAttribute="width" secondItem="CLO-0d-HlE" secondAttribute="height" multiplier="1:1" id="mIH-yA-cDh"/>
                                 </constraints>
                             </imageView>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="pGz-ZE-d9M">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pGz-ZE-d9M">
                                 <rect key="frame" x="91" y="583" width="231" height="2"/>
                                 <color key="tintColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </progressView>

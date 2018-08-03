@@ -29,7 +29,17 @@ class LocationDisabledViewController: UIViewController, CLLocationManagerDelegat
     
     // button to enable location services
     @IBAction func enableLocation(_ sender: Any) {
-        self.manager.requestWhenInUseAuthorization()
+        switch CLLocationManager.authorizationStatus() {
+        case .notDetermined:
+            self.manager.requestWhenInUseAuthorization()
+        case .denied, .restricted:
+            if let url = URL(string: "app-settings:root=Privacy&path=LOCATION") {
+                // If general location settings are disabled then open general location settings
+                UIApplication.shared.openURL(url)
+            }
+        case .authorizedAlways, .authorizedWhenInUse:
+            break
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
