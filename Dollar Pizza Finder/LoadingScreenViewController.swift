@@ -57,6 +57,7 @@ class LoadingScreenViewController: UIViewController {
         
         // get data
         FirebaseHelper.getData() { (place_ids) -> () in
+            
             for id in place_ids {
                 GooglePlaces.getData(place_id: id) { (place, photo, photos) -> () in
                     
@@ -64,7 +65,6 @@ class LoadingScreenViewController: UIViewController {
                     let location = place!.geometry.location
                     let marker = GMSMarker(position: CLLocationCoordinate2DMake(location.lat, location.lng))
                     marker.userData = MarkerData(place: place!, photo: Photo(image: photo!, data: photos!), routes: nil, directionsType: nil)
-                    
                     
                     // add to array
                     self.allPlaces.append(marker)
