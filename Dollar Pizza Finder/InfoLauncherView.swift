@@ -30,7 +30,7 @@ class InfoLauncherView: UIView {
         
         if let leg = data.routes?.first?.legs.first {
             self.directionsBtn.alpha = 1
-            self.directionsBtn.setTitle("Directions - " + data.routes!.first!.legs.first!.duration.text, for: .normal)
+            self.directionsBtn.setTitle("Directions - " + leg.duration.text, for: .normal)
         } else {
             self.directionsBtn.alpha = 0.5
             self.directionsBtn.setTitle("Directions not available", for: .normal)

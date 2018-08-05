@@ -65,7 +65,7 @@
                         <barButtonItem key="backBarButtonItem" title="Back" id="byj-Gf-LRM"/>
                         <barButtonItem key="leftBarButtonItem" title="Item" image="settings" id="zTD-sJ-jpY">
                             <connections>
-                                <segue destination="Mqq-dk-pqD" kind="show" id="1S8-ag-xa5"/>
+                                <segue destination="Mqq-dk-pqD" kind="show" identifier="homeToSettings" id="1S8-ag-xa5"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="Q2X-Rv-E5d">
@@ -470,7 +470,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Route to Closest Pizza Place" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GbC-Y6-m60">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Route to Closest Pizza Place" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GbC-Y6-m60">
                                 <rect key="frame" x="88" y="570" width="306" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="g0M-Np-x0w"/>

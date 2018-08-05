@@ -49,7 +49,7 @@ class MapMarkerView: UIView {
     }
     
     func getTime(time: String) -> String {
-        let hour = time.substring(to:time.index(time.startIndex, offsetBy: 2))
+        let hour = time[..<time.index(time.startIndex, offsetBy: 2)]
         let num = Int(hour)!
         if num == 0 {
             return "12AM"

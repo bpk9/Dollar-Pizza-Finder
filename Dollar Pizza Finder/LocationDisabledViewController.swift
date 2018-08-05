@@ -40,7 +40,7 @@ class LocationDisabledViewController: UIViewController, CLLocationManagerDelegat
         case .denied, .restricted:
             if let url = URL(string: "app-settings:root=Privacy&path=LOCATION") {
                 // If general location settings are disabled then open general location settings
-                UIApplication.shared.openURL(url)
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         case .authorizedAlways, .authorizedWhenInUse:
             break

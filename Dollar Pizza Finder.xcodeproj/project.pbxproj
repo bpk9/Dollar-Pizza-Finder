@@ -517,13 +517,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J7QWTMLU2E;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/PXGoogleDirections/Dependencies",
-					"$(PROJECT_DIR)/PXGoogleDirections/Sample-Carthage/Carthage/Checkouts/PXGoogleDirections/Dependencies",
-					"$(PROJECT_DIR)/PXGoogleDirections/Sample-Carthage/Carthage/Checkouts/PXGoogleDirections/Sample-Carthage/Carthage/Checkouts/PXGoogleDirections/Dependencies",
-					"$(PROJECT_DIR)/PXGoogleDirections/Sample-Carthage/Carthage/Checkouts/PXGoogleDirections/Sample-Carthage/Carthage/Checkouts/PXGoogleDirections/Sample-Carthage/Carthage/Checkouts/PXGoogleDirections/Dependencies",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Dollar Pizza Finder/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -548,13 +542,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J7QWTMLU2E;
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/PXGoogleDirections/Dependencies",
-					"$(PROJECT_DIR)/PXGoogleDirections/Sample-Carthage/Carthage/Checkouts/PXGoogleDirections/Dependencies",
-					"$(PROJECT_DIR)/PXGoogleDirections/Sample-Carthage/Carthage/Checkouts/PXGoogleDirections/Sample-Carthage/Carthage/Checkouts/PXGoogleDirections/Dependencies",
-					"$(PROJECT_DIR)/PXGoogleDirections/Sample-Carthage/Carthage/Checkouts/PXGoogleDirections/Sample-Carthage/Carthage/Checkouts/PXGoogleDirections/Sample-Carthage/Carthage/Checkouts/PXGoogleDirections/Dependencies",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Dollar Pizza Finder/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = (
