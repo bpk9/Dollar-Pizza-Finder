@@ -19,7 +19,7 @@ class LoadingScreenViewController: UIViewController {
     var manager: CLLocationManager!
     
     // loaded places
-    var allPlaces: [GMSMarker]!
+    var allPlaces = [GMSMarker]()
     
     // initial launch
     var isInitialLaunch: Bool?
@@ -56,8 +56,6 @@ class LoadingScreenViewController: UIViewController {
     
     // load data when location is updates
     func loadPlaces() {
-        
-        self.allPlaces = [GMSMarker]()
         
         // get data
         FirebaseHelper.getData() { (place_ids) -> () in
