@@ -7,9 +7,9 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>783284319998-t5bjkovirgl4l4at7r8gtov04mrdi4ek.apps.googleusercontent.com</string>
+	<string>783284319998-p2eonep286hka8j0cbsime4qq9pn6hf5.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.783284319998-t5bjkovirgl4l4at7r8gtov04mrdi4ek</string>
+	<string>com.googleusercontent.apps.783284319998-p2eonep286hka8j0cbsime4qq9pn6hf5</string>
 	<key>API_KEY</key>
 	<string>AIzaSyC-U0u8VTGv8qAc2PtUa3YvofRuZm_8g-A</string>
 	<key>GCM_SENDER_ID</key>
@@ -17,23 +17,23 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.brianpkasper.DollarPizzaFinder</string>
+	<string>CY-DD12314A-8BA6-11E8-8762-77940B132A81.com.brianpkasper.dollarpizzafinderios</string>
 	<key>PROJECT_ID</key>
 	<string>dpf8790</string>
 	<key>STORAGE_BUCKET</key>
 	<string>dpf8790.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:783284319998:ios:968e4bd152871bed</string>
+	<string>1:783284319998:ios:679284ad7d0739d8</string>
 	<key>DATABASE_URL</key>
 	<string>https://dpf8790.firebaseio.com</string>
 </dict>
