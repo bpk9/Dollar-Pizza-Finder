@@ -64,6 +64,9 @@ class LoadingScreenViewController: UIViewController {
         FirebaseHelper.getData() { (place_ids) -> () in
             
             if let ids = place_ids {
+                
+                var count: Int = ids.count
+                
                 for id in ids {
                     GooglePlaces.getData(place_id: id) { (data) -> () in
                         
@@ -85,18 +88,16 @@ class LoadingScreenViewController: UIViewController {
                             self.progressBar.progress = Float(self.allPlaces.count) / Float(ids.count)
                             
                             // if place is last signal lock
-                            if self.allPlaces.count == ids.count {
+                            if self.allPlaces.count == count {
                                 
                                 // update progress
                                 self.progressBar.progress = 1
                                 
                                 // segue to home
                                 self.performSegue(withIdentifier: "loadingToHome", sender: self)
-                            } else {
-                                print(self.allPlaces.count)
                             }
                         } else {
-                            self.showError()
+                            count -= 1
                         }
                         
                     }
