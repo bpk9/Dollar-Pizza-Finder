@@ -15,7 +15,7 @@ import GooglePlaces
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let apiKey = "AIzaSyAsQrnM69UGzWJM_hgo8hceDo3ySc6as3w"
+    let apiKey = ""
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
