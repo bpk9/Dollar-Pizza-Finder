@@ -24,6 +24,9 @@ class LoadingScreenViewController: UIViewController {
     // initial launch
     var isInitialLaunch: Bool?
     
+    // error bool
+    var errorDidOccur: Bool = false
+    
     override func viewDidAppear(_ animated: Bool) {
         
         // reset progress to 0
@@ -47,7 +50,7 @@ class LoadingScreenViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let nc = segue.destination as? UINavigationController {
             if let vc = nc.topViewController as? HomeViewController {
-                vc.allPlaces = self.allPlaces
+                vc.allPlaces = []
                 vc.userLocation = self.manager.location!
                 vc.isInitialLaunch = self.isInitialLaunch ?? false
             }
@@ -106,7 +109,11 @@ class LoadingScreenViewController: UIViewController {
     } // func
     
     func showError() {
-        performSegue(withIdentifier: "loadingError", sender: self)
+        if !self.errorDidOccur {
+            self.errorDidOccur = true
+            performSegue(withIdentifier: "loadingError", sender: self)
+        }
+        
     }
     
 }
