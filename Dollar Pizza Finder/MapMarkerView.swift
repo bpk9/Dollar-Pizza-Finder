@@ -26,7 +26,12 @@ class MapMarkerView: UIView {
         self.name.text = data.place.name
         self.address.text = String(data.place.formatted_address.split(separator: ",")[0])
         self.rating.text = GooglePlaces.starString(rating: data.place.rating)
-        self.setTimeLabel(hours: data.place.opening_hours!)
+        if let opening_hours = data.place.opening_hours {
+            self.setTimeLabel(hours: opening_hours)
+        } else {
+            self.open.isHidden = true
+        }
+        
         self.image.image = data.photo.image
     }
     
