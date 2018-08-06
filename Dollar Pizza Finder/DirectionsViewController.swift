@@ -175,8 +175,9 @@ class DirectionsViewController: UIViewController {
         marker.title = self.data.place.name
         marker.map = self.map
         
-        self.map.selectedMarker = self.destinations.last
         self.destinations.append(marker)
+        
+        self.map.selectedMarker = self.destinations.last
         
         self.updateCamera()
         

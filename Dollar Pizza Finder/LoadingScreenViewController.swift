@@ -97,6 +97,7 @@ class LoadingScreenViewController: UIViewController {
                                 self.performSegue(withIdentifier: "loadingToHome", sender: self)
                             }
                         } else {
+                            print(id)
                             count -= 1
                         }
                         
