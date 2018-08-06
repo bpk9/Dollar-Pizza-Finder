@@ -12,14 +12,19 @@ import GooglePlaces.GMSPlacePhotoMetadataList
 
 class GooglePlaces {
     
-    class func getData(place_id: String, completion: @escaping (Place?, UIImage?, GMSPlacePhotoMetadataList?) -> ()) {
+    class func getData(place_id: String, completion: @escaping (MarkerData?) -> ()) {
         self.lookUpPlace(place_id: place_id) { (place) -> () in
-            if place != nil {
-                self.lookUpPhoto(place_id: place_id) { (photo, photos) -> () in
-                    completion(place!, photo, photos)
+            if let place = place {
+                self.lookUpPhoto(place_id: place_id) { (photo) -> () in
+                    if let photo = photo {
+                        let data = MarkerData(place: place, photo: photo, routes: nil, directionsType: nil)
+                        completion(data)
+                    } else {
+                        completion(nil)
+                    }
                 }
             } else {
-                completion(nil, nil, nil)
+                completion(nil)
             }
             
         }
@@ -28,13 +33,11 @@ class GooglePlaces {
     class func lookUpPlace(place_id: String, completion: @escaping (Place?) -> ()) {
         
         // get response from google places
-        Alamofire.request("https://maps.googleapis.com/maps/api/place/details/json?placeid=\(place_id)&key=AIzaSyBVsu4GKsTC7X0l7CpCur1WpVAcxgP5wro").responseJSON { response in
+        Alamofire.request("https://maps.googleapis.com/maps/api/place/details/json?placeid=\(place_id)&key=").responseJSON { response in
             
             let decoder = JSONDecoder()
-            let data = try? decoder.decode(PlacesResponse.self, from: response.data!)
-            
-            if let result = data?.result {
-                completion(result)
+            if let data = try? decoder.decode(PlacesResponse.self, from: response.data!) {
+                completion(data.result)
             } else {
                 completion(nil)
             }
@@ -42,29 +45,34 @@ class GooglePlaces {
         }
     }
     
-    class func lookUpPhoto(place_id: String, completion: @escaping (UIImage, GMSPlacePhotoMetadataList) -> ()) {
+    class func lookUpPhoto(place_id: String, completion: @escaping (Photo?) -> ()) {
         GMSPlacesClient.shared().lookUpPhotos(forPlaceID: place_id) { (photos, error) -> Void in
-            if let error = error {
-                // TODO: handle the error.
-                print("Error: \(error.localizedDescription)")
+            if error != nil {
+                completion(nil)
             } else {
-                if let firstPhoto = photos?.results.first {
-                    self.loadImageForMetadata(photoMetadata: firstPhoto) { (photo) -> () in
-                        completion(photo, photos!)
+                if let firstPhotoData = photos?.results.first {
+                    self.loadImageForMetadata(photoMetadata: firstPhotoData) { (firstPhoto) -> () in
+                        if let firstPhoto = firstPhoto {
+                            let photo = Photo(image: firstPhoto, data: photos!)
+                            completion(photo)
+                        } else {
+                            completion(nil)
+                        }
                     }
+                } else {
+                    completion(nil)
                 }
             }
         }
     }
     
-    class func loadImageForMetadata(photoMetadata: GMSPlacePhotoMetadata, completion: @escaping (UIImage) -> ()) {
+    class func loadImageForMetadata(photoMetadata: GMSPlacePhotoMetadata, completion: @escaping (UIImage?) -> ()) {
         GMSPlacesClient.shared().loadPlacePhoto(photoMetadata, callback: {
             (photo, error) -> Void in
-            if let error = error {
-                // TODO: handle the error.
-                print("Error: \(error.localizedDescription)")
+            if error != nil {
+                completion(nil)
             } else {
-                completion(photo!)
+                completion(photo)
             }
         })
     }

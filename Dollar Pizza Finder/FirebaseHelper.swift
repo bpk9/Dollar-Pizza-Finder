@@ -10,16 +10,29 @@ import Firebase
 
 class FirebaseHelper {
     
-    class func getData(completion: @escaping ([String]) -> ()) {
+    class func getData(completion: @escaping ([String]?) -> ()) {
         Database.database().reference().child("locations").observeSingleEvent(of: .value, with: { (snapshot) in
-            var locations = [String]()
             
-            for child in snapshot.children.allObjects as! [DataSnapshot] {
-                locations.append(child.childSnapshot(forPath: "placeId").value as? String ?? "")
+            if let children = snapshot.children.allObjects as? [DataSnapshot] {
+                
+                var locations = [String]()
+                
+                for child in children {
+                    let id = child.childSnapshot(forPath: "placeId").value as? String ?? ""
+                    print(id)
+                    locations.append(id)
+                }
+                
+                completion(locations)
+            } else {
+                completion(nil)
             }
             
-            completion(locations)
-        })
+        }) { (error) in
+            print(error.localizedDescription)
+            completion(nil)
+        }
+        print("ok")
     }
     
 }

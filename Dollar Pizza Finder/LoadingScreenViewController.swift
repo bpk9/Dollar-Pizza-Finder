@@ -60,33 +60,53 @@ class LoadingScreenViewController: UIViewController {
         // get data
         FirebaseHelper.getData() { (place_ids) -> () in
             
-            for id in place_ids {
-                GooglePlaces.getData(place_id: id) { (place, photo, photos) -> () in
-                    
-                    // load marker
-                    let location = place!.geometry.location
-                    let marker = GMSMarker(position: CLLocationCoordinate2DMake(location.lat, location.lng))
-                    marker.userData = MarkerData(place: place!, photo: Photo(image: photo!, data: photos!), routes: nil, directionsType: nil)
-                    
-                    // add to array
-                    self.allPlaces.append(marker)
-                    
-                    // update progress
-                    self.progressBar.progress = Float(self.allPlaces.count) / Float(place_ids.count)
-                    
-                    // if place is last signal lock
-                    if place!.place_id == place_ids.last {
+            if let ids = place_ids {
+                for id in ids {
+                    GooglePlaces.getData(place_id: id) { (data) -> () in
                         
-                        // update progress
-                        self.progressBar.progress = 1
+                        if let data = data {
+                            
+                            let place = data.place
+                            let photo = data.photo.image
+                            let photos = data.photo.data
+                            
+                            // load marker
+                            let location = place.geometry.location
+                            let marker = GMSMarker(position: CLLocationCoordinate2DMake(location.lat, location.lng))
+                            marker.userData = MarkerData(place: place, photo: Photo(image: photo, data: photos), routes: nil, directionsType: nil)
+                            
+                            // add to array
+                            self.allPlaces.append(marker)
+                            
+                            // update progress
+                            self.progressBar.progress = Float(self.allPlaces.count) / Float(ids.count)
+                            
+                            // if place is last signal lock
+                            if self.allPlaces.count == ids.count {
+                                
+                                // update progress
+                                self.progressBar.progress = 1
+                                
+                                // segue to home
+                                self.performSegue(withIdentifier: "loadingToHome", sender: self)
+                            } else {
+                                print(self.allPlaces.count)
+                            }
+                        } else {
+                            self.showError()
+                        }
                         
-                        // segue to home
-                        self.performSegue(withIdentifier: "loadingToHome", sender: self)
                     }
-                    
-                }
+                } // for loop
+            } else {
+                self.showError()
             }
-        }
+            
+        } // firebase
+    } // func
+    
+    func showError() {
+        performSegue(withIdentifier: "loadingError", sender: self)
     }
     
 }

@@ -12,13 +12,11 @@ import Alamofire
 
 class GoogleDirections {
     
-    let apikey = "AIzaSyAsQrnM69UGzWJM_hgo8hceDo3ySc6as3w"
-    
     var url: String! = ""
     
     init(origin: CLLocationCoordinate2D, destination: String, mode: String) {
         
-        self.url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin.latitude),\(origin.longitude)&destination=place_id:\(destination)&mode=\(mode)&alternatives=true&key=\(apikey)"
+        self.url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin.latitude),\(origin.longitude)&destination=place_id:\(destination)&mode=\(mode)&alternatives=true&key="
         
     }
     
