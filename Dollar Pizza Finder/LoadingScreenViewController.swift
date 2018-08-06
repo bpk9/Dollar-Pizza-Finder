@@ -50,8 +50,8 @@ class LoadingScreenViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let nc = segue.destination as? UINavigationController {
             if let vc = nc.topViewController as? HomeViewController {
-                vc.allPlaces = []
-                vc.userLocation = self.manager.location!
+                vc.allPlaces = self.allPlaces
+                vc.userLocation = self.manager.location
                 vc.isInitialLaunch = self.isInitialLaunch ?? false
             }
         }

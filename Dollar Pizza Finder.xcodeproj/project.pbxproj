@@ -33,6 +33,7 @@
 		D36CE8E920EC1C5F006C7EC8 /* FirebaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36CE8E820EC1C5F006C7EC8 /* FirebaseHelper.swift */; };
 		D3A9F32A20B64FDC0027F2F5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A9F32920B64FDC0027F2F5 /* MapKit.framework */; };
 		D3B5DC8D20C3B99C0032B14F /* boldyear.otf in Resources */ = {isa = PBXBuildFile; fileRef = D3B5DC8C20C3B99B0032B14F /* boldyear.otf */; };
+		D3DC8150211823740013BFCC /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DC814F211823740013BFCC /* ErrorViewController.swift */; };
 		D3F5D7F820AE896400073B45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5D7F720AE896400073B45 /* AppDelegate.swift */; };
 		D3F5D7FA20AE896400073B45 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5D7F920AE896400073B45 /* HomeViewController.swift */; };
 		D3F5D7FF20AE896600073B45 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3F5D7FE20AE896600073B45 /* Assets.xcassets */; };
@@ -72,6 +73,7 @@
 		D3B8831A20C9DB7E008E19B8 /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GoogleToolboxForMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3B8831C20C9DC8B008E19B8 /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GoogleToolboxForMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3B8831E20C9DC9B008E19B8 /* FirebaseCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3DC814F211823740013BFCC /* ErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewController.swift; sourceTree = "<group>"; };
 		D3EF24A520C9E045001143AE /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GoogleToolboxForMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3EF24A720C9E32B001143AE /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GoogleToolboxForMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3EF24A920C9E511001143AE /* leveldb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = leveldb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				D3F5D7F720AE896400073B45 /* AppDelegate.swift */,
+				D3DC814F211823740013BFCC /* ErrorViewController.swift */,
 				D34030D12113A6DA007A06B4 /* LoadingScreenViewController.swift */,
 				D34030D32113AB87007A06B4 /* LocationDisabledViewController.swift */,
 				D3F5D7F920AE896400073B45 /* HomeViewController.swift */,
@@ -349,6 +352,7 @@
 				D35376AC21012E5D0089CB1B /* InfoLauncherView.swift in Sources */,
 				D35376AE21017C7B0089CB1B /* SearchSuggestions.swift in Sources */,
 				D31F552C20E33A3600096383 /* DirectionsViewController.swift in Sources */,
+				D3DC8150211823740013BFCC /* ErrorViewController.swift in Sources */,
 				D3F5D7FA20AE896400073B45 /* HomeViewController.swift in Sources */,
 				D347914C2110E7FF00D31087 /* ReviewCell.swift in Sources */,
 				D340B7DC210FC18200E4EC61 /* RouteCell.swift in Sources */,

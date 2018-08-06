@@ -79,6 +79,7 @@
                         <outlet property="searchDisplayController" destination="Edq-YY-3ef" id="Qgg-ET-sZy"/>
                         <segue destination="Rea-h0-4Ke" kind="show" identifier="directionsFromHome" id="Fu7-kn-vVt"/>
                         <segue destination="AsN-xR-0tR" kind="show" identifier="placeInfo" id="NGc-Is-dF8"/>
+                        <segue destination="b5L-iS-5Pg" kind="show" identifier="homeError" id="gap-HY-rIJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fnn-jk-Pzi" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -676,12 +677,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ouv-Et-nQW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="918.75" y="-163.73239436619718"/>
+            <point key="canvasLocation" x="919" y="-163"/>
         </scene>
-        <!--View Controller-->
+        <!--Error View Controller-->
         <scene sceneID="CmE-u5-pnf">
             <objects>
-                <viewController id="b5L-iS-5Pg" sceneMemberID="viewController">
+                <viewController id="b5L-iS-5Pg" customClass="ErrorViewController" customModule="Dollar_Pizza_Finder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tWX-MO-ykh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -702,10 +703,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="19t-mF-qWJ"/>
                     </view>
+                    <nil key="simulatedTopBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nRo-Oh-fGy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="919" y="-907"/>
+            <point key="canvasLocation" x="-1301" y="603"/>
         </scene>
     </scenes>
     <resources>
@@ -713,6 +715,7 @@
         <image name="settings" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Vhy-18-var"/>
+        <segue reference="gap-HY-rIJ"/>
+        <segue reference="Fu7-kn-vVt"/>
     </inferredMetricsTieBreakers>
 </document>

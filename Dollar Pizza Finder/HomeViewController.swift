@@ -21,7 +21,7 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
     @IBOutlet var map: GMSMapView!
     
     // users location when opening map
-    var userLocation: CLLocation!
+    var userLocation: CLLocation?
     
     // all pizza places in database
     var allPlaces: [GMSMarker]!
@@ -61,8 +61,14 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
         self.map.camera = GMSCameraPosition.camera(withLatitude: 40.7831, longitude: -73.9712, zoom: 8)
         
         // set up info view
-        self.infoLauncher = InfoLauncher(map: self.map, userLocation: self.userLocation)
-        self.infoLauncher.infoView.delegate = self
+        if let userLocation = self.userLocation {
+            self.infoLauncher = InfoLauncher(map: self.map, userLocation: userLocation)
+            self.infoLauncher.infoView.delegate = self
+        } else {
+            print("no location")
+            performSegue(withIdentifier: "homeError", sender: self)
+        }
+        
         
         // load markers
         self.loadPlaces()
@@ -74,12 +80,14 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
         
         // reselect marker and show info view
         if self.didChangeOpenOnly || self.didChangeSorting {
-            if self.onlyOpen {
-                self.map.selectedMarker = self.openPlaces.first
+            
+            self.selectFirstPlace()
+            if let marker = self.map.selectedMarker {
+                self.map.moveCamera(GMSCameraUpdate.setTarget(marker.position))
             } else {
-                self.map.selectedMarker = self.allPlaces.first
+                performSegue(withIdentifier: "homeError", sender: self)
             }
-            self.map.moveCamera(GMSCameraUpdate.setTarget(self.map.selectedMarker!.position))
+            
             self.didChangeSorting = false
             self.didChangeOpenOnly = false
         }
@@ -106,14 +114,17 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
             }
         }
         
-        if self.infoLauncher.isVisible {
-            self.infoLauncher.hideInfo()
+        if self.infoLauncher != nil {
+            if self.infoLauncher.isVisible {
+                self.infoLauncher.hideInfo()
+            }
         }
         
-        if self.searchSuggestions.isVisible {
-            self.searchSuggestions.hideSearch()
+        if self.searchSuggestions != nil {
+            if self.searchSuggestions.isVisible {
+                self.searchSuggestions.hideSearch()
+            }
         }
-        
     }
     
     // add info when marker is selected
@@ -230,20 +241,29 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
         self.sortMarkers()
         
         // select first pizza place
-        if self.onlyOpen {
-            self.map.selectedMarker = self.openPlaces.first
-        } else {
-            self.map.selectedMarker = self.allPlaces.first
-        }
-        
-        // zoom camera to first place
-        self.map.moveCamera(GMSCameraUpdate.setTarget(self.map.selectedMarker!.position))
-        self.map.animate(toZoom: 18)
-        self.map.animate(toViewingAngle: 30)
+        self.selectFirstPlace()
         
         // set up search bar
-        self.searchSuggestions = SearchSuggestions(map: self.map, userLocation: self.userLocation, markers: self.allPlaces, navBarHeight: self.navigationController!.navigationBar.intrinsicContentSize.height)
-        self.searchSuggestions.delegate = self
+        if let userLocation = self.userLocation {
+            self.searchSuggestions = SearchSuggestions(map: self.map, userLocation: userLocation, markers: self.allPlaces, navBarHeight: self.navigationController!.navigationBar.intrinsicContentSize.height)
+            self.searchSuggestions.delegate = self
+        } else {
+            self.performSegue(withIdentifier: "homeError", sender: self)
+        }
+        
+        
+        // zoom camera to first place
+        if let marker = self.map.selectedMarker {
+            self.map.moveCamera(GMSCameraUpdate.setTarget(marker.position))
+            self.map.animate(toZoom: 18)
+            self.map.animate(toViewingAngle: 30)
+        } else {
+            print("no selected marker")
+            performSegue(withIdentifier: "homeError", sender: self)
+        }
+        
+        
+        
     }
     
     // sort markers by settings selection
@@ -273,6 +293,20 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
             } else {
                 self.closedPlaces.append(marker)
             }
+        }
+    }
+    
+    func selectFirstPlace() {
+        if self.onlyOpen {
+            if let firstPlace = self.openPlaces.first {
+                self.map.selectedMarker = firstPlace
+            } else {
+                UserDefaults.standard.set(false, forKey: "onlyOpen")
+                self.didChangeOnlyOpen(onlyOpen: false)
+                self.map.selectedMarker = self.allPlaces.first
+            }
+        } else {
+            self.map.selectedMarker = self.allPlaces.first
         }
     }
 
