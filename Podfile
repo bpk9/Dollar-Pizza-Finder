@@ -13,6 +13,7 @@ target 'Dollar Pizza Finder' do
 
 pod 'Firebase'
 pod 'Firebase/Database'
+pod 'Firebase/AdMob'
 pod 'GoogleMaps'
 pod 'GooglePlaces'
 pod 'Alamofire'

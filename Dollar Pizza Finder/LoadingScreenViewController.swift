@@ -9,8 +9,13 @@
 import UIKit
 import CoreLocation.CLLocationManager
 import GoogleMaps.GMSMarker
+import GoogleMobileAds
 
-class LoadingScreenViewController: UIViewController {
+class LoadingScreenViewController: UIViewController, GADInterstitialDelegate {
+    
+    // advertisement
+    var ad: GADInterstitial!
+    let adId: String = "ca-app-pub-3940256099942544/1033173712"
     
     // loading bar
     @IBOutlet var progressBar: UIProgressView!
@@ -28,9 +33,7 @@ class LoadingScreenViewController: UIViewController {
     var errorDidOccur: Bool = false
     
     override func viewDidAppear(_ animated: Bool) {
-        
-        // reset progress to 0
-        self.progressBar.progress = 0
+        super.viewDidAppear(animated)
         
         // if location services are enabled
         if CLLocationManager.locationServicesEnabled() {
@@ -38,13 +41,24 @@ class LoadingScreenViewController: UIViewController {
             case .notDetermined, .restricted, .denied:
                 performSegue(withIdentifier: "loadingToLocation", sender: nil)
             case .authorizedAlways, .authorizedWhenInUse:
-                self.manager = CLLocationManager()
-                self.manager.startUpdatingLocation()
-                self.loadPlaces()
+                if self.ad == nil {
+                    self.loadAd()
+                }
+                
+                if self.manager == nil {
+                    self.manager = CLLocationManager()
+                    self.manager.startUpdatingLocation()
+                }
+                
+                if self.progressBar.progress == 0 {
+                    self.loadPlaces()
+                }
+                
             }
         } else {
             performSegue(withIdentifier: "loadingToLocation", sender: nil)
         }
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -94,7 +108,9 @@ class LoadingScreenViewController: UIViewController {
                                 self.progressBar.progress = 1
                                 
                                 // segue to home
-                                self.performSegue(withIdentifier: "loadingToHome", sender: self)
+                                if self.ad.hasBeenUsed {
+                                    self.performSegue(withIdentifier: "loadingToHome", sender: self)
+                                }
                             }
                         } else {
                             print(id)
@@ -116,6 +132,39 @@ class LoadingScreenViewController: UIViewController {
             performSegue(withIdentifier: "loadingError", sender: self)
         }
         
+    }
+    
+    func loadAd() {
+        self.ad = GADInterstitial(adUnitID: self.adId)
+        self.ad.delegate = self
+        let request = GADRequest()
+        request.testDevices = ["kGADSimulatorID"]
+        self.ad.load(GADRequest())
+    }
+    
+    func showAd() {
+        if self.ad.isReady {
+            self.ad.present(fromRootViewController: self)
+        } else {
+            print("Ad not ready")
+        }
+    }
+    
+    // Tells the delegate an ad request succeeded.
+    func interstitialDidReceiveAd(_ ad: GADInterstitial) {
+        self.showAd()
+    }
+    
+    // ad request failed
+    func interstitialDidFail(toPresentScreen ad: GADInterstitial) {
+        self.showError()
+    }
+    
+    // runs when ad is dismissed
+    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
+        if self.progressBar.progress == 1 {
+            self.performSegue(withIdentifier: "loadingToHome", sender: self)
+        }
     }
     
 }
