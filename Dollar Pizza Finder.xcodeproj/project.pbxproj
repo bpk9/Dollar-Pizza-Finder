@@ -30,7 +30,6 @@
 		D36CE8E120EAEE40006C7EC8 /* PlacesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36CE8E020EAEE40006C7EC8 /* PlacesResponse.swift */; };
 		D36CE8E320EAEE67006C7EC8 /* GooglePlaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36CE8E220EAEE67006C7EC8 /* GooglePlaces.swift */; };
 		D36CE8E920EC1C5F006C7EC8 /* FirebaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36CE8E820EC1C5F006C7EC8 /* FirebaseHelper.swift */; };
-		D3A9F32A20B64FDC0027F2F5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A9F32920B64FDC0027F2F5 /* MapKit.framework */; };
 		D3B5DC8D20C3B99C0032B14F /* boldyear.otf in Resources */ = {isa = PBXBuildFile; fileRef = D3B5DC8C20C3B99B0032B14F /* boldyear.otf */; };
 		D3DC8150211823740013BFCC /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DC814F211823740013BFCC /* ErrorViewController.swift */; };
 		D3F5D7F820AE896400073B45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F5D7F720AE896400073B45 /* AppDelegate.swift */; };
@@ -67,7 +66,6 @@
 		D36CE8E020EAEE40006C7EC8 /* PlacesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesResponse.swift; sourceTree = "<group>"; };
 		D36CE8E220EAEE67006C7EC8 /* GooglePlaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlaces.swift; sourceTree = "<group>"; };
 		D36CE8E820EC1C5F006C7EC8 /* FirebaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHelper.swift; sourceTree = "<group>"; };
-		D3A9F32920B64FDC0027F2F5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D3B5DC8C20C3B99B0032B14F /* boldyear.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = boldyear.otf; sourceTree = "<group>"; };
 		D3B8831A20C9DB7E008E19B8 /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GoogleToolboxForMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3B8831C20C9DC8B008E19B8 /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GoogleToolboxForMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,7 +90,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3A9F32A20B64FDC0027F2F5 /* MapKit.framework in Frameworks */,
 				84AABBDA1CA562E35D3FCC1A /* Pods_Dollar_Pizza_Finder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -166,7 +163,6 @@
 				D3B8831E20C9DC9B008E19B8 /* FirebaseCore.framework */,
 				D3B8831C20C9DC8B008E19B8 /* GoogleToolboxForMac.framework */,
 				D3B8831A20C9DB7E008E19B8 /* GoogleToolboxForMac.framework */,
-				D3A9F32920B64FDC0027F2F5 /* MapKit.framework */,
 				B9825B174C6FC1574647D974 /* Pods_Dollar_Pizza_Finder.framework */,
 			);
 			name = Frameworks;
@@ -222,7 +218,7 @@
 								enabled = 0;
 							};
 							com.apple.Maps.iOS = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};

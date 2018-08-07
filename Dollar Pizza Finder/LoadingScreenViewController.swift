@@ -15,7 +15,7 @@ class LoadingScreenViewController: UIViewController, GADInterstitialDelegate {
     
     // advertisement
     var ad: GADInterstitial!
-    let adId: String = "ca-app-pub-3940256099942544/1033173712"
+    let adId: String = "ca-app-pub-"
     
     // loading bar
     @IBOutlet var progressBar: UIProgressView!
@@ -137,8 +137,6 @@ class LoadingScreenViewController: UIViewController, GADInterstitialDelegate {
     func loadAd() {
         self.ad = GADInterstitial(adUnitID: self.adId)
         self.ad.delegate = self
-        let request = GADRequest()
-        request.testDevices = ["kGADSimulatorID"]
         self.ad.load(GADRequest())
     }
     
