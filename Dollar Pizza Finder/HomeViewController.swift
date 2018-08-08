@@ -12,10 +12,13 @@ import CoreLocation.CLLocation
 import Firebase
 import GoogleMaps
 
-class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, SearchDelegate, SettingsDelegate {
+class HomeViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate, InfoDelegate, SearchDelegate, SettingsDelegate {
     
     // UI elements
     @IBOutlet var map: GMSMapView!
+    
+    // location manager
+    var manager: CLLocationManager?
     
     // all pizza places in database
     var allPlaces: [GMSMarker]!
@@ -28,6 +31,7 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
     // setting changed
     var didChangeOpenOnly: Bool = false
     var didChangeSorting: Bool = false
+    var locationFound: Bool = false
     
     // info launcher
     var infoLauncher: InfoLauncher!
@@ -66,6 +70,15 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        // set up location manager
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+            if self.manager == nil {
+                self.manager = CLLocationManager()
+                self.manager?.delegate = self
+                self.manager?.startUpdatingLocation()
+            }
+        }
+        
         // reselect marker and show info view
         if self.didChangeOpenOnly || self.didChangeSorting {
             
@@ -84,6 +97,8 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
             self.infoLauncher.showInfo()
         }
         
+        
+        
     }
     
     // prepare data for new storyboard
@@ -91,7 +106,7 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
     {
         // send places array to search
         if let vc = segue.destination as? PlaceInfoViewController {
-            if let userLocation = self.map.myLocation {
+            if let userLocation = self.manager?.location {
                 vc.currentLocation = userLocation
             }
             vc.data = self.map.selectedMarker?.userData as! MarkerData
@@ -149,6 +164,16 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
             self.infoLauncher.hideInfo()
         }
         
+    }
+    
+    // update info launcher when location is enabled
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if !self.locationFound {
+            if locations.last != nil {
+                self.locationFound = true
+                self.infoLauncher.updateInfo()
+            }
+        }
     }
     
     // show search bar when button is tapped
@@ -256,7 +281,7 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
         let sorting = UserDefaults.standard.value(forKey: "sorting") as? Int ?? 1
         switch sorting {
         case 0:
-            if let userLocation = self.map.myLocation {
+            if let userLocation = self.manager?.location {
                 // sort by distance
                 self.allPlaces.sort(by: { self.distance(userLocation: userLocation, marker: $0) < self.distance(userLocation: userLocation, marker: $1) })
             } else {
