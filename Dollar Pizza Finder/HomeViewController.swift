@@ -14,14 +14,8 @@ import GoogleMaps
 
 class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, SearchDelegate, SettingsDelegate {
     
-    // first time view appears
-    var isInitialLaunch: Bool!
-    
     // UI elements
     @IBOutlet var map: GMSMapView!
-    
-    // users location when opening map
-    var userLocation: CLLocation?
     
     // all pizza places in database
     var allPlaces: [GMSMarker]!
@@ -60,15 +54,9 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
         self.map.isMyLocationEnabled = true
         self.map.camera = GMSCameraPosition.camera(withLatitude: 40.7831, longitude: -73.9712, zoom: 8)
         
-        // set up info view
-        if let userLocation = self.userLocation {
-            self.infoLauncher = InfoLauncher(map: self.map, userLocation: userLocation)
-            self.infoLauncher.infoView.delegate = self
-        } else {
-            print("no location")
-            performSegue(withIdentifier: "homeError", sender: self)
-        }
-        
+        // set up info launcher
+        self.infoLauncher = InfoLauncher(map: self.map)
+        self.infoLauncher.infoView.delegate = self
         
         // load markers
         self.loadPlaces()
@@ -92,9 +80,8 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
             self.didChangeOpenOnly = false
         }
         
-        if (self.map.selectedMarker != nil && !self.infoLauncher.isVisible) || self.isInitialLaunch {
+        if self.map.selectedMarker != nil && !self.infoLauncher.isVisible {
             self.infoLauncher.showInfo()
-            self.isInitialLaunch = false
         }
         
     }
@@ -103,12 +90,14 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         // send places array to search
-       if let vc = segue.destination as? PlaceInfoViewController {
-            vc.currentLocation = self.userLocation
+        if let vc = segue.destination as? PlaceInfoViewController {
+            if let userLocation = self.map.myLocation {
+                vc.currentLocation = userLocation
+            }
             vc.data = self.map.selectedMarker?.userData as! MarkerData
         } else if let vc = segue.destination as? DirectionsViewController {
             vc.data = self.map.selectedMarker?.userData as! MarkerData
-       } else if let vc = segue.destination as? SettingsViewController {
+        } else if let vc = segue.destination as? SettingsViewController {
             if vc.delegate == nil {
                 vc.delegate = self
             }
@@ -215,11 +204,11 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
     }
     
     // Get Distance in Miles
-    func distance(marker: GMSMarker) -> Double {
+    func distance(userLocation: CLLocation, marker: GMSMarker) -> Double {
         let data = marker.userData as! MarkerData
         let location = data.place.geometry.location
         
-        return Double(self.userLocation!.distance(from: CLLocation(latitude: location.lat, longitude: location.lng)))
+        return Double(userLocation.distance(from: CLLocation(latitude: location.lat, longitude: location.lng)))
     }
     
     // load places from array
@@ -244,13 +233,8 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
         self.selectFirstPlace()
         
         // set up search bar
-        if let userLocation = self.userLocation {
-            self.searchSuggestions = SearchSuggestions(map: self.map, userLocation: userLocation, markers: self.allPlaces, navBarHeight: self.navigationController!.navigationBar.intrinsicContentSize.height)
-            self.searchSuggestions.delegate = self
-        } else {
-            self.performSegue(withIdentifier: "homeError", sender: self)
-        }
-        
+        self.searchSuggestions = SearchSuggestions(map: self.map, markers: self.allPlaces, navBarHeight: self.navigationController!.navigationBar.intrinsicContentSize.height)
+        self.searchSuggestions.delegate = self
         
         // zoom camera to first place
         if let marker = self.map.selectedMarker {
@@ -269,11 +253,16 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, InfoDelegate, Se
     // sort markers by settings selection
     func sortMarkers() {
         // sort all markers
-        let sorting = UserDefaults.standard.value(forKey: "sorting") as? Int ?? 0
+        let sorting = UserDefaults.standard.value(forKey: "sorting") as? Int ?? 1
         switch sorting {
         case 0:
-            // sort by distance
-            self.allPlaces.sort(by: { self.distance(marker: $0) < self.distance(marker: $1) })
+            if let userLocation = self.map.myLocation {
+                // sort by distance
+                self.allPlaces.sort(by: { self.distance(userLocation: userLocation, marker: $0) < self.distance(userLocation: userLocation, marker: $1) })
+            } else {
+                UserDefaults.standard.set(1, forKey: "sorting")
+            }
+            
         case 1:
             // sort by rating
             self.allPlaces.sort(by: { ($0.userData as! MarkerData).place.rating > ($1.userData as! MarkerData).place.rating })

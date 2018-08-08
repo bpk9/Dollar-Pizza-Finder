@@ -11,7 +11,7 @@ import CoreLocation.CLLocationManager
 import GoogleMaps.GMSMarker
 import GoogleMobileAds
 
-class LoadingScreenViewController: UIViewController, GADInterstitialDelegate {
+class LoadingScreenViewController: UIViewController, GADInterstitialDelegate, CLLocationManagerDelegate {
     
     // advertisement
     var ad: GADInterstitial!
@@ -21,43 +21,19 @@ class LoadingScreenViewController: UIViewController, GADInterstitialDelegate {
     @IBOutlet var progressBar: UIProgressView!
     
     // location manager
-    var manager: CLLocationManager!
+    var manager: CLLocationManager?
     
     // loaded places
     var allPlaces = [GMSMarker]()
     
-    // initial launch
-    var isInitialLaunch: Bool?
-    
     // error bool
     var errorDidOccur: Bool = false
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func loadView() {
+        super.loadView()
         
-        // if location services are enabled
-        if CLLocationManager.locationServicesEnabled() {
-            switch CLLocationManager.authorizationStatus() {
-            case .notDetermined, .restricted, .denied:
-                performSegue(withIdentifier: "loadingToLocation", sender: nil)
-            case .authorizedAlways, .authorizedWhenInUse:
-                if self.ad == nil {
-                    self.loadAd()
-                }
-                
-                if self.manager == nil {
-                    self.manager = CLLocationManager()
-                    self.manager.startUpdatingLocation()
-                }
-                
-                if self.progressBar.progress == 0 {
-                    self.loadPlaces()
-                }
-                
-            }
-        } else {
-            performSegue(withIdentifier: "loadingToLocation", sender: nil)
-        }
+        self.loadAd()
+        self.loadPlaces()
         
     }
     
@@ -65,8 +41,6 @@ class LoadingScreenViewController: UIViewController, GADInterstitialDelegate {
         if let nc = segue.destination as? UINavigationController {
             if let vc = nc.topViewController as? HomeViewController {
                 vc.allPlaces = self.allPlaces
-                vc.userLocation = self.manager.location
-                vc.isInitialLaunch = self.isInitialLaunch ?? false
             }
         }
     }
@@ -107,8 +81,12 @@ class LoadingScreenViewController: UIViewController, GADInterstitialDelegate {
                                 // update progress
                                 self.progressBar.progress = 1
                                 
-                                // segue to home
-                                if self.ad.hasBeenUsed {
+                                // check location permission
+                                if CLLocationManager.authorizationStatus() == .notDetermined {
+                                    self.manager = CLLocationManager()
+                                    self.manager?.delegate = self
+                                    self.manager?.requestWhenInUseAuthorization()
+                                } else if self.ad.hasBeenUsed  {
                                     self.performSegue(withIdentifier: "loadingToHome", sender: self)
                                 }
                             }
@@ -143,25 +121,34 @@ class LoadingScreenViewController: UIViewController, GADInterstitialDelegate {
     func showAd() {
         if self.ad.isReady {
             self.ad.present(fromRootViewController: self)
-        } else {
-            print("Ad not ready")
         }
     }
     
     // Tells the delegate an ad request succeeded.
     func interstitialDidReceiveAd(_ ad: GADInterstitial) {
-        self.showAd()
+        if !self.ad.hasBeenUsed {
+            self.showAd()
+        }
     }
     
     // ad request failed
-    func interstitialDidFail(toPresentScreen ad: GADInterstitial) {
-        self.showError()
+    func interstitial(_ ad: GADInterstitial, didFailToReceiveAdWithError error: GADRequestError) {
+        if self.progressBar.progress == 1 && CLLocationManager.authorizationStatus() != .notDetermined {
+            performSegue(withIdentifier: "loadingToHome", sender: self)
+        }
     }
     
     // runs when ad is dismissed
     func interstitialDidDismissScreen(_ ad: GADInterstitial) {
-        if self.progressBar.progress == 1 {
-            self.performSegue(withIdentifier: "loadingToHome", sender: self)
+        if self.progressBar.progress == 1 && CLLocationManager.authorizationStatus() != .notDetermined {
+            performSegue(withIdentifier: "loadingToHome", sender: self)
+        }
+    }
+    
+    // runs when location setting changes
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if self.progressBar.progress == 1 && self.ad.hasBeenUsed {
+            performSegue(withIdentifier: "loadingtoHome", sender: self)
         }
     }
     

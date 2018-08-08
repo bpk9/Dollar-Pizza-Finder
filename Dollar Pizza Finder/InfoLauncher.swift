@@ -17,25 +17,19 @@ class InfoLauncher {
     // map on home screen
     var map: GMSMapView
     
-    // location of user
-    var userLocation: CLLocation
-    
     // check if launcher is visible
     var isVisible: Bool = false
     
     // view to contain info
     let infoView: InfoLauncherView = InfoLauncherView.instanceFromNib() as! InfoLauncherView
     
-    init(map: GMSMapView, userLocation: CLLocation) {
+    init(map: GMSMapView) {
         
         // get window
         self.window = UIApplication.shared.keyWindow!
         
         // get map
         self.map = map
-        
-        // get user location
-        self.userLocation = userLocation
         
         // round buttons on info view
         self.infoView.directionsBtn.layer.cornerRadius = 4
@@ -100,13 +94,16 @@ class InfoLauncher {
         if data.routes != nil && data.directionsType == directionsMode {
             self.infoView.loadUI(data: data)
         } else {
-            let directions = GoogleDirections(origin: self.userLocation.coordinate, destination: data.place.place_id, mode: directionsMode)
-            directions.getDirections() { (routes) -> () in
-                data.routes = routes
-                data.directionsType = directionsMode
-                self.map.selectedMarker!.userData = data
-                self.infoView.loadUI(data: data)
+            if let userLocation = self.map.myLocation {
+                let directions = GoogleDirections(origin: userLocation.coordinate, destination: data.place.place_id, mode: directionsMode)
+                directions.getDirections() { (routes) -> () in
+                    data.routes = routes
+                    data.directionsType = directionsMode
+                    self.map.selectedMarker!.userData = data
+                    self.infoView.loadUI(data: data)
+                }
             }
+            
         }
     }
     

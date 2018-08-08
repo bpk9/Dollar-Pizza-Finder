@@ -14,7 +14,6 @@
 		D31F552C20E33A3600096383 /* DirectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31F552B20E33A3600096383 /* DirectionsViewController.swift */; };
 		D31F552E20E5AE8D00096383 /* DirectionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31F552D20E5AE8D00096383 /* DirectionsResponse.swift */; };
 		D34030D22113A6DA007A06B4 /* LoadingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34030D12113A6DA007A06B4 /* LoadingScreenViewController.swift */; };
-		D34030D42113AB87007A06B4 /* LocationDisabledViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34030D32113AB87007A06B4 /* LocationDisabledViewController.swift */; };
 		D340B7DA210FBF5600E4EC61 /* MoreRoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D340B7D9210FBF5600E4EC61 /* MoreRoutesViewController.swift */; };
 		D340B7DC210FC18200E4EC61 /* RouteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D340B7DB210FC18200E4EC61 /* RouteCell.swift */; };
 		D347914C2110E7FF00D31087 /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D347914B2110E7FF00D31087 /* ReviewCell.swift */; };
@@ -50,7 +49,6 @@
 		D31F552B20E33A3600096383 /* DirectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsViewController.swift; sourceTree = "<group>"; };
 		D31F552D20E5AE8D00096383 /* DirectionsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsResponse.swift; sourceTree = "<group>"; };
 		D34030D12113A6DA007A06B4 /* LoadingScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreenViewController.swift; sourceTree = "<group>"; };
-		D34030D32113AB87007A06B4 /* LocationDisabledViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDisabledViewController.swift; sourceTree = "<group>"; };
 		D340B7D9210FBF5600E4EC61 /* MoreRoutesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreRoutesViewController.swift; sourceTree = "<group>"; };
 		D340B7DB210FC18200E4EC61 /* RouteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCell.swift; sourceTree = "<group>"; };
 		D347914B2110E7FF00D31087 /* ReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
@@ -121,7 +119,6 @@
 				D3F5D7F720AE896400073B45 /* AppDelegate.swift */,
 				D3DC814F211823740013BFCC /* ErrorViewController.swift */,
 				D34030D12113A6DA007A06B4 /* LoadingScreenViewController.swift */,
-				D34030D32113AB87007A06B4 /* LocationDisabledViewController.swift */,
 				D3F5D7F920AE896400073B45 /* HomeViewController.swift */,
 				D35376AD21017C7B0089CB1B /* SearchSuggestions.swift */,
 				D35376B3210190B90089CB1B /* SuggstionCell.swift */,
@@ -359,7 +356,6 @@
 				D31F552E20E5AE8D00096383 /* DirectionsResponse.swift in Sources */,
 				D353768921010B720089CB1B /* InfoLauncher.swift in Sources */,
 				D35376B4210190B90089CB1B /* SuggstionCell.swift in Sources */,
-				D34030D42113AB87007A06B4 /* LocationDisabledViewController.swift in Sources */,
 				D3F5D7F820AE896400073B45 /* AppDelegate.swift in Sources */,
 				D340B7DA210FBF5600E4EC61 /* MoreRoutesViewController.swift in Sources */,
 				D353768721002F750089CB1B /* PlaceInfoViewController.swift in Sources */,

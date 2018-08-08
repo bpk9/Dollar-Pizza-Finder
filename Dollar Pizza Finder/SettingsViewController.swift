@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation.CLLocationManager
 
 protocol SettingsDelegate {
     func didChangeDirectionsMode()
@@ -35,7 +36,7 @@ class SettingsViewController: UITableViewController {
         self.onlyOpen.isOn = UserDefaults.standard.value(forKey: "onlyOpen") as? Bool ?? true
         
         // load sorting places
-        self.sortBy.selectedSegmentIndex = UserDefaults.standard.value(forKey: "sorting") as? Int ?? 0
+        self.sortBy.selectedSegmentIndex = UserDefaults.standard.value(forKey: "sorting") as? Int ?? 1
     }
     
     // called when directions mode is changed
@@ -52,8 +53,19 @@ class SettingsViewController: UITableViewController {
     
     // called when sort by is changed
     @IBAction func sortByChanged(_ sender: Any) {
-        UserDefaults.standard.set(self.sortBy.selectedSegmentIndex, forKey: "sorting")
-        delegate?.didChangePlacesSorting()
+        if self.sortBy.selectedSegmentIndex != 0 || self.isLocationEnabled() {
+            UserDefaults.standard.set(self.sortBy.selectedSegmentIndex, forKey: "sorting")
+            delegate?.didChangePlacesSorting()
+        }
+    }
+    
+    func isLocationEnabled() -> Bool {
+        switch CLLocationManager.authorizationStatus() {
+        case .authorizedWhenInUse, .authorizedAlways:
+            return true
+        default:
+            return false
+        }
     }
     
 }

@@ -32,7 +32,7 @@ class SuggestionCell: UIView {
     }
     
     // load ui elements from data
-    func loadUI(currentLocation: CLLocation) {
+    func loadUI(currentLocation: CLLocation?) {
         
         // data from marker
         let data = self.marker.userData as! MarkerData
@@ -44,8 +44,13 @@ class SuggestionCell: UIView {
         self.rating.text = GooglePlaces.starString(rating: data.place.rating)
         
         // distance
-        let coordinate = data.place.geometry.location
-        self.distance.text = String(format: "%.2f mi", (currentLocation.distance(from: CLLocation(latitude: coordinate.lat, longitude: coordinate.lng))) * 0.000621371)
+        if let myLocation = currentLocation {
+            let coordinate = data.place.geometry.location
+            self.distance.text = String(format: "%.2f mi", (myLocation.distance(from: CLLocation(latitude: coordinate.lat, longitude: coordinate.lng))) * 0.000621371)
+        } else {
+            self.distance.isHidden = true
+        }
+        
     }
     
     // view was tapped
