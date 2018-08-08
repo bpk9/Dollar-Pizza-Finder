@@ -209,4 +209,23 @@ class SearchSuggestions: NSObject, UISearchBarDelegate, SuggestionDelegate {
         self.addStackData(markers: markers)
     }
     
+    // reset cells
+    func resetCells() {
+        
+        self.removeAllViews()
+        
+        var newMarkers = [SuggestionCell]()
+        
+        for marker in self.markers {
+            let cell = SuggestionCell.instanceFromNib() as! SuggestionCell
+            cell.marker = marker.marker
+            cell.delegate = self
+            cell.loadUI(currentLocation: self.map.myLocation)
+            self.stack.addArrangedSubview(cell)
+            newMarkers.append(cell)
+        }
+        
+        self.markers = newMarkers
+    }
+    
 }

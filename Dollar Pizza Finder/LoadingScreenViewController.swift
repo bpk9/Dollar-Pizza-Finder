@@ -134,7 +134,6 @@ class LoadingScreenViewController: UIViewController, GADInterstitialDelegate, CL
             self.manager?.delegate = self
             self.manager?.requestWhenInUseAuthorization()
         } else if self.progressBar.progress == 1 {
-            print("fail")
             self.segueHome()
         }
     }
@@ -146,7 +145,6 @@ class LoadingScreenViewController: UIViewController, GADInterstitialDelegate, CL
             self.manager?.delegate = self
             self.manager?.requestWhenInUseAuthorization()
         } else if self.progressBar.progress == 1 {
-            print("dismiss")
             self.segueHome()
         }
     }
@@ -154,7 +152,6 @@ class LoadingScreenViewController: UIViewController, GADInterstitialDelegate, CL
     // runs when location setting changes
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if self.progressBar.progress == 1 && self.ad.hasBeenUsed && (status == .denied || status == .authorizedWhenInUse) {
-            print("status changed")
             self.segueHome()
         }
     }

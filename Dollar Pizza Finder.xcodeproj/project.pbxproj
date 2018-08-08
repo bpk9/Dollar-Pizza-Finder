@@ -36,7 +36,7 @@
 		D3F5D7FF20AE896600073B45 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3F5D7FE20AE896600073B45 /* Assets.xcassets */; };
 		D3F5D80220AE896600073B45 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3F5D80020AE896600073B45 /* LaunchScreen.storyboard */; };
 		D3F5D81320B1481600073B45 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3F5D81120B1481600073B45 /* Main.storyboard */; };
-		D3FD109321193D7E0080C4E7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D3FD109221193D7E0080C4E7 /* GoogleService-Info.plist */; };
+		D3FD1095211A8B120080C4E7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D3FD1094211A8B120080C4E7 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,7 +80,7 @@
 		D3F5D80120AE896600073B45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D3F5D80320AE896600073B45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3F5D81220B1481600073B45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D3FD109221193D7E0080C4E7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D3FD1094211A8B120080C4E7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,7 +145,7 @@
 				D3F5D7FE20AE896600073B45 /* Assets.xcassets */,
 				D3B5DC8C20C3B99B0032B14F /* boldyear.otf */,
 				D3F5D80320AE896600073B45 /* Info.plist */,
-				D3FD109221193D7E0080C4E7 /* GoogleService-Info.plist */,
+				D3FD1094211A8B120080C4E7 /* GoogleService-Info.plist */,
 			);
 			path = "Dollar Pizza Finder";
 			sourceTree = "<group>";
@@ -245,7 +245,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D35376AA21012D840089CB1B /* InfoLauncherView.xib in Resources */,
-				D3FD109321193D7E0080C4E7 /* GoogleService-Info.plist in Resources */,
+				D3FD1095211A8B120080C4E7 /* GoogleService-Info.plist in Resources */,
 				D3F5D80220AE896600073B45 /* LaunchScreen.storyboard in Resources */,
 				D3B5DC8D20C3B99C0032B14F /* boldyear.otf in Resources */,
 				D36CE8DD20E9B012006C7EC8 /* MapMarkerView.xib in Resources */,

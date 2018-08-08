@@ -172,6 +172,7 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, CLLocationManage
             if locations.last != nil {
                 self.locationFound = true
                 self.infoLauncher.updateInfo()
+                self.searchSuggestions.resetCells()
             }
         }
     }
