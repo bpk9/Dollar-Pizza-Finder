@@ -77,6 +77,16 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, CLLocationManage
                 self.manager?.delegate = self
                 self.manager?.startUpdatingLocation()
             }
+            
+            // if directions not avaiable
+            if self.infoLauncher.isVisible && self.infoLauncher.infoView.directionsBtn.alpha == 0.5 {
+                self.infoLauncher.updateInfo()
+            }
+            
+            // if distance is hidden
+            if self.searchSuggestions.markers.first?.distance.isHidden ?? true {
+                self.searchSuggestions.resetCells()
+            }
         }
         
         // reselect marker and show info view
@@ -173,6 +183,22 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, CLLocationManage
                 self.locationFound = true
                 self.infoLauncher.updateInfo()
                 self.searchSuggestions.resetCells()
+                let sorting = UserDefaults.standard.value(forKey: "sorting") as? Int ?? 1
+                if sorting == 0 {
+                    self.didChangePlacesSorting()
+                    self.selectFirstPlace()
+                    if let marker = self.map.selectedMarker {
+                        self.map.moveCamera(GMSCameraUpdate.setTarget(marker.position))
+                        if !self.infoLauncher.isVisible {
+                            self.infoLauncher.showInfo()
+                        }
+                        self.infoLauncher.updateInfo()
+                    } else {
+                        performSegue(withIdentifier: "homeError", sender: self)
+                    }
+                    
+                    self.didChangeSorting = false
+                }
             }
         }
     }
@@ -286,7 +312,8 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, CLLocationManage
                 // sort by distance
                 self.allPlaces.sort(by: { self.distance(userLocation: userLocation, marker: $0) < self.distance(userLocation: userLocation, marker: $1) })
             } else {
-                UserDefaults.standard.set(1, forKey: "sorting")
+                // sort by rating
+                self.allPlaces.sort(by: { ($0.userData as! MarkerData).place.rating > ($1.userData as! MarkerData).place.rating })
             }
             
         case 1:

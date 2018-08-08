@@ -53,18 +53,9 @@ class SettingsViewController: UITableViewController {
     
     // called when sort by is changed
     @IBAction func sortByChanged(_ sender: Any) {
-        if self.sortBy.selectedSegmentIndex != 0 || self.isLocationEnabled() {
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse || self.sortBy.selectedSegmentIndex != 0 {
             UserDefaults.standard.set(self.sortBy.selectedSegmentIndex, forKey: "sorting")
             delegate?.didChangePlacesSorting()
-        }
-    }
-    
-    func isLocationEnabled() -> Bool {
-        switch CLLocationManager.authorizationStatus() {
-        case .authorizedWhenInUse, .authorizedAlways:
-            return true
-        default:
-            return false
         }
     }
     

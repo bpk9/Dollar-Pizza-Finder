@@ -29,11 +29,18 @@ class LoadingScreenViewController: UIViewController, GADInterstitialDelegate, CL
     // error bool
     var errorDidOccur: Bool = false
     
+    // location found
+    var didFindLocation: Bool = false
+    
     override func loadView() {
         super.loadView()
         
         self.loadAd()
         self.loadPlaces()
+        
+        self.manager = CLLocationManager()
+        self.manager?.delegate = self
+        self.manager?.startUpdatingLocation()
         
     }
     
@@ -41,6 +48,11 @@ class LoadingScreenViewController: UIViewController, GADInterstitialDelegate, CL
         if let nc = segue.destination as? UINavigationController {
             if let vc = nc.topViewController as? HomeViewController {
                 vc.allPlaces = self.allPlaces
+                if let manager = self.manager {
+                    vc.locationFound = true
+                    vc.manager = manager
+                    vc.manager?.delegate = vc
+                }
             }
         }
     }
@@ -82,12 +94,10 @@ class LoadingScreenViewController: UIViewController, GADInterstitialDelegate, CL
                                 self.progressBar.progress = 1
                                 
                                 if self.ad.hasBeenUsed && CLLocationManager.authorizationStatus() != .notDetermined {
-                                    print("progress")
                                     self.segueHome()
                                 }
                             }
                         } else {
-                            print(id)
                             count -= 1
                         }
                         
@@ -130,8 +140,6 @@ class LoadingScreenViewController: UIViewController, GADInterstitialDelegate, CL
     // ad request failed
     func interstitial(_ ad: GADInterstitial, didFailToReceiveAdWithError error: GADRequestError) {
         if CLLocationManager.authorizationStatus() == .notDetermined {
-            self.manager = CLLocationManager()
-            self.manager?.delegate = self
             self.manager?.requestWhenInUseAuthorization()
         } else if self.progressBar.progress == 1 {
             self.segueHome()
@@ -141,8 +149,6 @@ class LoadingScreenViewController: UIViewController, GADInterstitialDelegate, CL
     // runs when ad is dismissed
     func interstitialDidDismissScreen(_ ad: GADInterstitial) {
         if CLLocationManager.authorizationStatus() == .notDetermined {
-            self.manager = CLLocationManager()
-            self.manager?.delegate = self
             self.manager?.requestWhenInUseAuthorization()
         } else if self.progressBar.progress == 1 {
             self.segueHome()
@@ -151,7 +157,15 @@ class LoadingScreenViewController: UIViewController, GADInterstitialDelegate, CL
     
     // runs when location setting changes
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if self.progressBar.progress == 1 && self.ad.hasBeenUsed && (status == .denied || status == .authorizedWhenInUse) {
+        if self.progressBar.progress == 1 && self.ad.hasBeenUsed && (status == .denied) {
+            self.segueHome()
+        }
+    }
+    
+    // runs when location is found
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if !self.didFindLocation && self.progressBar.progress == 1 && self.ad.hasBeenUsed {
+            self.didFindLocation = true
             self.segueHome()
         }
     }
