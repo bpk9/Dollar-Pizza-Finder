@@ -10,6 +10,10 @@ import UIKit
 import CoreLocation.CLLocation
 import GooglePlaces.GMSPlacePhotoMetadataList
 
+protocol PlaceInfoDelegate {
+    func updateMarkerPhotos(_ data: MarkerData)
+}
+
 class PlaceInfoViewController: UIViewController, UITableViewDataSource {
     
     // ui elements
@@ -27,6 +31,9 @@ class PlaceInfoViewController: UIViewController, UITableViewDataSource {
     
     // marker data
     var data: MarkerData!
+    
+    // view delegate
+    var delegate: PlaceInfoDelegate?
 
     // init ui
     override func viewDidLoad() {
@@ -47,9 +54,8 @@ class PlaceInfoViewController: UIViewController, UITableViewDataSource {
         self.navItem.title = self.data.place.name
         
         // add photos to scroll view
-        let photodata = self.data.photo.data
-        self.addPhotos(metadata: photodata)
-        self.photosView.contentSize = CGSize(width: photodata.results.count * 125, height: 125)
+        self.addPhotos()
+        self.photosView.contentSize = CGSize(width: self.data.photo.data.results.count * 125, height: 125)
         
         // set up reviews table
         self.reviewsTable.dataSource = self
@@ -153,15 +159,34 @@ class PlaceInfoViewController: UIViewController, UITableViewDataSource {
     }
     
     // add photos to scroll view
-    func addPhotos(metadata: GMSPlacePhotoMetadataList) {
-        let results = metadata.results
-        for i in 0..<results.count {
-            let imageView = UIImageView(frame: CGRect(x: CGFloat(i * 125), y: 0, width: 125, height: 125))
-            GooglePlaces.loadImageForMetadata(photoMetadata: results[i]) { (photo) -> () in
-                imageView.image = photo
+    func addPhotos() {
+        
+        if let images = self.data.photo.images {
+            
+            for i in 0..<images.count {
+                let imageView = UIImageView(frame: CGRect(x: CGFloat(i * 125), y: 0, width: 125, height: 125))
+                imageView.image = images[i]
+                self.photosView.addSubview(imageView)
             }
             
-            self.photosView.addSubview(imageView)
+        } else {
+            var photos = [UIImage]()
+            let results = self.data.photo.data.results
+            for i in 0..<results.count {
+                let imageView = UIImageView(frame: CGRect(x: CGFloat(i * 125), y: 0, width: 125, height: 125))
+                GooglePlaces.loadImageForMetadata(photoMetadata: results[i]) { (photo) -> () in
+                    print("loaded image")
+                    imageView.image = photo
+                    photos.append(photo!)
+                    if photos.count == results.count {
+                        self.data.photo.images = photos
+                        self.delegate?.updateMarkerPhotos(self.data)
+                    }
+                }
+                
+                self.photosView.addSubview(imageView)
+            }
+            
         }
     }
     

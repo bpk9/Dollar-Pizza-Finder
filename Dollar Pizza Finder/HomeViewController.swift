@@ -12,7 +12,7 @@ import CoreLocation.CLLocation
 import Firebase
 import GoogleMaps
 
-class HomeViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate, InfoDelegate, SearchDelegate, SettingsDelegate {
+class HomeViewController: UIViewController, GMSMapViewDelegate, CLLocationManagerDelegate, InfoDelegate, SearchDelegate, SettingsDelegate, PlaceInfoDelegate {
     
     // UI elements
     @IBOutlet var map: GMSMapView!
@@ -85,7 +85,6 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, CLLocationManage
             
             // if distance is hidden
             if self.searchSuggestions.markers.first?.distance.isHidden ?? true {
-                print("yoyoy")
                 self.searchSuggestions.resetCells()
             }
         }
@@ -121,6 +120,7 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, CLLocationManage
                 vc.currentLocation = userLocation
             }
             vc.data = self.map.selectedMarker?.userData as! MarkerData
+            vc.delegate = self
         } else if let vc = segue.destination as? DirectionsViewController {
             vc.data = self.map.selectedMarker?.userData as! MarkerData
         } else if let vc = segue.destination as? SettingsViewController {
@@ -350,6 +350,22 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, CLLocationManage
             }
         } else {
             self.map.selectedMarker = self.allPlaces.first
+        }
+    }
+    
+    // updates marker data with loaded photos
+    func updateMarkerPhotos(_ data: MarkerData) {
+        // save photo data
+        if self.map.selectedMarker != nil {
+            if let index = self.allPlaces.index(of: self.map.selectedMarker!) {
+                self.allPlaces[index].userData = data
+            }
+            if let index = self.openPlaces.index(of: self.map.selectedMarker!) {
+                self.openPlaces[index].userData = data
+            } else if let index = self.closedPlaces.index(of: self.map.selectedMarker!) {
+                self.closedPlaces[index].userData = data
+            }
+            self.map.selectedMarker?.userData = data
         }
     }
 

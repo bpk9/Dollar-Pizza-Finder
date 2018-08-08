@@ -18,5 +18,6 @@ struct MarkerData {
 
 struct Photo {
     var image: UIImage
+    var images: [UIImage]?
     var data: GMSPlacePhotoMetadataList
 }

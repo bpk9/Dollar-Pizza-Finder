@@ -79,7 +79,7 @@ class LoadingScreenViewController: UIViewController, GADInterstitialDelegate, CL
                             // load marker
                             let location = place.geometry.location
                             let marker = GMSMarker(position: CLLocationCoordinate2DMake(location.lat, location.lng))
-                            marker.userData = MarkerData(place: place, photo: Photo(image: photo, data: photos), routes: nil, directionsType: nil)
+                            marker.userData = MarkerData(place: place, photo: Photo(image: photo, images: nil, data: photos), routes: nil, directionsType: nil)
                             
                             // add to array
                             self.allPlaces.append(marker)
@@ -139,6 +139,7 @@ class LoadingScreenViewController: UIViewController, GADInterstitialDelegate, CL
     
     // ad request failed
     func interstitial(_ ad: GADInterstitial, didFailToReceiveAdWithError error: GADRequestError) {
+        print("Ad request failed")
         self.adFailed = true
         if CLLocationManager.authorizationStatus() == .notDetermined {
             self.manager?.requestWhenInUseAuthorization()
@@ -151,6 +152,7 @@ class LoadingScreenViewController: UIViewController, GADInterstitialDelegate, CL
     func interstitialDidDismissScreen(_ ad: GADInterstitial) {
         if CLLocationManager.authorizationStatus() == .notDetermined {
             self.manager?.requestWhenInUseAuthorization()
+            self.manager?.startUpdatingLocation()
         } else if self.progressBar.progress == 1 {
             self.manager?.startUpdatingLocation()
         }
@@ -159,6 +161,7 @@ class LoadingScreenViewController: UIViewController, GADInterstitialDelegate, CL
     // runs when location setting changes
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if self.progressBar.progress == 1 && (self.ad.hasBeenUsed || self.adFailed) && status == .denied {
+            print("location denied")
             self.segueHome()
         }
     }
@@ -166,6 +169,7 @@ class LoadingScreenViewController: UIViewController, GADInterstitialDelegate, CL
     // runs when location is found
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if !self.didFindLocation && self.progressBar.progress == 1 && (self.ad.hasBeenUsed || self.adFailed) {
+            print("found location")
             self.didFindLocation = true
             self.segueHome()
         }

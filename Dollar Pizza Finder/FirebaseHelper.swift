@@ -19,7 +19,6 @@ class FirebaseHelper {
                 
                 for child in children {
                     let id = child.childSnapshot(forPath: "placeId").value as? String ?? ""
-                    print(id)
                     locations.append(id)
                 }
                 
@@ -32,7 +31,6 @@ class FirebaseHelper {
             print(error.localizedDescription)
             completion(nil)
         }
-        print("ok")
     }
     
 }
