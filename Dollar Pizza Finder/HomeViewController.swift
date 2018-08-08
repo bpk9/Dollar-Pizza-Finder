@@ -85,6 +85,7 @@ class HomeViewController: UIViewController, GMSMapViewDelegate, CLLocationManage
             
             // if distance is hidden
             if self.searchSuggestions.markers.first?.distance.isHidden ?? true {
+                print("yoyoy")
                 self.searchSuggestions.resetCells()
             }
         }

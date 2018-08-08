@@ -28,6 +28,7 @@ class LoadingScreenViewController: UIViewController, GADInterstitialDelegate, CL
     
     // error bool
     var errorDidOccur: Bool = false
+    var adFailed: Bool = false
     
     // location found
     var didFindLocation: Bool = false
@@ -40,7 +41,6 @@ class LoadingScreenViewController: UIViewController, GADInterstitialDelegate, CL
         
         self.manager = CLLocationManager()
         self.manager?.delegate = self
-        self.manager?.startUpdatingLocation()
         
     }
     
@@ -93,7 +93,7 @@ class LoadingScreenViewController: UIViewController, GADInterstitialDelegate, CL
                                 // update progress
                                 self.progressBar.progress = 1
                                 
-                                if self.ad.hasBeenUsed && CLLocationManager.authorizationStatus() != .notDetermined {
+                                if (self.ad.hasBeenUsed || self.adFailed) && CLLocationManager.authorizationStatus() != .notDetermined {
                                     self.segueHome()
                                 }
                             }
@@ -139,10 +139,11 @@ class LoadingScreenViewController: UIViewController, GADInterstitialDelegate, CL
     
     // ad request failed
     func interstitial(_ ad: GADInterstitial, didFailToReceiveAdWithError error: GADRequestError) {
+        self.adFailed = true
         if CLLocationManager.authorizationStatus() == .notDetermined {
             self.manager?.requestWhenInUseAuthorization()
         } else if self.progressBar.progress == 1 {
-            self.segueHome()
+            self.manager?.startUpdatingLocation()
         }
     }
     
@@ -151,20 +152,20 @@ class LoadingScreenViewController: UIViewController, GADInterstitialDelegate, CL
         if CLLocationManager.authorizationStatus() == .notDetermined {
             self.manager?.requestWhenInUseAuthorization()
         } else if self.progressBar.progress == 1 {
-            self.segueHome()
+            self.manager?.startUpdatingLocation()
         }
     }
     
     // runs when location setting changes
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if self.progressBar.progress == 1 && self.ad.hasBeenUsed && (status == .denied) {
+        if self.progressBar.progress == 1 && (self.ad.hasBeenUsed || self.adFailed) && status == .denied {
             self.segueHome()
         }
     }
     
     // runs when location is found
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if !self.didFindLocation && self.progressBar.progress == 1 && self.ad.hasBeenUsed {
+        if !self.didFindLocation && self.progressBar.progress == 1 && (self.ad.hasBeenUsed || self.adFailed) {
             self.didFindLocation = true
             self.segueHome()
         }
